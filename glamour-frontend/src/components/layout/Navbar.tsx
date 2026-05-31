@@ -33,11 +33,11 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { label: t('nav.collections'), to: '/collections' },
-    { label: t('nav.atelier'),     to: '/atelier'     },
-    { label: t('nav.journal'),     to: '/journal'     },
-    { label: t('nav.ourStory'),    to: '/our-story'    },
-    { label: t('nav.contact'),     to: '/contact'     },
+    { label: 'Couture Collections', to: '/collections' },
+    { label: 'Atelier',             to: '/atelier'     },
+    { label: 'Bespoke Service',     to: '/services'    },
+    { label: 'Journal',             to: '/journal'     },
+    { label: 'Contact',             to: '/contact'     },
   ];
 
   /* ── nav background transition ── */
@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <>
       <nav className={`fixed w-full z-50 transition-all duration-500 ${navBg} ${navBorder}`} style={scrolledStyle}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[72px] flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[84px] flex items-center justify-between">
 
           {/* ── Left: nav links (desktop) ── */}
           <div className="hidden lg:flex items-center gap-10">
@@ -86,7 +86,7 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Glamour Group" 
-              className="h-14 lg:h-16 object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
+              className="h-20 lg:h-24 object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
             />
           </Link>
 

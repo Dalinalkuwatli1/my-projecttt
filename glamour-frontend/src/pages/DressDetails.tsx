@@ -17,7 +17,7 @@ const fadeUp = {
 
 export default function DressDetails() {
   const { id } = useParams();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const { addToCart: addGlobalToCart } = useCart();
 

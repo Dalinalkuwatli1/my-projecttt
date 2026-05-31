@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Heart, X, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Gem, Clock, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { Heart, X, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Gem, ShieldCheck, ShoppingBag } from 'lucide-react';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
