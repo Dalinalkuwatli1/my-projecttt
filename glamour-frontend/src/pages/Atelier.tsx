@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Scissors, Gem, Clock, Star, Sparkles, Heart, ChevronDown } from 'lucide-react';
 
-// Elite photography assets from Pexels
+// Bridal couture photography — white gowns & atelier details only
 const IMGS = {
   hero:    'https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=1600',
   craft1:  'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=1000',
-  craft2:  'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=900',
-  wide:    'https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  detail1: 'https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=800',
-  detail2: 'https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=800',
-  detail3: 'https://images.pexels.com/photos/2253842/pexels-photo-2253842.jpeg?auto=compress&cs=tinysrgb&w=800',
+  craft2:  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=900',
+  wide:    'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  detail1: 'https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=800',
+  detail2: 'https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=800',
+  detail3: 'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
+  designer:'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=200',
 };
 
 // Luxury Bilingual copy for Dior-tier Editorial feeling
@@ -44,25 +45,16 @@ const content = {
     process: {
       label: "The Journey",
       title: "The Couture Process",
-      subtitle: "How we bring your dream gown from imagination to reality.",
+      subtitle: "Five deliberate steps — from your first dream to the last stitch.",
       steps: [
-        {
-          num: "01",
-          title: "The Design Sketch",
-          desc: "A collaborative consultation where your vision is translated into an elegant, custom fashion sketch."
-        },
-        {
-          num: "02",
-          title: "Premium Fabric Selection",
-          desc: "Sourcing exquisite silks, custom tulles, and hand-woven French lace from the finest European mills."
-        },
-        {
-          num: "03",
-          title: "Masterful Fitting",
-          desc: "Meticulous draping and custom tailoring over multiple sessions to sculpt the dress perfectly to your form."
-        }
+        { num: "01", title: "Private Consultation", desc: "A closed, intimate session to understand your vision, personality, and wedding day story." },
+        { num: "02", title: "Design & Sketch", desc: "Our lead designer translates your vision into bespoke fashion sketches, refined until perfect." },
+        { num: "03", title: "Fabric Selection", desc: "Sourcing exquisite European silks, French lace, and hand-woven tulles from our curated ateliers." },
+        { num: "04", title: "Tailoring & Fittings", desc: "Multiple fitting sessions with master tailors to sculpt the gown precisely to your silhouette." },
+        { num: "05", title: "Final Delivery", desc: "Your gown arrives in a signature Glamour box, ready to make history on your most important day." }
       ]
     },
+    scarcity: "We accept a limited number of brides each season to ensure every gown receives our full dedication.",
     cta: {
       label: "Private consultation",
       title: "The Fitting Experience",
@@ -97,25 +89,16 @@ const content = {
     process: {
       label: "الرحلة الإبداعية",
       title: "مراحل صنع الفستان الفاخر",
-      subtitle: "كيف نتحرك بفساتين أحلامكِ من مخيلتكِ إلى واقع ملموس يأسر القلوب.",
+      subtitle: "خمس مراحل متقنة — من أول حلم إلى آخر غرزة.",
       steps: [
-        {
-          num: "٠١",
-          title: "الرسم والتصميم الأولي",
-          desc: "جلسة استشارية خاصة يتم فيها تحويل رؤيتكِ وخيالكِ إلى رسمة أزياء راقية ومخصصة لكِ وحدكِ."
-        },
-        {
-          num: "٠٢",
-          title: "انتقاء الأقمشة الفاخرة",
-          desc: "اختيار الحرير الفاخر، التول المنسوج، والدانتيل الفرنسي المعشق من أرقى بيوت النسيج الأوروبية."
-        },
-        {
-          num: "٠٣",
-          title: "القياس والصياغة اليدوية",
-          desc: "عمليات التشكيل والقص المتقنة على مدار عدة جلسات قياس لتطويع الفستان ليلائم تفاصيل جسدكِ بدقة مثالية."
-        }
+        { num: "٠١", title: "الاستشارة الخاصة", desc: "جلسة مغلقة وحميمة لفهم رؤيتكِ وشخصيتكِ وقصة يوم زفافكِ الاستثنائي." },
+        { num: "٠٢", title: "التصميم والرسم", desc: "تترجم كبيرة مصمماتنا رؤيتكِ إلى رسوم أزياء مخصصة، تُعدَّل حتى تصل إلى الكمال." },
+        { num: "٠٣", title: "انتقاء الأقمشة", desc: "استيراد الحرير الأوروبي الفاخر والدانتيل الفرنسي والتول المنسوج يدوياً من أرقى بيوت النسيج." },
+        { num: "٠٤", title: "التفصيل وجلسات القياس", desc: "جلسات قياس متعددة مع خياطين أساتذة لتطويع الفستان بدقة مطلقة لتناسب تفاصيل جسدكِ." },
+        { num: "٠٥", title: "التسليم النهائي", desc: "فستانكِ يصلكِ في صندوق جلامور المميز، جاهزاً لصنع التاريخ في أهم أيام حياتكِ." }
       ]
     },
+    scarcity: "نستقبل عدداً محدوداً من العرائس في كل موسم لضمان حصول كل فستان على اهتمامنا الكامل وعنايتنا المطلقة.",
     cta: {
       label: "استشارة خاصة وحصرية",
       title: "تجربة القياس الحصرية",
@@ -411,86 +394,91 @@ export default function Atelier() {
           {...smokeReveal}
           className="relative z-10 max-w-4xl mx-auto px-6 text-center"
         >
-          <div className="p-8 md:p-14 rounded-[32px] bg-[#2A1E1A]/35 border border-white/10 backdrop-blur-md shadow-2xl">
+          <div className="p-8 md:p-14 rounded-[32px] bg-[#2A1E1A]/40 border border-white/10 backdrop-blur-md shadow-2xl">
             <span className="block text-[0.62rem] font-bold uppercase tracking-[0.38em] text-[#C6A27A] mb-8">
-              ✦ BRAND PHILOSOPHY ✦
+              ✦ {isRtl ? 'فلسفة الدار' : 'Brand Philosophy'} ✦
             </span>
             <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white italic max-w-3xl leading-snug mx-auto font-light">
               {copy.craft.quote}
             </p>
             <div className="w-16 h-[1.5px] bg-[#C6A27A] mx-auto my-8 opacity-70" />
-            <span className="block text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#e8e0d7]">
-              {copy.craft.designer}
-            </span>
+            {/* Designer attribution with human touch */}
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#C6A27A]/40">
+                <img src={IMGS.designer} alt="Designer" className="w-full h-full object-cover object-top" />
+              </div>
+              <div className="text-start">
+                <span className="block text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#e8e0d7]">
+                  {copy.craft.designer}
+                </span>
+                <span className="block text-[0.58rem] text-[#C6A27A] tracking-wider mt-0.5">
+                  {isRtl ? 'المديرة الإبداعية للدار' : 'Creative Director'}
+                </span>
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         4. THE PROCESS STORYBOARD
+         4. LUXURY HORIZONTAL TIMELINE PROCESS
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-24 lg:py-36 relative px-6 md:px-12 lg:px-20 bg-white">
+      <section className="py-24 lg:py-36 relative px-6 md:px-12 lg:px-20 overflow-hidden" style={{ background: '#F5F1EC' }}>
+        {/* Subtle top border */}
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(198,162,122,0.4), transparent)' }} />
+
         <div className="max-w-7xl mx-auto">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
             <motion.div {...textReveal}>
-              <span className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-[#C6A27A] block mb-3">
-                ✦ {copy.process.label}
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A1E1A] leading-[1.1] mb-6 font-light">
-                {copy.process.title}
-              </h2>
-              <p className="text-[#8f7d6d] font-sans font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-                {copy.process.subtitle}
-              </p>
+              <span className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-[#C6A27A] block mb-3">✦ {copy.process.label}</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2A1E1A] leading-[1.1] mb-5 font-light">{copy.process.title}</h2>
+              <p className="text-[#8f7d6d] font-sans font-light text-base max-w-xl mx-auto leading-relaxed">{copy.process.subtitle}</p>
             </motion.div>
           </div>
 
-          {/* Interactive Steps Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
-            {[
-              { img: IMGS.detail1, step: copy.process.steps[0] },
-              { img: IMGS.detail2, step: copy.process.steps[1] },
-              { img: IMGS.detail3, step: copy.process.steps[2] },
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx} 
-                {...textReveal}
-                transition={{ delay: idx * 0.15, duration: 1.0 }} 
-                className="group flex flex-col"
-              >
-                {/* Image Container with Blur Reveal and Inner Hover Border */}
-                <div className="aspect-[4/5] rounded-[24px] overflow-hidden mb-8 shadow-md relative group/img">
-                  <motion.img 
-                    src={item.img} 
-                    alt={item.step.title} 
-                    className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-[#2A1E1A]/10 group-hover:bg-[#2A1E1A]/30 transition-colors duration-500" />
-                  
-                  {/* Subtle Inner Border Overlay */}
-                  <div className="absolute inset-4 rounded-[18px] border border-white/0 group-hover/img:border-white/30 transition-all duration-500" />
-                </div>
+          {/* Timeline Steps */}
+          <div className="relative">
+            {/* Connecting horizontal line */}
+            <div className="hidden lg:block absolute top-10 left-[10%] right-[10%] h-px" style={{ background: 'linear-gradient(to right, transparent, #C6A27A 20%, #C6A27A 80%, transparent)' }} />
 
-                {/* Step Metadata */}
-                <div className="flex gap-5">
-                  <span className="font-serif text-4xl lg:text-5xl text-[#C6A27A] font-light leading-none">
-                    {item.step.num}
-                  </span>
-                  <div className="space-y-3">
-                    <h3 className="font-serif text-2xl text-[#2A1E1A] font-light tracking-wide">
-                      {item.step.title}
-                    </h3>
-                    <p className="text-sm text-[#8f7d6d] font-sans font-light leading-relaxed">
-                      {item.step.desc}
-                    </p>
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-8 lg:gap-4">
+              {copy.process.steps.map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.8, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col items-center text-center relative"
+                >
+                  {/* Step circle */}
+                  <div
+                    className="w-20 h-20 rounded-full flex flex-col items-center justify-center mb-6 relative z-10 transition-all duration-500 hover:scale-110"
+                    style={{ background: idx === 0 ? '#C6A27A' : 'white', border: '1.5px solid #C6A27A', boxShadow: idx === 0 ? '0 8px 32px rgba(198,162,122,0.4)' : '0 4px 16px rgba(0,0,0,0.06)' }}
+                  >
+                    <span className="font-serif text-xl font-light" style={{ color: idx === 0 ? 'white' : '#C6A27A' }}>{step.num}</span>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="font-serif text-lg text-[#2A1E1A] font-light mb-3 leading-tight">{step.title}</h3>
+                  <p className="text-xs text-[#8f7d6d] font-sans font-light leading-relaxed max-w-[160px]">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
+          {/* Scarcity signal */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-20 text-center"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full" style={{ background: 'rgba(198,162,122,0.1)', border: '1px solid rgba(198,162,122,0.3)' }}>
+              <Sparkles size={12} className="text-[#C6A27A]" />
+              <p className="text-[0.72rem] text-[#8f7d6d] font-sans italic leading-relaxed">{copy.scarcity}</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -531,13 +519,22 @@ export default function Atelier() {
                 {copy.cta.desc}
               </p>
 
-              {/* Gold border luxury primary button */}
-              <Link 
-                to="/book-appointment" 
-                className="btn-primary inline-flex px-10 py-5 text-[0.65rem] tracking-[0.24em] font-semibold rounded-full text-white bg-[#2A1E1A] hover:bg-[#C6A27A] hover:shadow-gold transition-all duration-300"
-              >
-                {copy.cta.btn}
-              </Link>
+              {/* Buttons group */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link 
+                  to="/book-appointment" 
+                  className="btn-primary inline-flex px-10 py-5 text-[0.65rem] tracking-[0.24em] font-semibold rounded-full text-white bg-[#2A1E1A] hover:bg-[#C6A27A] hover:shadow-gold transition-all duration-300"
+                >
+                  {copy.cta.btn}
+                </Link>
+                <Link
+                  to="/collections"
+                  className="inline-flex items-center gap-2 text-[0.62rem] tracking-[0.22em] uppercase font-semibold transition-all duration-300"
+                  style={{ color: '#8f7d6d', borderBottom: '1px solid rgba(198,162,122,0.4)', paddingBottom: 2 }}
+                >
+                  {isRtl ? 'تصفحي الأعمال السابقة' : 'Browse Previous Work'}
+                </Link>
+              </div>
             </div>
 
           </motion.div>

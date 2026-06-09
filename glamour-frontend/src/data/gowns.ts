@@ -35,7 +35,7 @@ export const GOWNS_DATA: Gown[] = [
     images: [
       'https://images.pexels.com/photos/28863320/pexels-photo-28863320.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800'
     ]
   },
   {
@@ -43,22 +43,22 @@ export const GOWNS_DATA: Gown[] = [
     nameKey: 'collections.gowns.g2.name',
     catKey: 'collections.gowns.g2.category',
     price: 1200,
-    image: 'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: { en: 'Mermaid', ar: 'حورية البحر' },
-    name: { en: 'Aria Silhouette Gown', ar: 'فستان ظلال آريا' },
+    image: 'https://images.pexels.com/photos/27269998/pexels-photo-27269998.jpeg?auto=compress&cs=tinysrgb&w=800',
+    category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
+    name: { en: 'Aria Imperial Gown', ar: 'أيقونة آريا الملكية' },
     colors: ['white', 'offWhite'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A sleek, fitted mermaid silhouette gown crafted from premium stretch crepe to celebrate natural curves.',
-      ar: 'فستان حورية البحر ضيق وأنيق مصنوع من الكريب الفاخر المطاطي ليبرز انحناءات القوام الطبيعية بجمال ساحر.'
+      en: 'A royal sculpted silhouette gown crafted from premium stretch crepe to highlight natural elegance with a majestic train.',
+      ar: 'تصميم ملكي منحوت مصمم من الكريب المطاطي والحرير الفاخر، ليمنح العروس إطلالة ملكية ساحرة وذيل ممتد بأناقة مطلقة.'
     },
     details: {
-      en: ['Premium stretch crepe', 'Trumpet/Mermaid hem', 'Low-back design', 'Sleek buttons down the train'],
-      ar: ['كريب مطاطي فاخر', 'حافة على شكل حورية البحر', 'تصميم ظهر مكشوف', 'أزرار أنيقة ممتدة على طول الذيل']
+      en: ['Premium stretch crepe', 'Sculpted/Imperial hem', 'Low-back design', 'Sleek buttons down the train'],
+      ar: ['كريب مطاطي فاخر', 'حافة ملكية منحوتة', 'تصميم ظهر مكشوف', 'أزرار أنيقة ممتدة على طول الذيل']
     },
     images: [
-      'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.pexels.com/photos/27269998/pexels-photo-27269998.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800'
     ]
   },
   {
@@ -221,13 +221,13 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g10.category',
     price: 2300,
     image: 'https://images.pexels.com/photos/13112095/pexels-photo-13112095.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: { en: 'Mermaid', ar: 'حورية البحر' },
-    name: { en: 'Venus Lace Mermaid', ar: 'فستان حورية البحر فينوس' },
+    category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
+    name: { en: 'Venus Lace Gown', ar: 'فستان دانتيل فينوس' },
     colors: ['white', 'offWhite'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A sensual lace mermaid gown with sheer lace side panels and a stunning scalloped train.',
-      ar: 'فستان حورية البحر دانتيل جذاب يتميز بألواح دانتيل جانبية شفافة وذيل صدفي مذهل.'
+      en: 'A sensual lace sculpted gown with sheer lace side panels and a stunning scalloped train.',
+      ar: 'فستان دانتيل كوتور منحوت جذاب يتميز بألواح دانتيل جانبية شفافة وذيل صدفي مذهل.'
     },
     details: {
       en: ['Venetian lace motifs', 'Sheer side illusions', 'Scalloped hemline', 'Low scoop back'],
@@ -361,13 +361,13 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g17.category',
     price: 2450,
     image: 'https://images.pexels.com/photos/3014853/pexels-photo-3014853.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: { en: 'Mermaid', ar: 'حورية البحر' },
-    name: { en: 'Aurelia Trumpet Gown', ar: 'فستان أوريليا حورية البحر' },
+    category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
+    name: { en: 'Aurelia Silhouette Gown', ar: 'فستان أوريليا المبتكر' },
     colors: ['white', 'offWhite'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A dramatic trumpet gown with structured lace patterns and an expansive tulle flare at the knees.',
-      ar: 'فستان حورية البحر درامي بنقوش دانتيل هيكلية وتول منفوش وممتد يبدأ من عند الركبتين.'
+      en: 'A dramatic sculpted gown with structured lace patterns and an expansive tulle flare at the knees.',
+      ar: 'فستان كوتور منحوت درامي بنقوش دانتيل هيكلية وتول منفوش وممتد يبدأ من عند الركبتين.'
     },
     details: {
       en: ['Structured lace panels', 'Multi-layer tulle flare', 'Corset bodice back ties', 'Chapel length train'],
@@ -501,13 +501,13 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g24.category',
     price: 2650,
     image: 'https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: { en: 'Mermaid', ar: 'حورية البحر' },
-    name: { en: 'Siren of the Deep Silk', ar: 'فستان سيرين الحريري الفاخر' },
+    category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
+    name: { en: 'Siren Premium Silk Gown', ar: 'فستان سيرين الحريري الفاخر' },
     colors: ['white', 'offWhite'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A stunning silk satin mermaid gown featuring structured pleats and a structured corset bodice.',
-      ar: 'فستان حورية البحر من الساتان الحريري المذهل يتميز بكسرات هيكلية ومشد صدر مدعم لكامل الفخامة.'
+      en: 'A stunning silk satin sculpted gown featuring structured pleats and a structured corset bodice.',
+      ar: 'فستان كوتور منحوت من الساتان الحريري المذهل يتميز بكسرات هيكلية ومشد صدر مدعم لكامل الفخامة.'
     },
     details: {
       en: ['Premium silk satin', 'Built-in corset boning', 'Structured pleats on train', 'Low square back'],

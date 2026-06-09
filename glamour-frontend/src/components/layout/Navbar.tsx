@@ -33,11 +33,10 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { label: 'Couture Collections', to: '/collections' },
-    { label: 'Atelier',             to: '/atelier'     },
-    { label: 'Bespoke Service',     to: '/services'    },
-    { label: 'Journal',             to: '/journal'     },
-    { label: 'Contact',             to: '/contact'     },
+    { label: t('nav.collections'), to: '/collections' },
+    { label: t('nav.atelier'),     to: '/atelier'     },
+    { label: isRTL ? 'من نحن' : 'About Us',  to: '/our-story'   },
+    { label: t('nav.contact'),     to: '/contact'     },
   ];
 
   /* ── nav background transition ── */
@@ -62,15 +61,15 @@ const Navbar = () => {
   return (
     <>
       <nav className={`fixed w-full z-50 transition-all duration-500 ${navBg} ${navBorder}`} style={scrolledStyle}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[84px] flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[84px] flex items-center justify-between relative">
 
-          {/* ── Left: nav links (desktop) ── */}
-          <div className="hidden lg:flex items-center gap-10">
+          {/* ── Left Column: nav links (desktop) ── */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8 w-[40%] justify-start">
             {navItems.map(({ label, to }) => (
               <Link
                 key={to}
                 to={to}
-                className={`nav-link ${textColor}`}
+                className={`nav-link ${textColor} text-[0.68rem] xl:text-[0.72rem] tracking-[0.18em] uppercase font-medium`}
                 style={{ color: isLightText ? 'rgba(255,255,255,0.88)' : 'var(--color-surface-900)' }}
               >
                 {label}
@@ -78,23 +77,26 @@ const Navbar = () => {
             ))}
           </div>
 
+          {/* ── Center Column Spacer for absolute-positioned logo ── */}
+          <div className="hidden lg:block w-[20%]" />
+
           {/* ── Center: logo ── */}
           <Link
             to="/"
-            className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center"
+            className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center z-10"
           >
             <img 
               src={logo} 
               alt="Glamour Group" 
-              className="h-20 lg:h-24 object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
+              className="h-16 lg:h-20 xl:h-24 object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
             />
           </Link>
 
-          {/* ── Right: actions (desktop) ── */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* ── Right Column: actions (desktop) ── */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-6 w-[40%] justify-end">
             <button
               onClick={toggleLanguage}
-              className={`nav-link ${textColor} text-[0.62rem] tracking-[0.22em] flex items-center gap-1.5`}
+              className={`nav-link ${textColor} text-[0.62rem] xl:text-[0.68rem] tracking-[0.22em] flex items-center gap-1.5`}
               style={{ color: iconColor }}
             >
               <Globe size={14} strokeWidth={1.8} />
@@ -127,7 +129,7 @@ const Navbar = () => {
 
             <Link
               to="/book-appointment"
-              className="nav-link text-[0.62rem] tracking-[0.22em] px-5 py-2.5 rounded-full border transition-all"
+              className="nav-link text-[0.62rem] xl:text-[0.68rem] tracking-[0.22em] px-4 xl:px-5 py-2.5 rounded-full border transition-all"
               style={{
                 border: isLightText ? '1.5px solid rgba(255,255,255,0.5)' : '1.5px solid var(--color-surface-900)',
                 color: isLightText ? 'white' : 'var(--color-surface-900)',
@@ -135,7 +137,7 @@ const Navbar = () => {
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.background = isLightText ? 'rgba(255,255,255,0.15)' : 'var(--color-surface-900)';
-                el.style.color = isLightText ? 'white' : 'white';
+                el.style.color = 'white';
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement;

@@ -7,7 +7,7 @@ const resources = {
       // Navbar
       nav: {
         collections: "Collections",
-        atelier: "Atelier",
+        atelier: "Design",
         journal: "Journal",
         ourStory: "Our Story",
         contact: "Contact",
@@ -88,7 +88,7 @@ const resources = {
           c2: { name: "Classic Elegance", desc: "Timeless designs featuring heavy satin, intricate lace, and architectural structure." },
           c3: { name: "Modern Minimalist", desc: "Clean lines, stark whites, and unembellished perfection for the contemporary bride." }
         },
-        gownsTitle: "The Atelier Gallery",
+        gownsTitle: "The Design Gallery",
         gownsSubtitle: "Browse our signature creations, handcrafted for the modern bride.",
         quickView: "Quick View",
         quickViewModal: {
@@ -109,7 +109,7 @@ const resources = {
         },
         gowns: {
           g1: { name: "Royal Empress Gown", category: "Ballgown" },
-          g2: { name: "Aria Silhouette Gown", category: "Mermaid" },
+          g2: { name: "Aria Imperial Gown", category: "Sculpted Couture" },
           g3: { name: "Celestine Glow Gown", category: "Ballgown" },
           g4: { name: "Duchess Illusion Gown", category: "Imperial" },
           g5: { name: "Ivory Whisper Gown", category: "A-Line" },
@@ -187,8 +187,8 @@ const resources = {
     translation: {
       // Navbar
       nav: {
-        collections: "المجموعات الحصرية",
-        atelier: "المشغل الرئيسي",
+        collections: "التصميمات الحصرية",
+        atelier: "تصميم",
         journal: "أوراق إبداعية",
         ourStory: "إرث الدار",
         contact: "تواصل راقٍ",
@@ -269,7 +269,7 @@ const resources = {
           c2: { name: "أناقة كلاسيكية ملكية", desc: "تصاميم ملكية خالدة تعتمد على الساتان الدوقس الفاخر، والدانتيل العتيق المعقد، والقصّات الهندسية المهيبة." },
           c3: { name: "بساطة عصرية راقية", desc: "انحناءات هندسية نقية، بياض ثلجي ناصع، وجمال خالٍ من التكلف صُنع خصيصاً للعروس المعاصرة الجريئة." }
         },
-        gownsTitle: "معرض روائع المشغل",
+        gownsTitle: "معرض التصاميم",
         gownsSubtitle: "تصفحي قطعنا الفنية الخالدة، المصنوعة يدوياً بكامل الحب والخبرة.",
         quickView: "الاستعراض السريع الفاخر",
         quickViewModal: {
@@ -289,14 +289,14 @@ const resources = {
           }
         },
         gowns: {
-          g1: { name: "فستان الإمبراطورة الملكي", category: "منفوش فاخر" },
-          g2: { name: "فستان ظلال آريا", category: "حورية البحر الأنيق" },
-          g3: { name: "فستان توهج سيلستين", category: "منفوش ملكي" },
-          g4: { name: "فستان الوهم الدوقي", category: "إمبراطوري راقٍ" },
-          g5: { name: "فستان همس العاج", category: "إيه لاين كلاسيكي" },
-          g6: { name: "فستان الأكتاف المنسدلة الأثيري", category: "رومانسي حالم" },
-          g7: { name: "فستان تول سيرين", category: "بوهيمي أنيق" },
-          g8: { name: "فستان النعمة المحتشمة", category: "فخامة محتشمة" }
+          g1: { name: "فستان الإمبراطورة الملكي" },
+          g2: { name: "أيقونة آريا الملكية" },
+          g3: { name: "فستان توهج سيلستين" },
+          g4: { name: "فستان الوهم الدوقي" },
+          g5: { name: "فستان همس العاج" },
+          g6: { name: "فستان الأكتاف المنسدلة الأثيري" },
+          g7: { name: "فستان تول سيرين" },
+          g8: { name: "فستان النعمة المحتشمة" }
         }
       },
       // Atelier

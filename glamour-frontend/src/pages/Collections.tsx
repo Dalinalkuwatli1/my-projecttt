@@ -1,26 +1,21 @@
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Heart, X, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Gem, ShieldCheck, ShoppingBag } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { Heart, X, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight, Sparkles, ShieldCheck, ShoppingBag, Check } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import { GOWNS_DATA } from '../data/gowns';
 import type { Gown } from '../data/gowns';
 
-// Luxury Collection Banners (Hero sections)
-const HERO_IMAGES = {
-  c1: 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  c2: 'https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  c3: 'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=1200',
-};
+
 
 // Luxury Bilingual copy for Collection Intros
 const localCopy = {
   en: {
     hero: {
       preTitle: "✦ THE COUTURE GALLERY ✦",
-      title: "The Collections",
-      subtitle: "Discover our exclusive range of bridal wear, where each collection tells a unique story of love, artistry, and elegance.",
+      title: "Exclusive Designs Crafted to Immortalise Your Moments",
+      subtitle: "Discover our handcrafted bridal gown collections, where refined artistry meets exceptional detail — giving you an appearance unlike any other.",
     },
     items: {
       c1: {
@@ -40,7 +35,7 @@ const localCopy = {
       }
     },
     gallery: {
-      title: "The Atelier Gallery",
+      title: "The Atelier Collections",
       subtitle: "Browse our signature creations, handcrafted for the modern bride.",
     },
     quickViewModal: {
@@ -58,9 +53,9 @@ const localCopy = {
   },
   ar: {
     hero: {
-      preTitle: "✦ معرض الأزياء الراقية ✦",
-      title: "المجموعات الحصرية",
-      subtitle: "اكتشفي تشكيلتنا الاستثنائية من فساتين الزفاف، حيث تروي كل مجموعة قصة فريدة من الحب، الفن، والأناقة الأبدية.",
+      preTitle: "✦ مجموعات الزفاف الراقية ✦",
+      title: "تصاميم حصرية صُنعت لتُخلِّد لحظاتكِ",
+      subtitle: "اكتشفي مجموعات فساتين الزفاف المصممة بعناية فائقة، حيث تلتقي الحرفية الراقية بالتفاصيل الاستثنائية لتمنحكِ إطلالة لا تشبه سواكِ.",
     },
     items: {
       c1: {
@@ -80,7 +75,7 @@ const localCopy = {
       }
     },
     gallery: {
-      title: "معرض المشغل الرئيسي",
+      title: "معرض التصميمات الملكية",
       subtitle: "تصفحي تصاميمنا الحصرية، المصنوعة يدوياً خصيصاً لتتوج ليلة العمر بالكمال.",
     },
     quickViewModal: {
@@ -98,21 +93,46 @@ const localCopy = {
   }
 };
 
-// Custom Smoke Reveal Animation Definition
-const smokeReveal = {
-  initial: { opacity: 0, filter: 'blur(20px)', scale: 1.05 },
-  whileInView: { opacity: 1, filter: 'blur(0px)', scale: 1 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+const textReveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-40px' },
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
 };
 
-// Custom Text Reveal Animation Definition
-const textReveal = {
-  initial: { opacity: 0, y: 32, filter: 'blur(4px)' },
-  whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  viewport: { once: true, margin: '-40px' },
-  transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
-};
+function AnimatedCounter({ value, duration = 1800 }: { value: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-20px' });
+  const [count, setCount] = useState(0);
+
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10) || 0;
+  const suffix = value.replace(/[0-9]/g, '');
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = numericValue;
+    if (start === end) return;
+
+    const totalSteps = 50;
+    const stepTime = Math.max(Math.floor(duration / totalSteps), 15);
+    const stepValue = Math.ceil(end / totalSteps);
+
+    const timer = setInterval(() => {
+      start += stepValue;
+      if (start >= end) {
+        clearInterval(timer);
+        setCount(end);
+      } else {
+        setCount(start);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [numericValue, isInView, duration]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function Collections() {
   const { t, i18n } = useTranslation();
@@ -139,14 +159,6 @@ export default function Collections() {
 
   const { addToCart: addGlobalToCart } = useCart();
 
-  // Scroll Parallax references for Editorial Showcase
-  const showcaseRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: showcaseScroll } = useScroll({
-    target: showcaseRef,
-    offset: ['start end', 'end start']
-  });
-  const floatingOffset = useTransform(showcaseScroll, [0, 1], ['8%', '-8%']);
-  const floatingSpringY = useSpring(floatingOffset, { stiffness: 45, damping: 18 });
 
   const toggleFav = (id: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -183,12 +195,6 @@ export default function Collections() {
     }, 1800);
   };
 
-  const collections = [
-    { id: 'c1', tag: copy.items.c1.tag, name: copy.items.c1.name, desc: copy.items.c1.desc, image: HERO_IMAGES.c1 },
-    { id: 'c2', tag: copy.items.c2.tag, name: copy.items.c2.name, desc: copy.items.c2.desc, image: HERO_IMAGES.c2 },
-    { id: 'c3', tag: copy.items.c3.tag, name: copy.items.c3.name, desc: copy.items.c3.desc, image: HERO_IMAGES.c3 },
-  ];
-
   // FILTER LOGIC
   const filteredGowns = GOWNS_DATA.filter(gown => {
     if (selectedCategory && gown.category.en !== selectedCategory && gown.category.ar !== selectedCategory) {
@@ -220,7 +226,6 @@ export default function Collections() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Reset page when filter changes
   const updateCategoryFilter = (val: string | null) => {
     setSelectedCategory(val);
     setCurrentPage(1);
@@ -247,7 +252,7 @@ export default function Collections() {
 
   const categoriesList = [
     { en: 'Ballgown', ar: 'منفوش' },
-    { en: 'Mermaid', ar: 'حورية البحر' },
+    { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
     { en: 'A-Line', ar: 'إيه لاين' },
     { en: 'Imperial', ar: 'إمبراطوري' },
     { en: 'Romantic', ar: 'رومانسي' },
@@ -269,134 +274,76 @@ export default function Collections() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20 selection:bg-amber-100 selection:text-ink bg-[#F5F1EC] text-[#2A1E1A] overflow-x-hidden">
-      
+    <div className="min-h-screen pb-20 selection:bg-amber-100 selection:text-ink bg-[#F7F4EF] text-[#2b1b12]">
+
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         1. CINEMATIC PAGE HEADER
+         1. CINEMATIC FULL-WIDTH BACKGROUND HERO
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 md:py-28 relative text-center px-6 max-w-5xl mx-auto">
-        <motion.div 
+      <section
+        className="relative h-screen min-h-[560px] w-full flex items-center justify-center text-center px-6"
+        style={{
+          backgroundImage: 'url(https://images.pexels.com/photos/1488316/pexels-photo-1488316.jpeg?auto=compress&cs=tinysrgb&w=1800)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/52" />
+        {/* Bottom fade to page bg */}
+        <div className="absolute inset-x-0 bottom-0 h-48"
+          style={{ background: 'linear-gradient(to top, #F7F4EF, transparent)' }} />
+
+        {/* Text — centered over the background image */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 max-w-3xl mx-auto text-white space-y-6 pt-20"
         >
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.38em] text-[#C6A27A] mb-4 block">
-            {copy.hero.preTitle}
+          <span className="text-[0.72rem] font-bold uppercase tracking-[0.48em] text-[#C6A27A] block">
+            {isRTL ? '✦ التصميمات الحصرية ✦' : '✦ THE EXCLUSIVE DESIGNS ✦'}
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-[#2A1E1A] mb-6 leading-tight tracking-wide font-light">
-            {copy.hero.title}
+          <h1 className="font-sans text-5xl md:text-7xl text-white leading-tight tracking-wide font-extrabold drop-shadow-lg">
+            {isRTL ? 'عالم من الأناقة المصممة خصيصاً لكِ' : 'A World of Tailored Elegance'}
           </h1>
-          <div className="w-12 h-[1px] bg-[#C6A27A] mx-auto my-6" />
-          <p className="text-[#8f7d6d] font-sans font-light text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            {copy.hero.subtitle}
+          <div className="w-16 h-[1px] bg-[#C6A27A] mx-auto" />
+          <p className="text-white/90 font-sans font-semibold text-sm md:text-base max-w-xl mx-auto leading-relaxed drop-shadow-sm">
+            {isRTL
+              ? 'كل تصميم في دار غلايمور كوتور وُلد من رؤية فنية مستقلة، حيث تلتقي الحرفية الراقية مع الإبداع المعاصر لتقديم فساتين استثنائية تروي قصة كل عروس بأسلوب فريد.'
+              : 'Every design at Glamour Couture is born from an independent artistic vision, where fine craft meets contemporary creativity to present extraordinary gowns.'}
           </p>
         </motion.div>
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         2. ASYMMETRICAL STORYBOOK COLLECTIONS
+         4. ATMowns GALLERY & INTERACTIVE FILTERS
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section ref={showcaseRef} className="max-w-7xl mx-auto px-6 lg:px-16 space-y-36 lg:space-y-48 mb-36">
-        {collections.map((col, i) => {
-          const isEven = i % 2 === 0;
-          return (
-            <div 
-              key={col.id}
-              className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center relative`}
-            >
-              {/* Background Glow Orb for depth */}
-              <div className={`absolute w-[350px] h-[350px] rounded-full bg-amber-100/35 blur-[100px] pointer-events-none -z-10 ${
-                isEven ? '-right-16 -top-12' : '-left-16 -top-12'
-              }`} />
-
-              {/* Layered Image Frame */}
-              <div className="lg:w-1/2 w-full relative">
-                {/* Master Image Frame */}
-                <motion.div 
-                  {...smokeReveal}
-                  className="aspect-[3/4] overflow-hidden rounded-[24px] shadow-2xl relative group"
-                >
-                  <img 
-                    src={col.image} 
-                    alt={col.name} 
-                    className="w-full h-full object-cover transition-transform duration-[1.8s] group-hover:scale-105" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#130d0b]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                </motion.div>
-
-                {/* Overlapping Floating badge card */}
-                <motion.div 
-                  style={{ y: floatingSpringY }}
-                  className={`absolute p-6 rounded-[20px] glass shadow-lg max-w-[200px] hidden lg:block ${
-                    isEven ? '-bottom-10 -right-10 translate-x-4' : '-bottom-10 -left-10 -translate-x-4'
-                  }`}
-                >
-                  <Gem size={15} className="text-[#C6A27A] mb-3 animate-pulse" />
-                  <p className="font-serif text-[0.8rem] italic text-[#2A1E1A] leading-relaxed">
-                    "{currentLang === 'ar' ? 'فصل من الجمال الاستثنائي والخياطة الملكية.' : 'A chapter of pure elegance and royal handcraft.'}"
-                  </p>
-                </motion.div>
-              </div>
-
-              {/* Text Narrative */}
-              <div className="lg:w-1/2 flex flex-col justify-center space-y-6">
-                <motion.div {...textReveal}>
-                  <span className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-[#C6A27A] block mb-3">
-                    {col.tag}
-                  </span>
-                  <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#2A1E1A] font-light leading-snug mb-5">
-                    {col.name}
-                  </h2>
-                  <p className="text-[#8f7d6d] font-sans font-light text-base md:text-lg leading-relaxed mb-8">
-                    {col.desc}
-                  </p>
-                  
-                  {/* Luxury Link Underline Animation */}
-                  <Link
-                    to="/book-appointment"
-                    className="group inline-flex items-center gap-3 text-[0.65rem] tracking-[0.24em] font-semibold uppercase text-[#2A1E1A] hover:text-[#C6A27A] transition-colors border-b border-[#2A1E1A]/20 hover:border-[#C6A27A] pb-1.5 duration-300"
-                  >
-                    {currentLang === 'ar' ? 'احجزي تجربة القياس' : 'Book Fitting Session'}
-                  </Link>
-                </motion.div>
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 my-28">
-        <hr className="border-t border-[#dfd7cc]/60" />
-      </div>
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         3. ATMOSPHERIC GOWNS GALLERY & INTERACTIVE FILTERS
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section id="gowns-gallery-section" className="scroll-mt-28 max-w-7xl mx-auto px-6 lg:px-16">
+      <section id="gowns-gallery-section" className="scroll-mt-28 max-w-7xl mx-auto px-6 lg:px-16 pt-16">
         
         {/* Title */}
         <div className="text-center mb-16">
           <motion.div {...textReveal}>
-            <span className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-[#C6A27A] block mb-3">
-              ✦ {currentLang === 'ar' ? 'معرض التصاميم' : 'ATELIER CREATIONS'} ✦
+            <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.34em] text-[#c49a78] block mb-3">
+              ✦ {currentLang === 'ar' ? 'معرض التصميمات الملكية' : 'ROYAL CREATIONS'} ✦
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#2A1E1A] font-light">
+            <h2 className="font-sans text-4xl md:text-5xl text-[#2b1b12] font-extrabold">
               {copy.gallery.title}
             </h2>
-            <p className="text-[#8f7d6d] font-sans font-light text-sm mt-4">
+            <p className="text-[#8a7b71] font-sans font-bold text-sm mt-4">
               {copy.gallery.subtitle}
             </p>
           </motion.div>
         </div>
 
         {/* BESPOKE BOUTIQUE FILTER BAR */}
-        <div className="relative z-30 mb-12 pb-6 border-b border-[#dfd7cc]">
+        <div className="relative z-30 mb-12 pb-6 border-b border-[#e8dbd1]">
           <div className="flex flex-wrap items-center justify-between gap-6">
             
             {/* Filter icon label */}
-            <div className="flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#8f7d6d]">
-              <SlidersHorizontal size={14} className="text-[#C6A27A]" />
-              <span>{isRTL ? 'خيارات التصفية الفاخرة' : 'Luxury Filters'}</span>
+            <div className="flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#8a7b71]">
+              <SlidersHorizontal size={14} className="text-[#c49a78]" />
+              <span>{isRTL ? 'تصفية بوتيك غلايمور الفاخرة' : 'Bespoke Boutique Filters'}</span>
             </div>
 
             {/* Filter categories */}
@@ -404,7 +351,7 @@ export default function Collections() {
               {/* Category Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
-                className={`flex items-center gap-1.5 hover:text-[#C6A27A] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedCategory ? 'text-[#C6A27A]' : 'text-[#2A1E1A]'}`}
+                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedCategory ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
               >
                 <span>{selectedCategory ? (isRTL ? `الفئة: ${selectedCategory}` : `Cat: ${selectedCategory}`) : (isRTL ? 'الفئة' : 'Category')}</span>
                 <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
@@ -413,7 +360,7 @@ export default function Collections() {
               {/* Color Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
-                className={`flex items-center gap-1.5 hover:text-[#C6A27A] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedColor ? 'text-[#C6A27A]' : 'text-[#2A1E1A]'}`}
+                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedColor ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
               >
                 <span>{selectedColor ? (isRTL ? `اللون: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
                 <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
@@ -422,7 +369,7 @@ export default function Collections() {
               {/* Size Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
-                className={`flex items-center gap-1.5 hover:text-[#C6A27A] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedSize ? 'text-[#C6A27A]' : 'text-[#2A1E1A]'}`}
+                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedSize ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
               >
                 <span>{selectedSize ? (isRTL ? `المقاس: ${selectedSize}` : `Size: ${selectedSize}`) : (isRTL ? 'المقاس' : 'Size')}</span>
                 <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
@@ -431,7 +378,7 @@ export default function Collections() {
               {/* Price Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
-                className={`flex items-center gap-1.5 hover:text-[#C6A27A] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${priceRange ? 'text-[#C6A27A]' : 'text-[#2A1E1A]'}`}
+                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${priceRange ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
               >
                 <span>{priceRange ? (isRTL ? 'السعر: محدد' : 'Price: Fitted') : (isRTL ? 'السعر' : 'Price')}</span>
                 <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
@@ -448,16 +395,16 @@ export default function Collections() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="absolute left-0 right-0 mt-4 p-6 bg-white border border-[#dfd7cc] rounded-[20px] shadow-lg grid grid-cols-1 gap-6 z-40"
+                className="absolute left-0 right-0 mt-4 p-6 bg-white border border-[#e8dbd1] rounded-[20px] shadow-lg grid grid-cols-1 gap-6 z-40"
               >
                 {/* Category Dropdown */}
                 {activeFilterTab === 'category' && (
                   <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8f7d6d] mb-4">{isRTL ? 'اختر الفئة' : 'Select Category'}</h4>
+                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر الفئة' : 'Select Category'}</h4>
                     <div className="flex flex-wrap gap-2.5">
                       <button
                         onClick={() => updateCategoryFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedCategory ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedCategory ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                       >
                         {isRTL ? 'الكل' : 'All Gowns'}
                       </button>
@@ -465,7 +412,7 @@ export default function Collections() {
                         <button
                           key={cat.en}
                           onClick={() => updateCategoryFilter(isRTL ? cat.ar : cat.en)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedCategory === (isRTL ? cat.ar : cat.en) ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedCategory === (isRTL ? cat.ar : cat.en) ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
                           {isRTL ? cat.ar : cat.en}
                         </button>
@@ -477,11 +424,11 @@ export default function Collections() {
                 {/* Color Dropdown */}
                 {activeFilterTab === 'color' && (
                   <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8f7d6d] mb-4">{isRTL ? 'اختر درجة اللون' : 'Select Tone'}</h4>
+                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر درجة اللون' : 'Select Tone'}</h4>
                     <div className="flex flex-wrap gap-2.5">
                       <button
                         onClick={() => updateColorFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedColor ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedColor ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                       >
                         {isRTL ? 'الكل' : 'All Tones'}
                       </button>
@@ -489,7 +436,7 @@ export default function Collections() {
                         <button
                           key={col.id}
                           onClick={() => updateColorFilter(col.id)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedColor === col.id ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedColor === col.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
                           {isRTL ? col.ar : col.en}
                         </button>
@@ -501,11 +448,11 @@ export default function Collections() {
                 {/* Size Dropdown */}
                 {activeFilterTab === 'size' && (
                   <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8f7d6d] mb-4">{isRTL ? 'اختر المقاس' : 'Select Size'}</h4>
+                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر المقاس' : 'Select Size'}</h4>
                     <div className="flex flex-wrap gap-2.5">
                       <button
                         onClick={() => updateSizeFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedSize ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedSize ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                       >
                         {isRTL ? 'الكل' : 'All Sizes'}
                       </button>
@@ -513,7 +460,7 @@ export default function Collections() {
                         <button
                           key={sz}
                           onClick={() => updateSizeFilter(sz)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedSize === sz ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedSize === sz ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
                           {sz}
                         </button>
@@ -525,11 +472,11 @@ export default function Collections() {
                 {/* Price Dropdown */}
                 {activeFilterTab === 'price' && (
                   <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8f7d6d] mb-4">{isRTL ? 'نطاق السعر' : 'Price Range'}</h4>
+                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'نطاق السعر' : 'Price Range'}</h4>
                     <div className="flex flex-wrap gap-2.5">
                       <button
                         onClick={() => updatePriceFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!priceRange ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!priceRange ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                       >
                         {isRTL ? 'الكل' : 'All Prices'}
                       </button>
@@ -537,7 +484,7 @@ export default function Collections() {
                         <button
                           key={pr.id}
                           onClick={() => updatePriceFilter(pr.id)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${priceRange === pr.id ? 'bg-[#2A1E1A] text-white border-[#2A1E1A]' : 'bg-transparent text-[#2A1E1A] border-[#dfd7cc] hover:border-[#2A1E1A]'}`}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${priceRange === pr.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
                           {isRTL ? pr.ar : pr.en}
                         </button>
@@ -552,8 +499,8 @@ export default function Collections() {
 
         {/* GALLERY ITEMS GRID */}
         {currentGowns.length === 0 ? (
-          <div className="text-center py-24 rounded-[32px] bg-white border border-[#dfd7cc]/60 shadow-sm">
-            <p className="text-[#8f7d6d] font-serif text-lg">
+          <div className="text-center py-24 rounded-[32px] bg-white border border-[#e8dbd1]/60 shadow-sm">
+            <p className="text-[#8a7b71] font-serif text-lg">
               {isRTL ? 'معذرةً، لم نجد أي قطعة زفاف مطابقة لخيارات التصفية الحالية.' : 'We could not find any bridal creation matching these filters.'}
             </p>
             <button
@@ -563,14 +510,14 @@ export default function Collections() {
                 setSelectedSize(null);
                 setPriceRange(null);
               }}
-              className="mt-6 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C6A27A] hover:text-[#A67B5B] transition-colors border-b border-[#C6A27A]/30 pb-1"
+              className="mt-6 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c49a78] hover:text-[#A67B5B] transition-colors border-b border-[#c49a78]/30 pb-1"
             >
               {isRTL ? 'إعادة تعيين خيارات التصفية' : 'Reset All Filters'}
             </button>
           </div>
         ) : (
           <div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }}>
               {currentGowns.map((g, idx) => (
                 <motion.div
                   key={g.id}
@@ -596,7 +543,7 @@ export default function Collections() {
                     <button
                       onClick={(e) => toggleFav(g.id, e)}
                       className={`heart-btn w-10 h-10 rounded-full flex items-center justify-center absolute top-4 right-4 z-10 glass border border-white/40 shadow-md transition-all ${
-                        favorites.has(g.id) ? 'bg-[#C6A27A] border-[#C6A27A]' : 'bg-white/70 hover:bg-white'
+                        favorites.has(g.id) ? 'bg-[#c49a78] border-[#c49a78]' : 'bg-white/70 hover:bg-white'
                       }`}
                     >
                       <Heart 
@@ -609,22 +556,25 @@ export default function Collections() {
 
                     {/* Sliding Glassmorphic Quick View Button */}
                     <button
-                      className="quick-view-btn absolute inset-x-0 bottom-0 py-4 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white bg-[#2A1E1A]/80 backdrop-blur-md hover:bg-[#C6A27A]/90 transition-all border-t border-white/10 text-center"
+                      className="quick-view-btn absolute inset-x-0 bottom-0 py-4 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white bg-[#2b1b12]/80 backdrop-blur-md hover:bg-[#c49a78]/90 transition-all border-t border-white/10 text-center"
                       onClick={(e) => { e.stopPropagation(); openModal(g); }}
                     >
                       {t('collections.quickView')}
                     </button>
                   </div>
 
-                  {/* Card Description */}
-                  <div className="text-center space-y-1">
-                    <span className="block text-[0.55rem] font-bold uppercase tracking-[0.2em] text-[#C6A27A]">
+                  {/* Card Description — Couture-grade */}
+                  <div className="text-center space-y-1.5 px-1">
+                    <span className="block text-[0.52rem] font-bold uppercase tracking-[0.22em] text-[#C6A27A]">
                       {isRTL ? g.category.ar : g.category.en}
                     </span>
-                    <h3 className="font-serif text-lg leading-snug text-[#2A1E1A] font-light">
+                    <h3 className="font-sans text-base leading-snug text-[#2F1D16] font-bold">
                       {isRTL ? g.name.ar : g.name.en}
                     </h3>
-                    <p className="price-gold text-sm font-medium mt-1">
+                    <p className="text-[0.62rem] font-sans text-[#3B2A23]/70 font-bold leading-relaxed">
+                      {isRTL ? 'تفصيل يدوي فاخر · تطريز فرنسي حصري · حسب المقاس' : 'Handcrafted Couture · French Embroidery · Bespoke Fit'}
+                    </p>
+                    <p className="font-sans text-[#C6A27A] text-sm font-extrabold">
                       ${g.price.toLocaleString()}
                     </p>
                   </div>
@@ -634,11 +584,11 @@ export default function Collections() {
 
             {/* LUXURY PAGINATION SYSTEM */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-8 mt-24 pt-8 border-t border-[#dfd7cc]/60">
+              <div className="flex items-center justify-center gap-8 mt-24 pt-8 border-t border-[#e8dbd1]/60">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className={`flex items-center gap-2.5 text-[0.62rem] font-bold uppercase tracking-[0.2em] transition-colors ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : 'text-[#2A1E1A] hover:text-[#C6A27A]'}`}
+                  className={`flex items-center gap-2.5 text-[0.62rem] font-bold uppercase tracking-[0.2em] transition-colors ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : 'text-[#2b1b12] hover:text-[#c49a78]'}`}
                 >
                   <ChevronLeft size={14} className={isRTL ? 'rotate-180' : ''} />
                   <span>{isRTL ? 'السابق' : 'Prev'}</span>
@@ -654,8 +604,8 @@ export default function Collections() {
                         onClick={() => handlePageChange(pageNum)}
                         className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                           isActive 
-                            ? 'bg-[#C6A27A] text-white shadow-soft font-bold' 
-                            : 'text-[#8f7d6d] hover:text-[#2A1E1A] hover:bg-amber-100/35'
+                            ? 'bg-[#c49a78] text-white shadow-soft font-bold' 
+                            : 'text-[#8a7b71] hover:text-[#2b1b12] hover:bg-amber-100/35'
                         }`}
                       >
                         {pageNum}
@@ -667,7 +617,7 @@ export default function Collections() {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className={`flex items-center gap-2.5 text-[0.62rem] font-bold uppercase tracking-[0.2em] transition-colors ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : 'text-[#2A1E1A] hover:text-[#C6A27A]'}`}
+                  className={`flex items-center gap-2.5 text-[0.62rem] font-bold uppercase tracking-[0.2em] transition-colors ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : 'text-[#2b1b12] hover:text-[#c49a78]'}`}
                 >
                   <span>{isRTL ? 'التالي' : 'Next'}</span>
                   <ChevronRight size={14} className={isRTL ? 'rotate-180' : ''} />
@@ -678,40 +628,93 @@ export default function Collections() {
         )}
       </section>
 
+
+      <section className="max-w-7xl mx-auto px-6 lg:px-16 mt-12">
+        <div className="relative rounded-[32px] overflow-hidden bg-[#2b1b12] text-white p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 shadow-xl">
+          <div className="absolute inset-0 opacity-15 pointer-events-none">
+            <img 
+              src="https://images.pexels.com/photos/291759/pexels-photo-291759.jpeg?auto=compress&cs=tinysrgb&w=900" 
+              alt="Atelier fitting room background" 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+          
+          <div className="lg:w-3/5 space-y-6 relative z-10">
+            <span className="text-[0.62rem] font-extrabold uppercase tracking-[0.28em] text-[#c49a78] block">
+              {isRTL ? '✦ احجزي استشارتكِ الخاصة ✦' : '✦ PRIVATE APPOINTMENTS ✦'}
+            </span>
+            <h2 className="font-sans text-3xl md:text-5xl font-extrabold leading-tight">
+              {isRTL ? 'ابدئي رحلتكِ نحو الأناقة الأبدية' : 'Begin Your Haute Couture Journey'}
+            </h2>
+            <p className="text-white/80 font-sans font-semibold text-sm md:text-base leading-relaxed">
+              {isRTL 
+                ? 'استمتعي باستشارة مجانية مدتها 45 دقيقة مع أحد مصممي الدار. سنساعدكِ في فهم الأقمشة والقصات الملائمة لجسدك وتصميم الفستان الاستثنائي الخاص بكِ.'
+                : 'Experience a complimentary 45-minute digital or in-studio session. We map the silhouette and fabric pairings perfectly tailored to your posture.'}
+            </p>
+            <div className="pt-4">
+              <Link 
+                to="/book-appointment" 
+                className="btn-brand inline-flex items-center gap-2 rounded-full font-extrabold uppercase tracking-wider py-4 px-10 text-[0.68rem]"
+              >
+                {isRTL ? 'ابدئي تصميم فستانكِ الخاص ✦' : 'Begin Designing Your Gown ✦'}
+              </Link>
+            </div>
+          </div>
+
+          <div className="lg:w-2/5 w-full relative z-10">
+            <div className="glass p-8 rounded-[24px] bg-white/5 border border-white/10 backdrop-blur-md space-y-6 text-sm">
+              <h4 className="font-sans text-white font-bold text-lg border-b border-white/10 pb-4">
+                {isRTL ? 'ما الذي تتضمنه الجلسة؟' : "What's Included"}
+              </h4>
+              <div className="space-y-4 font-semibold text-white/90 text-xs">
+                <p className="flex items-center gap-3">
+                  <Check size={14} className="text-[#c49a78]" />
+                  <span>{isRTL ? 'استشارة فردية لمدة 45 دقيقة' : '45-minute private 1-on-1'}</span>
+                </p>
+                <p className="flex items-center gap-3">
+                  <Check size={14} className="text-[#c49a78]" />
+                  <span>{isRTL ? 'مراجعة احترافية للقياسات والقصات الملائمة' : 'Curated fabric and design blueprint review'}</span>
+                </p>
+                <p className="flex items-center gap-3">
+                  <Check size={14} className="text-[#c49a78]" />
+                  <span>{isRTL ? 'تخصيص كامل للتفاصيل والتطريز' : 'Bespoke handcraft tailoring options'}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         4. ELITE QUICK VIEW VIP MODAL
+         6. ELITE QUICK VIEW VIP MODAL
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <AnimatePresence>
         {modal && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-            {/* Dark Elegant Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setModal(null)}
-              className="absolute inset-0 bg-[#2A1E1A]/60 backdrop-blur-md"
+              className="absolute inset-0 bg-[#211712]/70 backdrop-blur-md"
             />
 
-            {/* Modal Body Container */}
             <motion.div
               initial={{ opacity: 0, y: 32, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-4xl bg-white rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl z-10 border border-[#dfd7cc]"
+              className="relative w-full max-w-4xl bg-[#F7F4EF] rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl z-10 border border-[#e8dbd1]"
               style={{ maxHeight: '90vh' }}
             >
-              {/* Close Glassmorphic Button */}
               <button
                 onClick={() => setModal(null)}
-                className="absolute top-5 right-5 z-20 w-9 h-9 flex items-center justify-center rounded-full glass border border-white/50 hover:bg-white transition-all shadow-md"
+                className="absolute top-5 right-5 z-20 w-9 h-9 flex items-center justify-center rounded-full glass border border-white/50 hover:bg-white transition-all shadow-md text-[#2b1b12]"
               >
                 <X size={15} />
               </button>
 
-              {/* Modal Image Wrapper */}
-              <div className="w-full md:w-1/2 h-[320px] md:h-auto relative bg-[#F5F1EC] overflow-hidden group">
+              <div className="w-full md:w-1/2 h-[320px] md:h-auto relative overflow-hidden group bg-white">
                 <img 
                   src={modal.image} 
                   alt={isRTL ? modal.name.ar : modal.name.en} 
@@ -720,34 +723,28 @@ export default function Collections() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
               </div>
 
-              {/* Modal Technical Information / Checkout Form */}
-              <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-[#FBF8F4]">
+              <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-white">
                 
-                {/* Badge Category */}
-                <span className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#C6A27A] mb-3">
+                <span className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#c49a78] mb-3">
                   {isRTL ? modal.category.ar : modal.category.en}
                 </span>
 
-                {/* Name */}
-                <h2 className="font-serif text-3xl md:text-4xl mb-4 text-[#2A1E1A] font-light leading-snug">
+                <h2 className="font-sans text-3xl md:text-4xl mb-4 text-[#2b1b12] font-extrabold leading-snug">
                   {isRTL ? modal.name.ar : modal.name.en}
                 </h2>
 
-                {/* Price */}
-                <p className="price-gold text-2xl mb-6 font-semibold">
+                <p className="price-gold text-2xl mb-6 font-extrabold">
                   ${modal.price.toLocaleString()}
                 </p>
 
-                {/* Description */}
-                <p className="text-sm text-[#8f7d6d] font-sans font-light leading-relaxed mb-8">
+                <p className="text-sm text-[#8a7b71] font-sans font-semibold leading-relaxed mb-8">
                   {isRTL ? modal.desc.ar : modal.desc.en}
                 </p>
 
-                {/* Cart Form */}
                 <form onSubmit={handleAddToCartSubmit} className="space-y-6">
                   {/* Select Color */}
                   <div>
-                    <label className="block text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8f7d6d] mb-3">
+                    <label className="block text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71] mb-3">
                       {copy.quickViewModal.chooseColor}
                     </label>
                     <div className="flex gap-3">
@@ -763,12 +760,12 @@ export default function Collections() {
                             onClick={() => setColor(c.id as 'white' | 'offWhite')}
                             className={`flex items-center gap-2 px-4 py-2 border rounded-full transition-all text-xs ${
                               isSelected 
-                                ? 'border-[#C6A27A] bg-[#C6A27A]/10 text-[#2A1E1A] font-semibold' 
-                                : 'border-[#dfd7cc] text-[#8f7d6d] hover:border-[#2A1E1A]'
+                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold' 
+                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
                             }`}
                           >
-                            <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#C6A27A]' : 'border-[#dfd7cc]'}`}>
-                              {isSelected && <span className="w-2 h-2 rounded-full bg-[#C6A27A]" />}
+                            <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#c49a78]' : 'border-[#e8dbd1]'}`}>
+                              {isSelected && <span className="w-2 h-2 rounded-full bg-[#c49a78]" />}
                             </span>
                             <span>{c.label}</span>
                           </button>
@@ -780,13 +777,13 @@ export default function Collections() {
                   {/* Select Size */}
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <label className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8f7d6d]">
+                      <label className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71]">
                         {copy.quickViewModal.chooseSize}
                       </label>
                       <Link 
                         to="/size-guide" 
                         onClick={() => setModal(null)}
-                        className="text-[0.6rem] uppercase tracking-wider text-[#C6A27A] hover:text-[#A67B5B] transition-colors border-b border-[#C6A27A]/20 pb-0.5"
+                        className="text-[0.6rem] uppercase tracking-wider text-[#c49a78] hover:text-[#a37351] transition-colors border-b border-[#c49a78]/20 pb-0.5"
                       >
                         {isRTL ? 'دليل القياسات الفني' : 'Size Guide'}
                       </Link>
@@ -802,8 +799,8 @@ export default function Collections() {
                             onClick={() => setSize(s)}
                             className={`flex-1 py-3 text-center border text-xs tracking-wider transition-all rounded-lg ${
                               isSelected 
-                                ? 'border-[#C6A27A] bg-[#C6A27A]/10 text-[#2A1E1A] font-semibold' 
-                                : 'border-[#dfd7cc] text-[#8f7d6d] hover:border-[#2A1E1A] hover:text-[#2A1E1A]'
+                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold' 
+                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
                             }`}
                           >
                             {s}
@@ -816,7 +813,7 @@ export default function Collections() {
                   {/* Checkout Button */}
                   <button
                     type="submit"
-                    className="btn-primary w-full py-4.5 text-[0.68rem] tracking-[0.24em] font-semibold rounded-full bg-[#2A1E1A] text-white hover:bg-[#C6A27A] hover:shadow-gold transition-all duration-300 flex items-center justify-center gap-3"
+                    className="btn-primary w-full py-4.5 text-[0.68rem] tracking-[0.24em] font-semibold rounded-full bg-[#2b1b12] text-white hover:bg-[#c49a78] hover:shadow-gold transition-all duration-300 flex items-center justify-center gap-3"
                     disabled={added}
                   >
                     <ShoppingBag size={14} />
@@ -827,13 +824,13 @@ export default function Collections() {
                 </form>
 
                 {/* High-end Security Details Badges */}
-                <div className="mt-8 pt-6 border-t border-[#dfd7cc] space-y-2.5 text-[0.78rem] text-[#8f7d6d] font-sans font-light">
+                <div className="mt-8 pt-6 border-t border-[#e8dbd1] space-y-2.5 text-[0.78rem] text-[#8a7b71] font-sans font-bold">
                   <p className="flex items-center gap-2">
-                    <Sparkles size={12} className="text-[#C6A27A]" />
+                    <Sparkles size={12} className="text-[#c49a78]" />
                     <span>{copy.quickViewModal.shipping}</span>
                   </p>
                   <p className="flex items-center gap-2">
-                    <ShieldCheck size={12} className="text-[#C6A27A]" />
+                    <ShieldCheck size={12} className="text-[#c49a78]" />
                     <span>{copy.quickViewModal.fitting}</span>
                   </p>
                 </div>
