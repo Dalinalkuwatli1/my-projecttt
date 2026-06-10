@@ -114,75 +114,38 @@ const footerCopy = {
 const Footer = () => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language === 'ar' ? 'ar' : 'en';
-  const isRTL = currentLang === 'ar';
   const copy = footerCopy[currentLang];
-
-  const titleStyle: React.CSSProperties = {
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: '0.8rem',
-    fontWeight: 700,
-    letterSpacing: '0.18em',
-    textTransform: 'uppercase',
-    color: '#C8A97E',
-    marginBottom: 10,
-  };
-
-  const linkStyle: React.CSSProperties = {
-    fontFamily: isRTL ? "'Tajawal', sans-serif" : "'Manrope', sans-serif",
-    fontSize: '0.78rem',
-    color: 'rgba(255,255,255,0.6)',
-    lineHeight: '2.1',
-    display: 'block',
-    transition: 'color 0.25s',
-  };
-
-  const dividerStyle: React.CSSProperties = {
-    width: 28,
-    height: 1,
-    background: 'rgba(200,169,126,0.5)',
-    marginBottom: 14,
-  };
 
   return (
     <footer
-      style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #060606 100%)',
-        boxShadow: 'inset 0 1px rgba(201,169,110,.12)',
-        fontFamily: isRTL ? "'Tajawal', sans-serif" : "'Manrope', sans-serif",
-      }}
-      className="text-white border-t border-[#C6A27A]/12 overflow-hidden"
+      className="bg-gradient-to-b from-[#0a0a0a] to-[#060606] shadow-[inset_0_1px_rgba(201,169,110,0.12)] text-white border-t border-[#C6A27A]/12 overflow-hidden font-sans"
     >
       {/* ── Main Grid ── */}
-      <div
-        style={{ maxWidth: 1360, margin: '0 auto' }}
-        className="px-6 md:px-12 lg:px-20 pt-14 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-10 lg:gap-14"
-      >
+      <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 pt-14 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-10 lg:gap-14">
         {/* Column 1: Brand */}
         <div className="flex flex-col gap-4">
           <Link to="/" className="inline-block">
             <img
               src={logo}
               alt="Glamour Haute Couture"
-              style={{ width: 140, objectFit: 'contain' }}
-              className="rounded-sm mix-blend-screen"
+              className="w-[140px] object-contain rounded-sm mix-blend-screen"
             />
           </Link>
-          <p style={{ fontSize: '0.79rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.55)', maxWidth: 260 }}>
+          <p className="text-[0.79rem] leading-[1.9] text-white/55 max-w-[260px]">
             {copy.col1.desc}
           </p>
         </div>
 
         {/* Column 2: Services */}
         <div className="flex flex-col">
-          <h4 style={titleStyle}>{copy.col2.title}</h4>
-          <div style={dividerStyle} />
+          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col2.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
           <ul>
             {copy.col2.links.map((link, idx) => (
               <li key={idx}>
                 <Link
                   to={link.to}
-                  style={linkStyle}
-                  className="hover:text-[#C8A97E] hover:translate-x-0.5 rtl:hover:-translate-x-0.5 transition-all"
+                  className="font-sans text-[0.78rem] text-white/60 leading-[2.1] block transition-colors duration-250 hover:text-[#C8A97E] hover:translate-x-0.5 rtl:hover:-translate-x-0.5 transition-all"
                 >
                   {link.label}
                 </Link>
@@ -193,15 +156,14 @@ const Footer = () => {
 
         {/* Column 3: Quick Links */}
         <div className="flex flex-col">
-          <h4 style={titleStyle}>{copy.col3.title}</h4>
-          <div style={dividerStyle} />
+          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col3.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
           <ul>
             {copy.col3.links.map((link, idx) => (
               <li key={idx}>
                 <Link
                   to={link.to}
-                  style={linkStyle}
-                  className="hover:text-[#C8A97E] transition-colors"
+                  className="font-sans text-[0.78rem] text-white/60 leading-[2.1] block transition-colors duration-250 hover:text-[#C8A97E]"
                 >
                   {link.label}
                 </Link>
@@ -212,22 +174,22 @@ const Footer = () => {
 
         {/* Column 4: Contact */}
         <div className="flex flex-col gap-3">
-          <h4 style={titleStyle}>{copy.col4.title}</h4>
-          <div style={dividerStyle} />
+          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col4.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
           <div className="flex flex-col gap-2">
-            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)' }} className="flex items-start gap-2.5">
+            <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
               <span className="text-[#C8A97E] mt-0.5">📍</span>
               <span>{copy.col4.address}</span>
             </p>
-            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)' }} className="flex items-start gap-2.5">
+            <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
               <span className="text-[#C8A97E] mt-0.5">📞</span>
               <span dir="ltr">{copy.col4.phone}</span>
             </p>
-            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)' }} className="flex items-start gap-2.5">
+            <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
               <span className="text-[#C8A97E] mt-0.5">✉</span>
               <span>{copy.col4.email}</span>
             </p>
-            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)' }} className="flex items-start gap-2.5">
+            <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
               <span className="text-[#C8A97E] mt-0.5">🕒</span>
               <span>{copy.col4.hours}</span>
             </p>
@@ -246,14 +208,7 @@ const Footer = () => {
                 href={soc.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  width: 36,
-                  height: 36,
-                  border: '1px solid rgba(200,169,126,0.25)',
-                  borderRadius: '50%',
-                  transition: 'all 0.3s ease',
-                }}
-                className="flex items-center justify-center text-white/50 hover:bg-[#C8A97E] hover:text-[#0F0D0B] hover:border-[#C8A97E] hover:-translate-y-[2px]"
+                className="w-9 h-9 border border-[#C8A97E]/25 rounded-full transition-all duration-300 flex items-center justify-center text-white/50 hover:bg-[#C8A97E] hover:text-[#0F0D0B] hover:border-[#C8A97E] hover:-translate-y-[2px]"
               >
                 {soc.icon}
               </a>
@@ -263,10 +218,7 @@ const Footer = () => {
       </div>
 
       {/* ── Trust Ribbon ── */}
-      <div
-        style={{ borderTop: '1px solid rgba(200,169,126,0.09)', borderBottom: '1px solid rgba(200,169,126,0.09)' }}
-        className="w-full flex items-center justify-center px-4 py-3"
-      >
+      <div className="w-full flex items-center justify-center px-4 py-3 border-t border-b border-[#C8A97E]/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3 text-center">
           <span className="text-[0.65rem] uppercase tracking-[0.22em] text-[#C8A97E] font-bold">
             {copy.ribbon.pre}
@@ -279,26 +231,23 @@ const Footer = () => {
       </div>
 
       {/* ── Payment Methods ── */}
-      <div
-        style={{ display: 'flex', justifyContent: 'center', gap: 10, padding: '12px 16px' }}
-        className="flex-wrap items-center"
-      >
+      <div className="flex justify-center gap-2.5 p-3 flex-wrap items-center">
         {/* AMEX */}
-        <div style={{ height: 36, padding: '0 16px', borderRadius: 8, background: '#111', border: '1px solid rgba(255,255,255,.07)' }} className="flex items-center justify-center">
+        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
           <span className="text-[0.62rem] font-bold tracking-widest text-[#2089d4]">AMEX</span>
         </div>
         {/* BANK TRANSFER */}
-        <div style={{ height: 36, padding: '0 16px', borderRadius: 8, background: '#111', border: '1px solid rgba(255,255,255,.07)' }} className="flex items-center justify-center">
+        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
           <span className="text-[0.62rem] font-bold uppercase tracking-widest text-white/50">BANK TRANSFER</span>
         </div>
         {/* MasterCard */}
-        <div style={{ height: 36, padding: '0 16px', borderRadius: 8, background: '#111', border: '1px solid rgba(255,255,255,.07)' }} className="flex items-center justify-center gap-1">
-          <div className="w-4 h-4 rounded-full" style={{ background: '#EB001B', opacity: 0.9 }} />
-          <div className="w-4 h-4 rounded-full -ml-3" style={{ background: '#F79E1B', opacity: 0.9 }} />
+        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center gap-1">
+          <div className="w-4 h-4 rounded-full bg-[#EB001B] opacity-90" />
+          <div className="w-4 h-4 rounded-full -ml-3 bg-[#F79E1B] opacity-90" />
           <span className="text-[0.54rem] font-bold text-white/40 tracking-wider ml-1">MC</span>
         </div>
         {/* Visa */}
-        <div style={{ height: 36, padding: '0 16px', borderRadius: 8, background: '#111', border: '1px solid rgba(255,255,255,.07)' }} className="flex items-center justify-center">
+        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
           <svg width="36" height="12" viewBox="0 0 750 471" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M300 336L328 136H374L346 336H300Z" fill="#2089d4" />
             <path d="M495 140c-17-7-44-14-78-14-86 0-147 44-148 107-1 46 43 72 76 88 34 16 45 26 45 41-1 22-27 32-52 32-35 0-54-5-83-18l-11-5-12 73c21 9 59 18 99 18 91 0 151-44 152-111 1-37-23-65-73-88-31-15-50-25-50-40 0-13 16-27 51-27 29-1 51 6 67 14l8 4 12-72z" fill="#2089d4" />
@@ -309,14 +258,8 @@ const Footer = () => {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div
-        style={{ borderTop: '1px solid rgba(255,255,255,.06)', padding: '14px 0' }}
-        className="w-full"
-      >
-        <div
-          style={{ maxWidth: 1360, margin: '0 auto' }}
-          className="px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.72rem] text-white/35 font-medium"
-        >
+      <div className="w-full border-t border-white/5 py-3.5">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.72rem] text-white/35 font-medium">
           <span>© 2026 Glamour Couture. {copy.bottom.rights}</span>
           <div className="flex gap-5">
             <Link to="/faq" className="hover:text-white/70 transition-colors">{copy.bottom.policy}</Link>

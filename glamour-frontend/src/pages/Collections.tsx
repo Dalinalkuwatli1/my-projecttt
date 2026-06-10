@@ -57,23 +57,7 @@ const localCopy = {
       title: "تصاميم حصرية صُنعت لتُخلِّد لحظاتكِ",
       subtitle: "اكتشفي مجموعات فساتين الزفاف المصممة بعناية فائقة، حيث تلتقي الحرفية الراقية بالتفاصيل الاستثنائية لتمنحكِ إطلالة لا تشبه سواكِ.",
     },
-    items: {
-      c1: {
-        tag: "✦ المجموعة الأولى ✦",
-        name: "أحلام الربيع 2027",
-        desc: "قصيدة حب منسوجة من التول الخفيف والزخارف الوردية المجسمة. صُممت خصيصاً للعروس الحالمة التي ترغب بإطلالة ناعمة تحاكي حدائق الربيع الساحرة.",
-      },
-      c2: {
-        tag: "✦ المجموعة الثانية ✦",
-        name: "أناقة كلاسيكية خالدة",
-        desc: "تصاميم ملكية تتميز بالساتان الدوقس الثقيل، والدانتيل المعقد، والبنية الهندسية الكورسيه المشدودة. صُممت للعروس التي تعشق الفخامة المهيبة والتفاصيل الخالدة.",
-      },
-      c3: {
-        tag: "✦ المجموعة الثالثة ✦",
-        name: "بساطة عصرية راقية",
-        desc: "خطوط هندسية نظيفة، بياض ناصع، وكمال خالٍ من التكلف. صُنعت من كريب الحرير والساتان الانسيابي للعروس العصرية التي تفرض حضورها بأبسط التفاصيل.",
-      }
-    },
+
     gallery: {
       title: "معرض التصميمات الملكية",
       subtitle: "تصفحي تصاميمنا الحصرية، المصنوعة يدوياً خصيصاً لتتوج ليلة العمر بالكمال.",
@@ -119,12 +103,12 @@ export default function Collections() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const [activeFilterTab, setActiveFilterTab] = useState<'category' | 'color' | 'size' | 'price' | null>(null);
-  const [selectedCollection, setSelectedCollection] = useState<'c1' | 'c2' | 'c3' | null>(null);
+  const [selectedCollection] = useState<'c1' | 'c2' | 'c3' | null>(null);
 
   // TYPE FILTER (from URL query param or toggle)
   const location = useLocation();
   const urlType = new URLSearchParams(location.search).get('type') as 'wedding' | 'evening' | null;
-  const [selectedType, setSelectedType] = useState<'wedding' | 'evening' | null>(urlType);
+  const [selectedType] = useState<'wedding' | 'evening' | null>(urlType);
 
   // PAGINATION STATES
   const [currentPage, setCurrentPage] = useState(1);
@@ -294,16 +278,14 @@ export default function Collections() {
          4. ATMowns GALLERY & INTERACTIVE FILTERS
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section id="gowns-gallery-section" className="scroll-mt-28 max-w-7xl mx-auto px-6 lg:px-16 pt-10">
-        
+
         {/* Title */}
         <div className="text-center mb-10">
           <motion.div {...textReveal}>
             <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.34em] text-[#c49a78] block mb-3">
               ✦ {currentLang === 'ar' ? 'معرض التصميمات الملكية' : 'ROYAL CREATIONS'} ✦
             </span>
-            <h2 className="text-3xl md:text-4xl text-[#2b1b12] font-bold" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'normal' }}>
-              {isRTL ? 'المجموعات الحصرية' : 'The Exclusive Collections'}
-            </h2>
+
             <p className="text-[#8a7b71] text-sm mt-3 max-w-xl mx-auto">
               {isRTL ? 'تصفحي تصاميمنا الحصرية، المصنوعة يدوياً خصيصاً لتتوج ليلة العمر بالكمال.' : 'Browse our signature creations, handcrafted for the modern bride.'}
             </p>
@@ -316,163 +298,163 @@ export default function Collections() {
 
           {/* Existing filter row */}
           <div className="pb-6 border-b border-[#e8dbd1]">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            
-            {/* Filter icon label */}
-            <div className="flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#8a7b71]">
-              <SlidersHorizontal size={14} className="text-[#c49a78]" />
-              <span>{isRTL ? 'تصفية بوتيك غلايمور الفاخرة' : 'Bespoke Boutique Filters'}</span>
+            <div className="flex flex-wrap items-center justify-between gap-6">
+
+              {/* Filter icon label */}
+              <div className="flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#8a7b71]">
+                <SlidersHorizontal size={14} className="text-[#c49a78]" />
+                <span>{isRTL ? 'تصفية بوتيك غلايمور الفاخرة' : 'Bespoke Boutique Filters'}</span>
+              </div>
+
+              {/* Filter categories */}
+              <div className="flex flex-wrap items-center gap-6 md:gap-8">
+                {/* Style Filter */}
+                <button
+                  onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
+                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedCategory ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
+                >
+                  <span>{selectedCategory ? (isRTL ? `الأسلوب: ${selectedCategory}` : `Style: ${selectedCategory}`) : (isRTL ? 'الأسلوب' : 'Style')}</span>
+                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Tone Filter */}
+                <button
+                  onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
+                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedColor ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
+                >
+                  <span>{selectedColor ? (isRTL ? `الدرجة: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
+                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Silhouette Filter (Size) */}
+                <button
+                  onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
+                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedSize ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
+                >
+                  <span>{selectedSize ? (isRTL ? `القصّة: ${selectedSize}` : `Silhouette: ${selectedSize}`) : (isRTL ? 'القصّة' : 'Silhouette')}</span>
+                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Collection Filter (Price) */}
+                <button
+                  onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
+                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${priceRange ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
+                >
+                  <span>{priceRange ? (isRTL ? 'المجموعة: محددة' : 'Collection: Selected') : (isRTL ? 'المجموعة' : 'Collection')}</span>
+                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
+
             </div>
 
-            {/* Filter categories */}
-            <div className="flex flex-wrap items-center gap-6 md:gap-8">
-              {/* Style Filter */}
-              <button
-                onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
-                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedCategory ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-              >
-                <span>{selectedCategory ? (isRTL ? `الأسلوب: ${selectedCategory}` : `Style: ${selectedCategory}`) : (isRTL ? 'الأسلوب' : 'Style')}</span>
-                <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Tone Filter */}
-              <button
-                onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
-                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedColor ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-              >
-                <span>{selectedColor ? (isRTL ? `الدرجة: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
-                <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Silhouette Filter (Size) */}
-              <button
-                onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
-                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedSize ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-              >
-                <span>{selectedSize ? (isRTL ? `القصّة: ${selectedSize}` : `Silhouette: ${selectedSize}`) : (isRTL ? 'القصّة' : 'Silhouette')}</span>
-                <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Collection Filter (Price) */}
-              <button
-                onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
-                className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${priceRange ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-              >
-                <span>{priceRange ? (isRTL ? 'المجموعة: محددة' : 'Collection: Selected') : (isRTL ? 'المجموعة' : 'Collection')}</span>
-                <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
-              </button>
-            </div>
-
-          </div>
-
-          {/* Filter Dropdowns Panels */}
-          <AnimatePresence>
-            {activeFilterTab && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="absolute left-0 right-0 mt-4 p-6 bg-white border border-[#e8dbd1] rounded-[20px] shadow-lg grid grid-cols-1 gap-6 z-40"
-              >
-                {/* Category Dropdown */}
-                {activeFilterTab === 'category' && (
-                  <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر الفئة' : 'Select Category'}</h4>
-                    <div className="flex flex-wrap gap-2.5">
-                      <button
-                        onClick={() => updateCategoryFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedCategory ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
-                      >
-                        {isRTL ? 'الكل' : 'All Gowns'}
-                      </button>
-                      {categoriesList.map(cat => (
+            {/* Filter Dropdowns Panels */}
+            <AnimatePresence>
+              {activeFilterTab && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="absolute left-0 right-0 mt-4 p-6 bg-white border border-[#e8dbd1] rounded-[20px] shadow-lg grid grid-cols-1 gap-6 z-40"
+                >
+                  {/* Category Dropdown */}
+                  {activeFilterTab === 'category' && (
+                    <div>
+                      <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر الفئة' : 'Select Category'}</h4>
+                      <div className="flex flex-wrap gap-2.5">
                         <button
-                          key={cat.en}
-                          onClick={() => updateCategoryFilter(isRTL ? cat.ar : cat.en)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedCategory === (isRTL ? cat.ar : cat.en) ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          onClick={() => updateCategoryFilter(null)}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedCategory ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
-                          {isRTL ? cat.ar : cat.en}
+                          {isRTL ? 'الكل' : 'All Gowns'}
                         </button>
-                      ))}
+                        {categoriesList.map(cat => (
+                          <button
+                            key={cat.en}
+                            onClick={() => updateCategoryFilter(isRTL ? cat.ar : cat.en)}
+                            className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedCategory === (isRTL ? cat.ar : cat.en) ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          >
+                            {isRTL ? cat.ar : cat.en}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Color Dropdown */}
-                {activeFilterTab === 'color' && (
-                  <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر درجة اللون' : 'Select Tone'}</h4>
-                    <div className="flex flex-wrap gap-2.5">
-                      <button
-                        onClick={() => updateColorFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedColor ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
-                      >
-                        {isRTL ? 'الكل' : 'All Tones'}
-                      </button>
-                      {colorsList.map(col => (
+                  {/* Color Dropdown */}
+                  {activeFilterTab === 'color' && (
+                    <div>
+                      <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر درجة اللون' : 'Select Tone'}</h4>
+                      <div className="flex flex-wrap gap-2.5">
                         <button
-                          key={col.id}
-                          onClick={() => updateColorFilter(col.id)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedColor === col.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          onClick={() => updateColorFilter(null)}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedColor ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
-                          {isRTL ? col.ar : col.en}
+                          {isRTL ? 'الكل' : 'All Tones'}
                         </button>
-                      ))}
+                        {colorsList.map(col => (
+                          <button
+                            key={col.id}
+                            onClick={() => updateColorFilter(col.id)}
+                            className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedColor === col.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          >
+                            {isRTL ? col.ar : col.en}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Size Dropdown */}
-                {activeFilterTab === 'size' && (
-                  <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر المقاس' : 'Select Size'}</h4>
-                    <div className="flex flex-wrap gap-2.5">
-                      <button
-                        onClick={() => updateSizeFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedSize ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
-                      >
-                        {isRTL ? 'الكل' : 'All Sizes'}
-                      </button>
-                      {sizesList.map(sz => (
+                  {/* Size Dropdown */}
+                  {activeFilterTab === 'size' && (
+                    <div>
+                      <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'اختر المقاس' : 'Select Size'}</h4>
+                      <div className="flex flex-wrap gap-2.5">
                         <button
-                          key={sz}
-                          onClick={() => updateSizeFilter(sz)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedSize === sz ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          onClick={() => updateSizeFilter(null)}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${!selectedSize ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
-                          {sz}
+                          {isRTL ? 'الكل' : 'All Sizes'}
                         </button>
-                      ))}
+                        {sizesList.map(sz => (
+                          <button
+                            key={sz}
+                            onClick={() => updateSizeFilter(sz)}
+                            className={`px-4 py-2 rounded-full text-xs transition-all border ${selectedSize === sz ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          >
+                            {sz}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Price Dropdown */}
-                {activeFilterTab === 'price' && (
-                  <div>
-                    <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'نطاق السعر' : 'Price Range'}</h4>
-                    <div className="flex flex-wrap gap-2.5">
-                      <button
-                        onClick={() => updatePriceFilter(null)}
-                        className={`px-4 py-2 rounded-full text-xs transition-all border ${!priceRange ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
-                      >
-                        {isRTL ? 'الكل' : 'All Prices'}
-                      </button>
-                      {pricesList.map(pr => (
+                  {/* Price Dropdown */}
+                  {activeFilterTab === 'price' && (
+                    <div>
+                      <h4 className="text-[0.62rem] font-bold uppercase tracking-wider text-[#8a7b71] mb-4">{isRTL ? 'نطاق السعر' : 'Price Range'}</h4>
+                      <div className="flex flex-wrap gap-2.5">
                         <button
-                          key={pr.id}
-                          onClick={() => updatePriceFilter(pr.id)}
-                          className={`px-4 py-2 rounded-full text-xs transition-all border ${priceRange === pr.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          onClick={() => updatePriceFilter(null)}
+                          className={`px-4 py-2 rounded-full text-xs transition-all border ${!priceRange ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
                         >
-                          {isRTL ? pr.ar : pr.en}
+                          {isRTL ? 'الكل' : 'All Prices'}
                         </button>
-                      ))}
+                        {pricesList.map(pr => (
+                          <button
+                            key={pr.id}
+                            onClick={() => updatePriceFilter(pr.id)}
+                            className={`px-4 py-2 rounded-full text-xs transition-all border ${priceRange === pr.id ? 'bg-[#2b1b12] text-white border-[#2b1b12]' : 'bg-transparent text-[#2b1b12] border-[#e8dbd1] hover:border-[#2b1b12]'}`}
+                          >
+                            {isRTL ? pr.ar : pr.en}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -512,25 +494,24 @@ export default function Collections() {
                     style={{ maxHeight: 600 }}
                     onClick={() => openModal(g)}
                   >
-                    <img 
-                      src={g.image} 
-                      alt={isRTL ? g.name.ar : g.name.en} 
-                      loading="lazy" 
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-106" 
+                    <img
+                      src={g.image}
+                      alt={isRTL ? g.name.ar : g.name.en}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-106"
                     />
-                    
+
                     {/* Heart Button — refined size */}
                     <button
                       onClick={(e) => toggleFav(g.id, e)}
-                      className={`heart-btn w-8 h-8 rounded-full flex items-center justify-center absolute top-3 right-3 z-10 border shadow-sm transition-all ${
-                        favorites.has(g.id) ? 'bg-[#c49a78] border-[#c49a78]' : 'bg-white/80 border-white/50 hover:bg-white'
-                      }`}
+                      className={`heart-btn w-8 h-8 rounded-full flex items-center justify-center absolute top-3 right-3 z-10 border shadow-sm transition-all ${favorites.has(g.id) ? 'bg-[#c49a78] border-[#c49a78]' : 'bg-white/80 border-white/50 hover:bg-white'
+                        }`}
                     >
-                      <Heart 
-                        size={12} 
-                        fill={favorites.has(g.id) ? 'white' : 'none'} 
-                        strokeWidth={1.8} 
-                        style={{ color: favorites.has(g.id) ? 'white' : 'var(--color-ink)' }} 
+                      <Heart
+                        size={12}
+                        fill={favorites.has(g.id) ? 'white' : 'none'}
+                        strokeWidth={1.8}
+                        style={{ color: favorites.has(g.id) ? 'white' : 'var(--color-ink)' }}
                       />
                     </button>
 
@@ -582,11 +563,10 @@ export default function Collections() {
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
-                        className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
-                          isActive 
-                            ? 'bg-[#c49a78] text-white shadow-soft font-bold' 
-                            : 'text-[#8a7b71] hover:text-[#2b1b12] hover:bg-amber-100/35'
-                        }`}
+                        className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${isActive
+                          ? 'bg-[#c49a78] text-white shadow-soft font-bold'
+                          : 'text-[#8a7b71] hover:text-[#2b1b12] hover:bg-amber-100/35'
+                          }`}
                       >
                         {pageNum}
                       </button>
@@ -693,7 +673,7 @@ export default function Collections() {
               <div className="w-10 h-10 rounded-full bg-[#C6A27A]/15 border border-[#C6A27A]/30 flex items-center justify-center mb-2">
                 <span className="text-[#C6A27A] font-bold text-sm">03</span>
               </div>
-              <h3 className="text-lg font-bold text-white" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <h3 className="text-lg font-bold text-white font-serif">
                 {isRTL ? 'مزايا حصرية' : 'Exclusive Benefits'}
               </h3>
               <ul className="space-y-3 flex-1">
@@ -710,10 +690,7 @@ export default function Collections() {
               <div className="pt-4">
                 <Link
                   to="/book-appointment"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full font-bold uppercase tracking-wider py-4 px-8 text-[0.68rem] transition-all duration-300"
-                  style={{ background: '#C6A27A', color: '#0F0D0B' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#e2c5a4'; (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(198,162,122,0.4)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#C6A27A'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full font-bold uppercase tracking-wider py-4 px-8 text-[0.68rem] transition-all duration-300 bg-[#C6A27A] text-[#0F0D0B] hover:bg-[#e2c5a4] hover:shadow-[0_6px_20px_rgba(198,162,122,0.4)]"
                 >
                   {isRTL ? 'ابدئي تصميم فستانكِ الخاص ✦' : 'Begin Your Custom Gown ✦'}
                 </Link>
@@ -753,16 +730,16 @@ export default function Collections() {
               </button>
 
               <div className="w-full md:w-1/2 h-[320px] md:h-auto relative overflow-hidden group bg-white">
-                <img 
-                  src={modal.image} 
-                  alt={isRTL ? modal.name.ar : modal.name.en} 
-                  className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105" 
+                <img
+                  src={modal.image}
+                  alt={isRTL ? modal.name.ar : modal.name.en}
+                  className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
               </div>
 
               <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-white">
-                
+
                 <span className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#c49a78] mb-3">
                   {isRTL ? modal.category.ar : modal.category.en}
                 </span>
@@ -772,7 +749,7 @@ export default function Collections() {
                 </h2>
 
                 <p className="price-gold text-2xl mb-6 font-extrabold">
-                  ${modal.price.toLocaleString()}
+                  {isRTL ? `${modal.price.toLocaleString()}$` : `$${modal.price.toLocaleString()}`}
                 </p>
 
                 <p className="text-sm text-[#8a7b71] font-sans font-semibold leading-relaxed mb-8">
@@ -796,11 +773,10 @@ export default function Collections() {
                             type="button"
                             key={c.id}
                             onClick={() => setColor(c.id as 'white' | 'offWhite')}
-                            className={`flex items-center gap-2 px-4 py-2 border rounded-full transition-all text-xs ${
-                              isSelected 
-                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold' 
-                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
-                            }`}
+                            className={`flex items-center gap-2 px-4 py-2 border rounded-full transition-all text-xs ${isSelected
+                              ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
+                              : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
+                              }`}
                           >
                             <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#c49a78]' : 'border-[#e8dbd1]'}`}>
                               {isSelected && <span className="w-2 h-2 rounded-full bg-[#c49a78]" />}
@@ -818,15 +794,15 @@ export default function Collections() {
                       <label className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71]">
                         {copy.quickViewModal.chooseSize}
                       </label>
-                      <Link 
-                        to="/size-guide" 
+                      <Link
+                        to="/size-guide"
                         onClick={() => setModal(null)}
                         className="text-[0.6rem] uppercase tracking-wider text-[#c49a78] hover:text-[#a37351] transition-colors border-b border-[#c49a78]/20 pb-0.5"
                       >
                         {isRTL ? 'دليل القياسات الفني' : 'Size Guide'}
                       </Link>
                     </div>
-                    
+
                     <div className="flex gap-3">
                       {(['S', 'M', 'L'] as const).map((s) => {
                         const isSelected = size === s;
@@ -835,11 +811,10 @@ export default function Collections() {
                             type="button"
                             key={s}
                             onClick={() => setSize(s)}
-                            className={`flex-1 py-3 text-center border text-xs tracking-wider transition-all rounded-lg ${
-                              isSelected 
-                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold' 
-                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
-                            }`}
+                            className={`flex-1 py-3 text-center border text-xs tracking-wider transition-all rounded-lg ${isSelected
+                              ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
+                              : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
+                              }`}
                           >
                             {s}
                           </button>

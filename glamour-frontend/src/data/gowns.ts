@@ -45,6 +45,8 @@ const WEDDING_IMAGES = [
 
 
 const EVENING_IMAGES = [
+  '/dress_evening_brown.png',
+  '/dress_evening_green.png',
   'https://images.pexels.com/photos/11039097/pexels-photo-11039097.jpeg?auto=compress&cs=tinysrgb&w=800',
   'https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg?auto=compress&cs=tinysrgb&w=800',
   'https://images.pexels.com/photos/2766384/pexels-photo-2766384.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -54,9 +56,7 @@ const EVENING_IMAGES = [
   'https://images.pexels.com/photos/11039096/pexels-photo-11039096.jpeg?auto=compress&cs=tinysrgb&w=800',
   'https://images.pexels.com/photos/6763521/pexels-photo-6763521.jpeg?auto=compress&cs=tinysrgb&w=800',
   'https://images.pexels.com/photos/2855146/pexels-photo-2855146.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/230129/pexels-photo-230129.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/3400627/pexels-photo-3400627.jpeg?auto=compress&cs=tinysrgb&w=800'
+  'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800'
 ];
 
 const categories = [
@@ -96,7 +96,7 @@ const generateGowns = (): Gown[] => {
       id: `gw${i}`,
       nameKey: `collections.gowns.gw${i}.name`,
       catKey: `collections.gowns.gw${i}.category`,
-      price: 1800 + (i % 5) * 350,
+      price: 250 + ((i - 1) % 6) * 250,
       image,
       type: 'wedding',
       category: cat,
@@ -146,13 +146,13 @@ const generateGowns = (): Gown[] => {
       id: `ge${i}`,
       nameKey: `collections.gowns.ge${i}.name`,
       catKey: `collections.gowns.ge${i}.category`,
-      price: 1500 + (i % 6) * 280,
+      price: 250 + ((i - 1) % 6) * 250,
       image,
       type: 'evening',
       category: cat,
       name: {
-        en: `${cat.en} Evening Gown`,
-        ar: `فستان سهرة ${cat.ar}`
+        en: `Royal ${cat.en} Evening Gown`,
+        ar: `فستان سهرة ${cat.ar} الملكي`
       },
       colors: ['emerald', 'gold', 'ruby', 'black'],
       sizes: ['S', 'M', 'L'],

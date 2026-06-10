@@ -14,7 +14,7 @@ const HeroSection = () => {
   const isRTL = i18n.language === 'ar';
 
   return (
-    <section ref={ref} className="relative flex items-end overflow-hidden" style={{ height: '90vh', minHeight: 750 }}>
+    <section ref={ref} className="relative flex items-end overflow-hidden h-[90vh] min-h-[750px]">
 
       {/* Parallax background image — luxury royal bridal gown */}
       <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
@@ -26,17 +26,12 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Multi-layered cinematic overlays — no white fade */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.92) 0%, rgba(10,8,6,0.55) 55%, rgba(10,8,6,0.2) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,0.98) 0%, rgba(10,8,6,0.35) 40%, transparent 70%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,8,6,0.45) 0%, transparent 25%)' }} />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806]/92 via-[#0a0806]/55 to-[#0a0806]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/98 via-[#0a0806]/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/45 to-transparent" />
 
       {/* Radial accent glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 15% 70%, rgba(212,176,138,0.14) 0%, transparent 60%)' }}
-      />
-
-
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_15%_70%,rgba(212,176,138,0.14)_0%,transparent_60%)]" />
 
       {/* Main content */}
       <motion.div
@@ -49,16 +44,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 80, filter: 'blur(18px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-white"
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(2.4rem, 6.5vw, 4.8rem)',
-            fontWeight: 300,
-            lineHeight: 1.1,
-            letterSpacing: '0.04em',
-            maxWidth: 820,
-            textShadow: '0 0 40px rgba(198,162,122,0.35), 0 0 80px rgba(198,162,122,0.15)',
-          }}
+          className="font-serif text-[clamp(2.4rem,6.5vw,4.8rem)] font-light leading-[1.1] tracking-[0.04em] max-w-[820px] text-white"
+          style={{ textShadow: '0 0 40px rgba(198,162,122,0.35), 0 0 80px rgba(198,162,122,0.15)' }}
         >
           {isRTL ? (
             <span className="shimmer-luxury-text">
@@ -76,7 +63,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 1.2, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ width: 80, height: 1, background: 'linear-gradient(to right, var(--color-gold), transparent)', margin: '30px 0 24px', transformOrigin: 'left' }}
+          className="w-20 h-[1px] bg-gradient-to-r from-[#C6A27A] to-transparent my-6 origin-left"
         />
 
         {/* Subtitle */}
@@ -84,16 +71,8 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 1.0 }}
-          style={{
-            color: 'rgba(255,255,255,0.65)',
-            fontSize: '0.82rem',
-            lineHeight: 1.8,
-            maxWidth: 480,
-            fontFamily: 'Manrope, sans-serif',
-            fontWeight: 300,
-            textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-            marginBottom: 40,
-          }}
+          className="text-white/65 text-[0.82rem] leading-[1.8] max-w-[480px] font-sans font-light mb-10 shadow-sm"
+          style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
         >
           {isRTL
             ? 'نصمم فساتين زفاف استثنائية تُفصّل خصيصًا لكِ، وتمزج بين الحرفية الراقية والتفاصيل الخالدة لتصنع إطلالة لا تُنسى بتفاصيل صُنعت لتبقى وتخلد أجمل ذكرياتكِ إلى الأبد.'
@@ -109,28 +88,7 @@ const HeroSection = () => {
         >
           <Link
             to="/collections"
-            className="group inline-flex items-center gap-3"
-            style={{
-              background: 'linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-deep) 100%)',
-              color: '#100e0c',
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '0.82rem',
-              fontWeight: 700,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              padding: '18px 40px',
-              borderRadius: 999,
-              boxShadow: '0 8px 30px rgba(198,162,122,0.3), 0 0 15px rgba(198,162,122,0.2)',
-              transition: 'all 0.4s ease',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 36px rgba(198,162,122,0.5), 0 0 20px rgba(198,162,122,0.3)';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.transform = '';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(198,162,122,0.3), 0 0 15px rgba(198,162,122,0.2)';
-            }}
+            className="group inline-flex items-center gap-3 bg-gradient-to-br from-[#C6A27A] to-[#a37e58] text-[#100e0c] font-sans text-[0.82rem] font-bold tracking-[0.18em] uppercase py-[18px] px-10 rounded-full shadow-[0_8px_30px_rgba(198,162,122,0.3),_0_0_15px_rgba(198,162,122,0.2)] transition-all duration-400 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(198,162,122,0.5),_0_0_20px_rgba(198,162,122,0.3)]"
           >
             {isRTL ? 'اكتشفي المجموعة' : 'Explore Collection'}
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
@@ -138,30 +96,7 @@ const HeroSection = () => {
 
           <Link
             to="/book-appointment"
-            className="group inline-flex items-center gap-2"
-            style={{
-              color: 'rgba(255,255,255,0.85)',
-              border: '1px solid rgba(255,255,255,0.25)',
-              padding: '15px 34px',
-              borderRadius: 999,
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '0.82rem',
-              letterSpacing: '0.18em',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              transition: 'all 0.3s ease',
-              backdropFilter: 'blur(4px)',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.color = 'var(--color-gold)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-gold)';
-              (e.currentTarget as HTMLElement).style.background = 'rgba(198,162,122,0.05)';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.85)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)';
-              (e.currentTarget as HTMLElement).style.background = 'transparent';
-            }}
+            className="group inline-flex items-center gap-2 text-white/85 border border-white/25 py-[15px] px-[34px] rounded-full font-sans text-[0.82rem] tracking-[0.18em] font-semibold uppercase backdrop-blur-[4px] transition-all duration-300 hover:text-[#C6A27A] hover:border-[#C6A27A] hover:bg-[#C6A27A]/5"
           >
             {isRTL ? 'احجزي موعدكِ الخاص' : 'Book Private Fitting'}
           </Link>
@@ -175,15 +110,11 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 2.0, duration: 1.2 }}
       >
-        <span style={{ fontSize: '0.48rem', letterSpacing: '0.48em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', fontFamily: 'Manrope, sans-serif' }}>
+        <span className="text-[0.48rem] tracking-[0.48em] uppercase text-white/25 font-sans">
           SCROLL
         </span>
         <motion.div
-          style={{
-            width: 1,
-            height: 56,
-            background: 'linear-gradient(to bottom, var(--color-gold), transparent)',
-          }}
+          className="w-[1px] h-14 bg-gradient-to-b from-[#C6A27A] to-transparent"
           animate={{ scaleY: [0, 1], opacity: [0, 1, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         />
