@@ -4,10 +4,11 @@ export interface Gown {
   catKey: string;
   price: number;
   image: string;
+  type: 'wedding' | 'evening';
   category: { en: string; ar: string };
   name: { en: string; ar: string };
-  colors: string[]; // e.g. ['white', 'offWhite']
-  sizes: string[];  // e.g. ['S', 'M', 'L']
+  colors: string[];
+  sizes: string[];
   desc: { en: string; ar: string };
   details: { en: string[]; ar: string[] };
   images: string[];
@@ -20,6 +21,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g1.category',
     price: 2400,
     image: 'https://images.pexels.com/photos/28863320/pexels-photo-28863320.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Ballgown', ar: 'منفوش' },
     name: { en: 'Royal Empress Gown', ar: 'فستان الإمبراطورة الملكي' },
     colors: ['white', 'offWhite'],
@@ -44,6 +46,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g2.category',
     price: 1200,
     image: 'https://images.pexels.com/photos/27269998/pexels-photo-27269998.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
     name: { en: 'Aria Imperial Gown', ar: 'أيقونة آريا الملكية' },
     colors: ['white', 'offWhite'],
@@ -67,6 +70,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g3.category',
     price: 2100,
     image: 'https://images.pexels.com/photos/6536968/pexels-photo-6536968.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Ballgown', ar: 'منفوش' },
     name: { en: 'Celestine Glow Gown', ar: 'فستان توهج سيلستين' },
     colors: ['white', 'offWhite'],
@@ -90,6 +94,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g4.category',
     price: 2600,
     image: 'https://images.pexels.com/photos/15983831/pexels-photo-15983831.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Imperial', ar: 'إمبراطوري' },
     name: { en: 'Duchess Illusion Gown', ar: 'فستان الوهم الدوقي' },
     colors: ['white', 'offWhite'],
@@ -113,6 +118,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g5.category',
     price: 1500,
     image: 'https://images.pexels.com/photos/19279696/pexels-photo-19279696.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'A-Line', ar: 'إيه لاين' },
     name: { en: 'Ivory Whisper Gown', ar: 'فستان همس العاج' },
     colors: ['white', 'offWhite'],
@@ -135,6 +141,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g6.category',
     price: 1950,
     image: 'https://images.pexels.com/photos/29536878/pexels-photo-29536878.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Romantic', ar: 'رومانسي' },
     name: { en: 'Ethereal Off-Shoulder Gown', ar: 'فستان الأكتاف المنسدلة الأثيري' },
     colors: ['white', 'offWhite'],
@@ -157,6 +164,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g7.category',
     price: 1700,
     image: 'https://images.pexels.com/photos/34317567/pexels-photo-34317567.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Boho Chic', ar: 'بوهيمي أنيق' },
     name: { en: 'Siren of Tulle Gown', ar: 'فستان تول سيرين' },
     colors: ['white', 'offWhite'],
@@ -179,6 +187,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g8.category',
     price: 2250,
     image: 'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Modest Luxury', ar: 'فخامة محتشمة' },
     name: { en: 'Modest Grace Gown', ar: 'فستان النعمة المحتشمة' },
     colors: ['white', 'offWhite'],
@@ -200,7 +209,8 @@ export const GOWNS_DATA: Gown[] = [
     nameKey: 'collections.gowns.g9.name',
     catKey: 'collections.gowns.g9.category',
     price: 3100,
-    image: 'https://images.pexels.com/photos/27269998/pexels-photo-27269998.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Ballgown', ar: 'منفوش' },
     name: { en: 'Duchess Grand Ballgown', ar: 'فستان منفوش دوقة الكبرى' },
     colors: ['white', 'offWhite'],
@@ -213,7 +223,7 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Heavy Duchess satin', 'Structured petticoat skirt', 'Off-shoulder cuffs', 'Cathedral train'],
       ar: ['ساتان دوقس ثقيل', 'تنورة مدعمة بهيكل', 'أكتاف منسدلة عريضة', 'ذيل ممتد طويل جداً']
     },
-    images: ['https://images.pexels.com/photos/27269998/pexels-photo-27269998.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g10',
@@ -221,6 +231,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g10.category',
     price: 2300,
     image: 'https://images.pexels.com/photos/13112095/pexels-photo-13112095.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
     name: { en: 'Venus Lace Gown', ar: 'فستان دانتيل فينوس' },
     colors: ['white', 'offWhite'],
@@ -241,6 +252,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g11.category',
     price: 1800,
     image: 'https://images.pexels.com/photos/9004584/pexels-photo-9004584.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'A-Line', ar: 'إيه لاين' },
     name: { en: 'Luminara Tulle A-Line', ar: 'فستان لومينارا إيه لاين' },
     colors: ['white', 'offWhite'],
@@ -261,6 +273,7 @@ export const GOWNS_DATA: Gown[] = [
     catKey: 'collections.gowns.g12.category',
     price: 2200,
     image: 'https://images.pexels.com/photos/14358523/pexels-photo-14358523.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'wedding' as const,
     category: { en: 'Romantic', ar: 'رومانسي' },
     name: { en: 'Florence Garden Gown', ar: 'فستان حديقة فلورنسا' },
     colors: ['white', 'offWhite'],
@@ -280,30 +293,32 @@ export const GOWNS_DATA: Gown[] = [
     nameKey: 'collections.gowns.g13.name',
     catKey: 'collections.gowns.g13.category',
     price: 1600,
-    image: 'https://images.pexels.com/photos/36553761/pexels-photo-36553761.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/11039097/pexels-photo-11039097.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Boho Chic', ar: 'بوهيمي أنيق' },
     name: { en: 'Boho Meadows Silhouette', ar: 'فستان بوهو السهول' },
-    colors: ['white', 'offWhite'],
+    colors: ['emerald', 'gold'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A relaxed, crochet lace bridal gown, perfect for whimsical outdoor and garden weddings.',
-      ar: 'فستان زفاف دانتيل كروشيه كاجوال ومريح، مثالي لحفلات الزفاف في الهواء الطلق والحدائق الخيالية.'
+      en: 'A relaxed, crochet lace evening gown, perfect for whimsical outdoor and garden events.',
+      ar: 'فستان سهرة دانتيل كروشيه كاجوال ومريح، مثالي لحفلات السهرة في الهواء الطلق والحدائق الخيالية.'
     },
     details: {
       en: ['Crochet vintage lace', 'Fringe lace hem', 'Comfort straps', 'Breathable linen lining'],
       ar: ['دانتيل كروشيه عتيق', 'حاشية دانتيل شراشيب', 'أحزمة مريحة', 'بطانة كتان ناعمة للتنفس']
     },
-    images: ['https://images.pexels.com/photos/36553761/pexels-photo-36553761.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/11039097/pexels-photo-11039097.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g14',
     nameKey: 'collections.gowns.g14.name',
     catKey: 'collections.gowns.g14.category',
     price: 2500,
-    image: 'https://images.pexels.com/photos/9004582/pexels-photo-9004582.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Modest Luxury', ar: 'فخامة محتشمة' },
     name: { en: 'Adora Modest Crepe', ar: 'فستان أدورا كريب المحتشم' },
-    colors: ['white', 'offWhite'],
+    colors: ['navy', 'black'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A high-neck long-sleeve premium crepe gown with minimal embellishments for structured modest elegance.',
@@ -313,17 +328,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Heavy crepe fabric', 'High crew neck', 'Puff shoulder detail', 'Zippered sleeves'],
       ar: ['كريب ثقيل فاخر', 'ياقة دائرية عالية', 'كتف منفوخ ناعم', 'أكمام مزودة بسحابات مريحة']
     },
-    images: ['https://images.pexels.com/photos/9004582/pexels-photo-9004582.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g15',
     nameKey: 'collections.gowns.g15.name',
     catKey: 'collections.gowns.g15.category',
     price: 2750,
-    image: 'https://images.pexels.com/photos/2036929/pexels-photo-2036929.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/2766384/pexels-photo-2766384.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Imperial', ar: 'إمبراطوري' },
     name: { en: 'Athena Silk Column', ar: 'فستان أثينا الحريري العمودي' },
-    colors: ['white', 'offWhite'],
+    colors: ['red', 'burgundy'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'Pure silk crepe column gown featuring structured shoulder pads and an open cowl back drape.',
@@ -333,17 +349,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['100% silk crepe de chine', 'Cowl draped back', 'Structured shoulders', 'Side thigh slit option'],
       ar: ['كريب حرير طبيعي 100%', 'ظهر منسدل متموج', 'أكتاف مبطنة قوية', 'فتحة جانبية على الفخذ اختيارية']
     },
-    images: ['https://images.pexels.com/photos/2036929/pexels-photo-2036929.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/2766384/pexels-photo-2766384.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g16',
     nameKey: 'collections.gowns.g16.name',
     catKey: 'collections.gowns.g16.category',
     price: 1900,
-    image: 'https://images.pexels.com/photos/3831193/pexels-photo-3831193.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/2916820/pexels-photo-2916820.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'A-Line', ar: 'إيه لاين' },
     name: { en: 'Giselle Lace Whispers', ar: 'فستان جيزيل دانتيل ويسبرز' },
-    colors: ['white', 'offWhite'],
+    colors: ['gold', 'champagne'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'An A-line gown showcasing a beautiful lace bodice and layered silk organza skirt.',
@@ -353,17 +370,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Silk organza skirt', 'Guipure lace bodice', 'Slim keyhole back', 'Whisper-light train'],
       ar: ['تنورة أورجانزا حريرية', 'صدرية دانتيل جيبير', 'ظهر بفتحة رفيعة', 'ذيل ناعم وخفيف الوزن']
     },
-    images: ['https://images.pexels.com/photos/3831193/pexels-photo-3831193.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/2916820/pexels-photo-2916820.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g17',
     nameKey: 'collections.gowns.g17.name',
     catKey: 'collections.gowns.g17.category',
     price: 2450,
-    image: 'https://images.pexels.com/photos/3014853/pexels-photo-3014853.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/3200007/pexels-photo-3200007.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
     name: { en: 'Aurelia Silhouette Gown', ar: 'فستان أوريليا المبتكر' },
-    colors: ['white', 'offWhite'],
+    colors: ['black', 'emerald'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A dramatic sculpted gown with structured lace patterns and an expansive tulle flare at the knees.',
@@ -373,17 +391,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Structured lace panels', 'Multi-layer tulle flare', 'Corset bodice back ties', 'Chapel length train'],
       ar: ['ألواح دانتيل هيكلية', 'تول متعدد الطبقات منفوش', 'أربطة كورسيه خلفية', 'ذيل متوسط الطول كلاسيكي']
     },
-    images: ['https://images.pexels.com/photos/3014853/pexels-photo-3014853.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/3200007/pexels-photo-3200007.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g18',
     nameKey: 'collections.gowns.g18.name',
     catKey: 'collections.gowns.g18.category',
     price: 3500,
-    image: 'https://images.pexels.com/photos/2916820/pexels-photo-2916820.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/9825854/pexels-photo-9825854.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Ballgown', ar: 'منفوش ملكي' },
     name: { en: 'Seraphina Cathedral Gown', ar: 'فستان سيرافينا الكاتدرائية' },
-    colors: ['white', 'offWhite'],
+    colors: ['blue', 'royalBlue'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'The ultimate royal experience, complete with hand-embroidered pearls and a magnificent cathedral train.',
@@ -393,17 +412,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Hand-sewn micro pearls', 'Cathedral length train', 'Internal steel boning corset', 'Luxury silk satin skirt'],
       ar: ['لؤلؤ مطرز يدوياً بالكامل', 'ذيل بطول الكاتدرائية', 'مشد داخلي داعم بأسلاك مرنة', 'تنورة من الساتان الحريري الفاخر']
     },
-    images: ['https://images.pexels.com/photos/2916820/pexels-photo-2916820.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/9825854/pexels-photo-9825854.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g19',
     nameKey: 'collections.gowns.g19.name',
     catKey: 'collections.gowns.g19.category',
     price: 2150,
-    image: 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/11039096/pexels-photo-11039096.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Romantic', ar: 'رومانسي حالم' },
     name: { en: 'Vienna Sweetheart Gown', ar: 'فستان فيينا الرومانسي' },
-    colors: ['white', 'offWhite'],
+    colors: ['emerald', 'green'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A soft romantic tulle gown showcasing a sweetheart neckline and beautiful floral lace appliques.',
@@ -411,19 +431,20 @@ export const GOWNS_DATA: Gown[] = [
     },
     details: {
       en: ['Premium sweetheart neck', 'Soft champagne lining', 'Crystal beads floral lace', 'Easy zip back closure'],
-      ar: ['ياقة قلب فاخرة', 'بطانة ناعمة بلون الشامبانيا', 'دانتيل زهور مطرز بالخرز الكريستالي', 'سحاب خلفي مخفي مريح']
+      ar: ['ياق قلب فاخرة', 'بطانة ناعمة بلون الشامبانيا', 'دانتيل زهور مطرز بالخرز الكريستالي', 'سحاب خلفي مخفي مريح']
     },
-    images: ['https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/11039096/pexels-photo-11039096.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g20',
     nameKey: 'collections.gowns.g20.name',
     catKey: 'collections.gowns.g20.category',
     price: 1850,
-    image: 'https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/6763521/pexels-photo-6763521.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Boho Chic', ar: 'بوهيمي أنيق' },
     name: { en: 'Elysian Fields Lace', ar: 'فستان حقول الإليسيان بوهو' },
-    colors: ['white', 'offWhite'],
+    colors: ['beige', 'roseGold'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A boho chic wedding gown featuring flowy chiffon sleeves and heavy cotton lace panels.',
@@ -433,17 +454,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Flowing chiffon bell sleeves', 'Cotton embroidery lace', 'A-line shape', 'V-back closure'],
       ar: ['أكمام جرس شيفون انسيابية', 'دانتيل قطني مطرز', 'قصة إيه لاين', 'إغلاق خلفي على شكل حرف V']
     },
-    images: ['https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/6763521/pexels-photo-6763521.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g21',
     nameKey: 'collections.gowns.g21.name',
     catKey: 'collections.gowns.g21.category',
     price: 2900,
-    image: 'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/2855146/pexels-photo-2855146.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Modest Luxury', ar: 'فخامة محتشمة' },
     name: { en: 'Vesper Modest Satin', ar: 'فستان فيسبر الحريري المحتشم' },
-    colors: ['white', 'offWhite'],
+    colors: ['purple', 'plum'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'High-neck premium heavy satin gown with long cuffed sleeves, exuding timeless modest elegance.',
@@ -453,17 +475,18 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Heavy Duchess satin', 'High neck drape collar', 'Pearl buttons on cuffs', 'Classic pleated A-line'],
       ar: ['ساتان دوقس ثقيل', 'ياقة عالية منسدلة', 'أزرار لؤلؤية على الأساور', 'كسرات كلاسيكية على قصة إيه لاين']
     },
-    images: ['https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/2855146/pexels-photo-2855146.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g22',
     nameKey: 'collections.gowns.g22.name',
     catKey: 'collections.gowns.g22.category',
     price: 3200,
-    image: 'https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Imperial', ar: 'إمبراطوري' },
     name: { en: 'Cleopatra Beadwork Column', ar: 'فستان كليوباترا العمودي المطرز' },
-    colors: ['white', 'offWhite'],
+    colors: ['silver', 'grey'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A high-end column gown heavily decorated with geometric crystal beadwork along the sleeves and shoulders.',
@@ -473,37 +496,39 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Geometric hand beadwork', 'Premium silk lining', 'Back slit for comfort walk', 'Sleek collar design'],
       ar: ['تطريز خرز يدوي هندسي', 'بطانة حريرية فاخرة', 'فتحة خلفية لراحة المشي', 'تصميم ياقة أنيقة']
     },
-    images: ['https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g23',
     nameKey: 'collections.gowns.g23.name',
     catKey: 'collections.gowns.g23.category',
     price: 1750,
-    image: 'https://images.pexels.com/photos/2253842/pexels-photo-2253842.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/230129/pexels-photo-230129.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'A-Line', ar: 'إيه لاين' },
     name: { en: 'Minimalist Silk Whisper', ar: 'فستان همس الحرير البسيط' },
-    colors: ['white', 'offWhite'],
+    colors: ['olive', 'green'],
     sizes: ['S', 'M', 'L'],
     desc: {
-      en: 'A completely clean, unembellished silk crepe A-line gown for the ultimate minimalist bride.',
+      en: 'A completely clean, unembellished silk crepe A-line gown for the ultimate minimalist.',
       ar: 'فستان إيه لاين بسيط ونظيف تماماً من كريب الحرير الناعم، مصمم خصيصاً للعروس العصرية المحبة للبساطة.'
     },
     details: {
       en: ['100% silk crepe', 'Pocket detail skirt', 'Boat neckline', 'Low scoop back'],
       ar: ['كريب حرير طبيعي 100%', 'تنورة مزودة بجيوب جانبية', 'فتحة رقبة قارب كلاسيكية', 'ظهر منخفض مقوس مذهل']
     },
-    images: ['https://images.pexels.com/photos/2253842/pexels-photo-2253842.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/230129/pexels-photo-230129.jpeg?auto=compress&cs=tinysrgb&w=800']
   },
   {
     id: 'g24',
     nameKey: 'collections.gowns.g24.name',
     catKey: 'collections.gowns.g24.category',
     price: 2650,
-    image: 'https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/3400627/pexels-photo-3400627.jpeg?auto=compress&cs=tinysrgb&w=800',
+    type: 'evening' as const,
     category: { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
     name: { en: 'Siren Premium Silk Gown', ar: 'فستان سيرين الحريري الفاخر' },
-    colors: ['white', 'offWhite'],
+    colors: ['roseGold', 'gold'],
     sizes: ['S', 'M', 'L'],
     desc: {
       en: 'A stunning silk satin sculpted gown featuring structured pleats and a structured corset bodice.',
@@ -513,6 +538,6 @@ export const GOWNS_DATA: Gown[] = [
       en: ['Premium silk satin', 'Built-in corset boning', 'Structured pleats on train', 'Low square back'],
       ar: ['ساتان حريري فاخر', 'مشد كورسيه مدعم مدمج', 'كسرات هيكلية على الذيل', 'ظهر مربع منخفض']
     },
-    images: ['https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=800']
+    images: ['https://images.pexels.com/photos/3400627/pexels-photo-3400627.jpeg?auto=compress&cs=tinysrgb&w=800']
   }
 ];

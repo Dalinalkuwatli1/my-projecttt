@@ -34,7 +34,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
       <div className="overflow-hidden mb-8 flex items-center justify-center">
         <motion.img
           src={logo}
-          alt="Glamour Group"
+          alt="Glamour Haute Couture"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
