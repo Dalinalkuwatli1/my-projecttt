@@ -119,6 +119,7 @@ export default function Collections() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const [activeFilterTab, setActiveFilterTab] = useState<'category' | 'color' | 'size' | 'price' | null>(null);
+  const [selectedCollection, setSelectedCollection] = useState<'c1' | 'c2' | 'c3' | null>(null);
 
   // TYPE FILTER (from URL query param or toggle)
   const location = useLocation();
@@ -127,7 +128,7 @@ export default function Collections() {
 
   // PAGINATION STATES
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 12;
 
   const { addToCart: addGlobalToCart } = useCart();
 
@@ -170,6 +171,7 @@ export default function Collections() {
   // FILTER LOGIC
   const filteredGowns = GOWNS_DATA.filter(gown => {
     if (selectedType && gown.type !== selectedType) return false;
+    if (selectedCollection && gown.collection !== selectedCollection) return false;
     if (selectedCategory && gown.category.en !== selectedCategory && gown.category.ar !== selectedCategory) {
       return false;
     }
@@ -247,7 +249,7 @@ export default function Collections() {
   ];
 
   return (
-    <div className="min-h-screen pb-20 selection:bg-amber-100 selection:text-ink bg-[#F7F4EF] text-[#2b1b12]">
+    <div className="min-h-screen pb-20 selection:bg-amber-100 selection:text-ink bg-[#FAF8F5] text-[#2b1b12]">
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
          1. CINEMATIC FULL-WIDTH BACKGROUND HERO
@@ -266,7 +268,7 @@ export default function Collections() {
       >
         <div className="absolute inset-0 bg-black/58" />
         <div className="absolute inset-x-0 bottom-0 h-32"
-          style={{ background: 'linear-gradient(to top, #F7F4EF, transparent)' }} />
+          style={{ background: 'linear-gradient(to top, #FAF8F5, transparent)' }} />
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -288,6 +290,110 @@ export default function Collections() {
           </p>
         </motion.div>
       </section>
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         2. THREE COLLECTIONS SHOWCASE (WIDE AS ASPECT RATIOS)
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-16 pt-16 pb-12">
+        <div className="text-center mb-10">
+          <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.34em] text-[#c49a78] block mb-3">
+            ✦ {isRTL ? 'عوالم الإبداع الفني' : 'THE ARTISTIC WORLDS'} ✦
+          </span>
+          <h2 className="text-3xl md:text-4xl text-[#2b1b12] font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            {isRTL ? 'مجموعات الكوتور الثلاث' : 'Our Three Couture Collections'}
+          </h2>
+          <p className="text-[#8a7b71] text-sm mt-3 max-w-xl mx-auto">
+            {isRTL 
+              ? 'رحلة بصرية تأخذكِ في عوالم التصاميم المتفردة، انقري لتصفح فساتين كل مجموعة.' 
+              : 'A visual journey into unique couture designs. Click on any collection to filter our creations.'}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              id: 'c1',
+              title: { en: 'Spring Reverie 2027', ar: 'أحلام الربيع 2027' },
+              desc: {
+                en: 'A celebration of floral motifs, lightweight tulle, and romantic silhouettes.',
+                ar: 'احتفاء شاعري بزخارف الزهور المجسمة، وطيات التول الشفاف الخفيف، والظلال الرومانسية الحالمة.'
+              },
+              image: 'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800'
+            },
+            {
+              id: 'c2',
+              title: { en: 'Classic Elegance', ar: 'أناقة كلاسيكية ملكية' },
+              desc: {
+                en: 'Timeless designs featuring heavy satin, intricate lace, and architectural structure.',
+                ar: 'تصاميم ملكية خالدة تعتمد على الساتان الدوقس الفاخر، والدانتيل العتيق المعقد، والقصّات الهندسية المهيبة.'
+              },
+              image: 'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800'
+            },
+            {
+              id: 'c3',
+              title: { en: 'Modern Minimalist', ar: 'بساطة عصرية راقية' },
+              desc: {
+                en: 'Clean lines, stark whites, and unembellished perfection for the contemporary bride.',
+                ar: 'انحناءات هندسية نقية، بياض ثلجي ناصع، وجمال خالٍ من التكلف صُنع خصيصاً للعروس المعاصرة.'
+              },
+              image: 'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800'
+            }
+          ].map((col) => {
+            const isSelected = selectedCollection === col.id;
+            return (
+              <motion.div
+                key={col.id}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.4 }}
+                onClick={() => {
+                  setSelectedCollection(isSelected ? null : col.id as 'c1' | 'c2' | 'c3');
+                  setCurrentPage(1);
+                  const el = document.getElementById('gowns-gallery-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`cursor-pointer overflow-hidden rounded-[24px] border transition-all duration-500 bg-white ${
+                  isSelected 
+                    ? 'border-[#c49a78] shadow-gold ring-1 ring-[#c49a78]' 
+                    : 'border-[#e8dbd1] shadow-soft hover:shadow-lg'
+                }`}
+              >
+                {/* Image Wrap (Wide aspect ratio 16/10) */}
+                <div className="aspect-[16/10] overflow-hidden relative">
+                  <img
+                    src={col.image}
+                    alt={isRTL ? col.title.ar : col.title.en}
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  {isSelected && (
+                    <div className="absolute top-4 right-4 bg-[#c49a78] text-white px-3 py-1 rounded-full text-[0.62rem] font-bold tracking-widest uppercase shadow">
+                      {isRTL ? 'محددة' : 'Selected'} ✦
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-xl font-bold text-[#2b1b12]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    {isRTL ? col.title.ar : col.title.en}
+                  </h3>
+                  <p className="text-xs text-[#8a7b71] leading-relaxed line-clamp-2">
+                    {isRTL ? col.desc.ar : col.desc.en}
+                  </p>
+                  <div className="pt-2 flex items-center justify-between">
+                    <span className="text-[0.68rem] font-extrabold uppercase tracking-widest text-[#c49a78]">
+                      {isSelected 
+                        ? (isRTL ? 'إلغاء التحديد' : 'Deselect') 
+                        : (isRTL ? 'عرض فساتين المجموعة' : 'Explore Gowns')}
+                    </span>
+                    <span className="text-[#c49a78] text-sm">✦</span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
 
 
 
@@ -517,19 +623,20 @@ export default function Collections() {
           </div>
         ) : (
           <div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
               {currentGowns.map((g, idx) => (
                 <motion.div
                   key={g.id}
                   initial={{ opacity: 0, y: 32 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.8, delay: (idx % 4) * 0.12 }}
+                  transition={{ duration: 0.8, delay: (idx % 3) * 0.12 }}
                   className="group flex flex-col"
                 >
                   {/* Luxury Image Card */}
                   <div
-                    className="product-img-wrap mb-5 cursor-pointer relative overflow-hidden rounded-[20px] shadow-soft"
+                    className="product-img-wrap mb-5 cursor-pointer relative overflow-hidden rounded-[20px] shadow-soft aspect-[4/5]"
+                    style={{ maxHeight: 600 }}
                     onClick={() => openModal(g)}
                   >
                     <img 
