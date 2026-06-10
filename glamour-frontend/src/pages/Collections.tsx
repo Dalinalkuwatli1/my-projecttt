@@ -255,20 +255,17 @@ export default function Collections() {
          1. CINEMATIC FULL-WIDTH BACKGROUND HERO
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section
-        className="relative w-full flex items-center justify-center text-center px-6"
+        className="relative w-full flex items-center justify-center text-center px-6 overflow-hidden"
         style={{
-          minHeight: 460,
-          paddingTop: 80,
-          paddingBottom: 80,
-          backgroundImage: 'url(https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=1800)',
+          height: '90vh',
+          minHeight: 750,
+          backgroundImage: 'url(/dress1-ballgown.png)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: 'center 20%',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-black/58" />
-        <div className="absolute inset-x-0 bottom-0 h-32"
-          style={{ background: 'linear-gradient(to top, #FAF8F5, transparent)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,8,6,0.4) 0%, rgba(10,8,6,0.7) 100%)' }} />
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -290,110 +287,6 @@ export default function Collections() {
           </p>
         </motion.div>
       </section>
-
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-         2. THREE COLLECTIONS SHOWCASE (WIDE AS ASPECT RATIOS)
-         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-16 pt-16 pb-12">
-        <div className="text-center mb-10">
-          <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.34em] text-[#c49a78] block mb-3">
-            ✦ {isRTL ? 'عوالم الإبداع الفني' : 'THE ARTISTIC WORLDS'} ✦
-          </span>
-          <h2 className="text-3xl md:text-4xl text-[#2b1b12] font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-            {isRTL ? 'مجموعات الكوتور الثلاث' : 'Our Three Couture Collections'}
-          </h2>
-          <p className="text-[#8a7b71] text-sm mt-3 max-w-xl mx-auto">
-            {isRTL 
-              ? 'رحلة بصرية تأخذكِ في عوالم التصاميم المتفردة، انقري لتصفح فساتين كل مجموعة.' 
-              : 'A visual journey into unique couture designs. Click on any collection to filter our creations.'}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              id: 'c1',
-              title: { en: 'Spring Reverie 2027', ar: 'أحلام الربيع 2027' },
-              desc: {
-                en: 'A celebration of floral motifs, lightweight tulle, and romantic silhouettes.',
-                ar: 'احتفاء شاعري بزخارف الزهور المجسمة، وطيات التول الشفاف الخفيف، والظلال الرومانسية الحالمة.'
-              },
-              image: 'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800'
-            },
-            {
-              id: 'c2',
-              title: { en: 'Classic Elegance', ar: 'أناقة كلاسيكية ملكية' },
-              desc: {
-                en: 'Timeless designs featuring heavy satin, intricate lace, and architectural structure.',
-                ar: 'تصاميم ملكية خالدة تعتمد على الساتان الدوقس الفاخر، والدانتيل العتيق المعقد، والقصّات الهندسية المهيبة.'
-              },
-              image: 'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800'
-            },
-            {
-              id: 'c3',
-              title: { en: 'Modern Minimalist', ar: 'بساطة عصرية راقية' },
-              desc: {
-                en: 'Clean lines, stark whites, and unembellished perfection for the contemporary bride.',
-                ar: 'انحناءات هندسية نقية، بياض ثلجي ناصع، وجمال خالٍ من التكلف صُنع خصيصاً للعروس المعاصرة.'
-              },
-              image: 'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800'
-            }
-          ].map((col) => {
-            const isSelected = selectedCollection === col.id;
-            return (
-              <motion.div
-                key={col.id}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.4 }}
-                onClick={() => {
-                  setSelectedCollection(isSelected ? null : col.id as 'c1' | 'c2' | 'c3');
-                  setCurrentPage(1);
-                  const el = document.getElementById('gowns-gallery-section');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className={`cursor-pointer overflow-hidden rounded-[24px] border transition-all duration-500 bg-white ${
-                  isSelected 
-                    ? 'border-[#c49a78] shadow-gold ring-1 ring-[#c49a78]' 
-                    : 'border-[#e8dbd1] shadow-soft hover:shadow-lg'
-                }`}
-              >
-                {/* Image Wrap (Wide aspect ratio 16/10) */}
-                <div className="aspect-[16/10] overflow-hidden relative">
-                  <img
-                    src={col.image}
-                    alt={isRTL ? col.title.ar : col.title.en}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  {isSelected && (
-                    <div className="absolute top-4 right-4 bg-[#c49a78] text-white px-3 py-1 rounded-full text-[0.62rem] font-bold tracking-widest uppercase shadow">
-                      {isRTL ? 'محددة' : 'Selected'} ✦
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-xl font-bold text-[#2b1b12]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                    {isRTL ? col.title.ar : col.title.en}
-                  </h3>
-                  <p className="text-xs text-[#8a7b71] leading-relaxed line-clamp-2">
-                    {isRTL ? col.desc.ar : col.desc.en}
-                  </p>
-                  <div className="pt-2 flex items-center justify-between">
-                    <span className="text-[0.68rem] font-extrabold uppercase tracking-widest text-[#c49a78]">
-                      {isSelected 
-                        ? (isRTL ? 'إلغاء التحديد' : 'Deselect') 
-                        : (isRTL ? 'عرض فساتين المجموعة' : 'Explore Gowns')}
-                    </span>
-                    <span className="text-[#c49a78] text-sm">✦</span>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
 
 
 
@@ -420,26 +313,6 @@ export default function Collections() {
         {/* BESPOKE BOUTIQUE FILTER BAR */}
         <div className="relative z-30 mb-12">
 
-          {/* Type Tabs: أعراس / سهرة / الكل */}
-          <div className="flex justify-center gap-2 mb-8">
-            {([
-              { key: null,       ar: 'الكل',        en: 'All Gowns'  },
-              { key: 'wedding',  ar: 'فساتين الأعراس', en: 'Wedding Gowns' },
-              { key: 'evening',  ar: 'فساتين السهرة',  en: 'Evening Gowns' },
-            ] as { key: 'wedding' | 'evening' | null; ar: string; en: string }[]).map(tab => (
-              <button
-                key={String(tab.key)}
-                onClick={() => { setSelectedType(tab.key); setCurrentPage(1); }}
-                className={`px-5 py-2.5 rounded-full text-[0.68rem] font-bold uppercase tracking-wider transition-all duration-300 border ${
-                  selectedType === tab.key
-                    ? 'bg-[#2b1b12] text-white border-[#2b1b12] shadow-md'
-                    : 'bg-transparent text-[#2b1b12] border-[#2b1b12]/30 hover:border-[#C6A27A] hover:text-[#C6A27A]'
-                }`}
-              >
-                {isRTL ? tab.ar : tab.en}
-              </button>
-            ))}
-          </div>
 
           {/* Existing filter row */}
           <div className="pb-6 border-b border-[#e8dbd1]">

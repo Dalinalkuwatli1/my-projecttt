@@ -15,20 +15,34 @@ export interface Gown {
   collection: 'c1' | 'c2' | 'c3';
 }
 
+// Dress images — first 4 map to the user-provided luxury royal dresses (locally stored)
+const DRESS1_BALLGOWN = '/dress1-ballgown.png';
+const DRESS2_COUTURE  = '/dress2-couture.png';
+const DRESS3_ALINE    = '/dress3-aline.png';
+const DRESS4_IMPERIAL = '/dress4-imperial.png';
+
+export const CARD_DRESS_IMAGES = {
+  ballgown: DRESS1_BALLGOWN,
+  couture:  DRESS2_COUTURE,
+  aline:    DRESS3_ALINE,
+  imperial: DRESS4_IMPERIAL,
+};
+
 const WEDDING_IMAGES = [
-  'https://images.pexels.com/photos/28863320/pexels-photo-28863320.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/3831193/pexels-photo-3831193.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=800',
+  DRESS1_BALLGOWN,
+  DRESS2_COUTURE,
+  DRESS3_ALINE,
+  DRESS4_IMPERIAL,
   'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/29536878/pexels-photo-29536878.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/34317567/pexels-photo-34317567.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/28863325/pexels-photo-28863325.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/13112095/pexels-photo-13112095.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/9004584/pexels-photo-9004584.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/14358523/pexels-photo-14358523.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800'
+  'https://images.pexels.com/photos/1757014/pexels-photo-1757014.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800'
 ];
+
 
 const EVENING_IMAGES = [
   'https://images.pexels.com/photos/11039097/pexels-photo-11039097.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -87,8 +101,8 @@ const generateGowns = (): Gown[] => {
       type: 'wedding',
       category: cat,
       name: {
-        en: `Royal ${cat.en} Gown - Edition ${i}`,
-        ar: `فستان ${cat.ar} الملكي - الإصدار ${i}`
+        en: `Royal ${cat.en} Gown`,
+        ar: `فستان ${cat.ar} الملكي`
       },
       colors: ['white', 'offWhite'],
       sizes: ['S', 'M', 'L'],
@@ -137,8 +151,8 @@ const generateGowns = (): Gown[] => {
       type: 'evening',
       category: cat,
       name: {
-        en: `${cat.en} Evening Gown - Style ${i}`,
-        ar: `فستان سهرة ${cat.ar} - الموديل ${i}`
+        en: `${cat.en} Evening Gown`,
+        ar: `فستان سهرة ${cat.ar}`
       },
       colors: ['emerald', 'gold', 'ruby', 'black'],
       sizes: ['S', 'M', 'L'],

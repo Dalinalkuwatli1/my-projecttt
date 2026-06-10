@@ -14,26 +14,26 @@ const HeroSection = () => {
   const isRTL = i18n.language === 'ar';
 
   return (
-    <section ref={ref} className="relative h-screen flex items-end overflow-hidden">
+    <section ref={ref} className="relative flex items-end overflow-hidden" style={{ height: '90vh', minHeight: 750 }}>
 
-      {/* Parallax background image */}
+      {/* Parallax background image — luxury royal bridal gown */}
       <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
         <img
-          src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          src="/dress4-imperial.png"
           alt="Glamour Haute Couture — Istanbul Bridal Atelier"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
         />
       </motion.div>
 
-      {/* Multi-layered cinematic overlays */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.95) 0%, rgba(10,8,6,0.6) 50%, rgba(10,8,6,0.2) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,1) 0%, rgba(10,8,6,0.4) 40%, transparent 75%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,8,6,0.5) 0%, transparent 30%)' }} />
+      {/* Multi-layered cinematic overlays — no white fade */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.92) 0%, rgba(10,8,6,0.55) 55%, rgba(10,8,6,0.2) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,0.98) 0%, rgba(10,8,6,0.35) 40%, transparent 70%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,8,6,0.45) 0%, transparent 25%)' }} />
 
       {/* Radial accent glow */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 15% 70%, rgba(212,176,138,0.12) 0%, transparent 60%)' }}
+        style={{ background: 'radial-gradient(ellipse at 15% 70%, rgba(212,176,138,0.14) 0%, transparent 60%)' }}
       />
 
 
