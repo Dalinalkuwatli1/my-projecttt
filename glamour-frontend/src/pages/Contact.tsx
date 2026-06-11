@@ -74,8 +74,8 @@ export default function Contact() {
       icon: Mail,
       labelAr: 'البريد الإلكتروني',
       labelEn: 'Email',
-      valueAr: 'hello@glamourgroup.com',
-      valueEn: 'hello@glamourgroup.com',
+      valueAr: '555glamourgruop@gmail.com',
+      valueEn: '555glamourgruop@gmail.com',
     },
     {
       icon: Clock,

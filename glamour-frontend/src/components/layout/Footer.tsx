@@ -15,9 +15,9 @@ const InstagramIcon = () => (
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
   </svg>
 );
-const PinterestIcon = () => (
+const FacebookIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.163 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.625 0 12.017 0z" />
+    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
   </svg>
 );
 const TikTokIcon = () => (
@@ -59,8 +59,7 @@ const footerCopy = {
       title: 'تواصلي معنا',
       address: 'إسطنبول، تركيا',
       phone: '+90 551 006 9156',
-      email: 'hello@glamourgroup.com',
-      hours: 'بموعد مسبق فقط',
+      email: '555glamourgruop@gmail.com',
     },
     bottom: {
       rights: 'جميع الحقوق محفوظة. غلامور كوتور.',
@@ -100,8 +99,7 @@ const footerCopy = {
       title: 'Contact Us',
       address: 'Istanbul, Turkey',
       phone: '+90 551 006 9156',
-      email: 'hello@glamourgroup.com',
-      hours: 'By Appointment Only',
+      email: '555glamourgruop@gmail.com',
     },
     bottom: {
       rights: 'All rights reserved. Glamour Couture.',
@@ -189,17 +187,13 @@ const Footer = () => {
               <span className="text-[#C8A97E] mt-0.5">✉</span>
               <span>{copy.col4.email}</span>
             </p>
-            <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
-              <span className="text-[#C8A97E] mt-0.5">🕒</span>
-              <span>{copy.col4.hours}</span>
-            </p>
           </div>
 
           {/* Social Icons */}
           <div className="flex gap-3 mt-3">
             {[
               { icon: <InstagramIcon />, href: 'https://instagram.com/glamour_couture' },
-              { icon: <PinterestIcon />, href: 'https://pinterest.com/glamour_couture' },
+              { icon: <FacebookIcon />, href: 'https://facebook.com/glamour_couture' },
               { icon: <TikTokIcon />, href: 'https://tiktok.com/@glamour_couture' },
               { icon: <WhatsAppIcon />, href: 'https://wa.me/905510069156' },
             ].map((soc, idx) => (
@@ -260,7 +254,7 @@ const Footer = () => {
       {/* ── Bottom Bar ── */}
       <div className="w-full border-t border-white/5 py-3.5">
         <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.72rem] text-white/35 font-medium">
-          <span>© 2026 Glamour Couture. {copy.bottom.rights}</span>
+          <span>© 2026 Glamour Couture. {copy.bottom.rights} | صنع بواسطة dalin alkuwatli</span>
           <div className="flex gap-5">
             <Link to="/faq" className="hover:text-white/70 transition-colors">{copy.bottom.policy}</Link>
             <span className="text-white/15">|</span>
