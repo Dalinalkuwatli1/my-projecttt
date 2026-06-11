@@ -28,147 +28,128 @@ export const CARD_DRESS_IMAGES = {
   imperial: DRESS4_IMPERIAL,
 };
 
-const WEDDING_IMAGES = [
-  DRESS1_BALLGOWN,
-  DRESS2_COUTURE,
-  DRESS3_ALINE,
-  DRESS4_IMPERIAL,
-  'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1757014/pexels-photo-1757014.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800'
+// Only verified dress photos from the local images folder
+const imageNumbers = [
+  5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 23, 24,
+  26, 28, 29, 30, 31, 33, 34, 42, 43, 44, 45, 46, 48, 49, 50,
+  51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66,
+  67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81,
+  82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96,
+  97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109
 ];
 
-
-const EVENING_IMAGES = [
-  '/dress_evening_brown.png',
-  '/dress_evening_green.png',
-  'https://images.pexels.com/photos/11039097/pexels-photo-11039097.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/2766384/pexels-photo-2766384.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/2916820/pexels-photo-2916820.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/3200007/pexels-photo-3200007.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/9825854/pexels-photo-9825854.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/11039096/pexels-photo-11039096.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/6763521/pexels-photo-6763521.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/2855146/pexels-photo-2855146.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800'
-];
+const LOCAL_DRESS_IMAGES = imageNumbers.map(n => `/images/${n}.jpg`);
 
 const categories = [
-  { en: 'Ballgown', ar: 'منفوش' },
-  { en: 'Sculpted Couture', ar: 'كوتور منحوت' },
-  { en: 'A-Line', ar: 'إيه لاين' },
-  { en: 'Imperial', ar: 'إمبراطوري' },
-  { en: 'Romantic', ar: 'رومانسي' },
-  { en: 'Boho Chic', ar: 'بوهيمي أنيق' },
-  { en: 'Modest Luxury', ar: 'فخامة محتشمة' }
+  {
+    en: 'Crystal Ballgown',   ar: 'فستان كرة كريستالي',
+    descEn: 'A majestic crystal-beaded ballgown with full cathedral skirt and sheer embroidered sleeves.',
+    descAr: 'فستان كرة مبهر مطرز بالكريستال، بتنورة كاتدرائية كاملة وأكمام شفافة مطرزة يدوياً.',
+    detailsEn: ['Crystal-beaded bodice', 'Cathedral length train', 'Tulle ballgown skirt', 'Royal crown accessory'],
+    detailsAr: ['صدرية مرصعة بالكريستال', 'ذيل كاتدرائي فاخر', 'تنورة تول ملكية', 'تاج ملكي مرفق'],
+  },
+  {
+    en: 'Lace Mermaid',        ar: 'فستان حورية بالدانتيل',
+    descEn: 'An off-shoulder mermaid gown covered in delicate floral lace with a dramatic chapel train.',
+    descAr: 'فستان حورية بكتف مكشوف مغطى بدانتيل زهري رقيق مع ذيل كنيسة درامي.',
+    detailsEn: ['Off-shoulder neckline', 'Full floral lace overlay', 'Fitted mermaid silhouette', 'Chapel train'],
+    detailsAr: ['ياقة كتف مكشوف', 'دانتيل زهري كامل', 'قصة حورية ضيقة', 'ذيل طويل'],
+  },
+  {
+    en: 'Romantic A-Line',     ar: 'فستان رومانسي إيه لاين',
+    descEn: 'A dreamy A-line gown with sheer puff sleeves and cascading floral lace — pure romantic elegance.',
+    descAr: 'فستان إيه لاين حالم بأكمام شفافة منتفخة ودانتيل زهري متدفق — أناقة رومانسية خالصة.',
+    detailsEn: ['Sheer puff sleeves', 'Floral lace appliqué', 'A-Line silhouette', 'Soft tulle skirt'],
+    detailsAr: ['أكمام شفافة منتفخة', 'دانتيل زهري مطبق', 'قصة إيه لاين', 'تنورة تول ناعمة'],
+  },
+  {
+    en: 'Imperial Beaded',     ar: 'فستان إمبراطوري مطرز',
+    descEn: 'A regal full-coverage gown with intricate beaded embroidery on sheer sleeves and a grand ballgown skirt.',
+    descAr: 'فستان إمبراطوري ملكي بتطريز مخرم دقيق على أكمام شفافة وتنورة كرة ضخمة.',
+    detailsEn: ['Full-length sheer sleeves', 'Intricate bead embroidery', 'Grand ballgown volume', 'Illusion neckline'],
+    detailsAr: ['أكمام شفافة بطول كامل', 'تطريز خرزي دقيق', 'حجم كرة ضخم', 'ياقة وهمية شفافة'],
+  },
+  {
+    en: 'Modest Luxury',       ar: 'فخامة محتشمة',
+    descEn: 'A refined high-neck modest gown with pearl-embroidered lace sleeves and a flowing satin skirt.',
+    descAr: 'فستان محتشم راقٍ بياقة عالية وأكمام دانتيل مطرزة باللؤلؤ وتنورة ساتان سائلة.',
+    detailsEn: ['High lace neckline', 'Pearl-beaded lace sleeves', 'Flowing satin skirt', 'Full coverage design'],
+    detailsAr: ['ياقة دانتيل عالية', 'أكمام دانتيل مطرزة باللؤلؤ', 'تنورة ساتان سائلة', 'تصميم محتشم كامل'],
+  },
+  {
+    en: 'Boho Chic',           ar: 'بوهيمي أنيق',
+    descEn: 'A free-spirited boho A-line with bishop sleeves, delicate floral embroidery and a flower crown.',
+    descAr: 'فستان بوهيمي إيه لاين بأكمام أسقف وتطريز زهري رقيق وتاج من الزهور الطبيعية.',
+    detailsEn: ['Bishop sheer sleeves', 'Floral embroidery', 'Lightweight tulle skirt', 'Floral crown'],
+    detailsAr: ['أكمام شفافة واسعة', 'تطريز زهري', 'تنورة تول خفيفة', 'تاج من الزهور'],
+  },
+  {
+    en: 'Grand Veil Ballgown', ar: 'فستان كرة بطرحة ملكية',
+    descEn: 'A breathtaking ballgown crowned with a cathedral veil, dramatic volume and royal lace detailing.',
+    descAr: 'فستان كرة آسر مزيّن بطرحة كاتدرائية وحجم درامي وتفاصيل دانتيل ملكية.',
+    detailsEn: ['Cathedral veil included', 'Voluminous ballgown skirt', 'Royal lace detail', 'Dramatic silhouette'],
+    detailsAr: ['طرحة كاتدرائية مرفقة', 'تنورة كرة ضخمة', 'دانتيل ملكي', 'قصة درامية'],
+  },
 ];
 
 const generateGowns = (): Gown[] => {
   const list: Gown[] = [];
 
-  // 1. Generate 36 Wedding Gowns
+  const getCol = (i: number): { col: 'c1'|'c2'|'c3'; nameEn: string; nameAr: string } => {
+    if (i <= 12) return { col: 'c1', nameEn: 'Spring Reverie',     nameAr: 'أحلام الربيع' };
+    if (i <= 24) return { col: 'c2', nameEn: 'Classic Elegance',    nameAr: 'الأناقة الكلاسيكية' };
+    return              { col: 'c3', nameEn: 'Modern Minimalist',   nameAr: 'البساطة العصرية' };
+  };
+
+  // 1. Generate 36 Wedding Gowns — all images from LOCAL_DRESS_IMAGES
   for (let i = 1; i <= 36; i++) {
-    const imgIndex = (i - 1) % WEDDING_IMAGES.length;
-    const image = WEDDING_IMAGES[imgIndex];
-    const cat = categories[(i - 1) % categories.length];
-    
-    // Assign collections: 1-12 c1, 13-24 c2, 25-36 c3
-    let col: 'c1' | 'c2' | 'c3' = 'c1';
-    let colNameEn = 'Spring Reverie';
-    let colNameAr = 'أحلام الربيع';
-    if (i > 12 && i <= 24) {
-      col = 'c2';
-      colNameEn = 'Classic Elegance';
-      colNameAr = 'الأناقة الكلاسيكية';
-    } else if (i > 24) {
-      col = 'c3';
-      colNameEn = 'Modern Minimalist';
-      colNameAr = 'البساطة العصرية';
-    }
+    const cat    = categories[(i - 1) % categories.length];
+    const imgIdx = (i - 1) % LOCAL_DRESS_IMAGES.length;
+    const image  = LOCAL_DRESS_IMAGES[imgIdx];
+    const second = LOCAL_DRESS_IMAGES[(imgIdx + 1) % LOCAL_DRESS_IMAGES.length];
+    const { col } = getCol(i);
 
     list.push({
       id: `gw${i}`,
       nameKey: `collections.gowns.gw${i}.name`,
-      catKey: `collections.gowns.gw${i}.category`,
-      price: 250 + ((i - 1) % 6) * 250,
+      catKey:  `collections.gowns.gw${i}.category`,
+      price:   250 + ((i - 1) % 6) * 250,
       image,
       type: 'wedding',
-      category: cat,
-      name: {
-        en: `Royal ${cat.en} Gown`,
-        ar: `فستان ${cat.ar} الملكي`
-      },
-      colors: ['white', 'offWhite'],
-      sizes: ['S', 'M', 'L'],
-      desc: {
-        en: `An exquisite custom gown from the ${colNameEn} collection, crafted with meticulous detail and fine fabrics.`,
-        ar: `فستان كوتور فاخر من مجموعة ${colNameAr}، صُنع بتفاصيل مذهلة وأقمشة ملكية راقية.`
-      },
-      details: {
-        en: ['French silk tulle', 'Hand-beaded corset bodice', 'Cathedral length train', 'Built-in support'],
-        ar: ['تول حرير فرنسي', 'صدرية كورسيه مطرزة يدوياً', 'ذيل ممتد طويل جداً', 'دعم كورسيه مدمج']
-      },
-      images: [
-        image,
-        WEDDING_IMAGES[(imgIndex + 1) % WEDDING_IMAGES.length]
-      ],
-      collection: col
+      category: { en: cat.en, ar: cat.ar },
+      name:    { en: `${cat.en} Bridal Gown`, ar: `فستان زفاف ${cat.ar}` },
+      colors:  ['white', 'ivory', 'champagne'],
+      sizes:   ['XS', 'S', 'M', 'L', 'XL'],
+      desc:    { en: cat.descEn, ar: cat.descAr },
+      details: { en: cat.detailsEn, ar: cat.detailsAr },
+      images:  [image, second],
+      collection: col,
     });
   }
 
-  // 2. Generate 36 Evening Gowns
+  // 2. Generate 36 Evening Gowns — offset into LOCAL_DRESS_IMAGES for variety
   for (let i = 1; i <= 36; i++) {
-    const imgIndex = (i - 1) % EVENING_IMAGES.length;
-    const image = EVENING_IMAGES[imgIndex];
-    const cat = categories[(i - 1) % categories.length];
-    
-    // Assign collections: 1-12 c1, 13-24 c2, 25-36 c3
-    let col: 'c1' | 'c2' | 'c3' = 'c1';
-    let colNameEn = 'Spring Reverie';
-    let colNameAr = 'أحلام الربيع';
-    if (i > 12 && i <= 24) {
-      col = 'c2';
-      colNameEn = 'Classic Elegance';
-      colNameAr = 'الأناقة الكلاسيكية';
-    } else if (i > 24) {
-      col = 'c3';
-      colNameEn = 'Modern Minimalist';
-      colNameAr = 'البساطة العصرية';
-    }
+    const cat    = categories[(i - 1) % categories.length];
+    const imgIdx = (i - 1 + 36) % LOCAL_DRESS_IMAGES.length;
+    const image  = LOCAL_DRESS_IMAGES[imgIdx];
+    const second = LOCAL_DRESS_IMAGES[(imgIdx + 1) % LOCAL_DRESS_IMAGES.length];
+    const { col } = getCol(i);
 
     list.push({
       id: `ge${i}`,
       nameKey: `collections.gowns.ge${i}.name`,
-      catKey: `collections.gowns.ge${i}.category`,
-      price: 250 + ((i - 1) % 6) * 250,
+      catKey:  `collections.gowns.ge${i}.category`,
+      price:   250 + ((i - 1) % 6) * 250,
       image,
       type: 'evening',
-      category: cat,
-      name: {
-        en: `Royal ${cat.en} Evening Gown`,
-        ar: `فستان سهرة ${cat.ar} الملكي`
-      },
-      colors: ['emerald', 'gold', 'ruby', 'black'],
-      sizes: ['S', 'M', 'L'],
-      desc: {
-        en: `A magnificent evening masterpiece from our ${colNameEn} range, ideal for elite gala nights.`,
-        ar: `فستان سهرة ساحر من مجموعة ${colNameAr}، مصمم خصيصاً للمناسبات الراقية وحفلات النخبة.`
-      },
-      details: {
-        en: ['Premium stretch crepe', 'Sculpted hemline', 'Low-back design', 'Sleek buttons details'],
-        ar: ['كريب مطاطي فاخر', 'حافة ملكية منحوتة', 'تصميم ظهر مكشوف', 'أزرار أنيقة ممتدة']
-      },
-      images: [
-        image,
-        EVENING_IMAGES[(imgIndex + 1) % EVENING_IMAGES.length]
-      ],
-      collection: col
+      category: { en: cat.en, ar: cat.ar },
+      name:    { en: `${cat.en} Evening Gown`, ar: `فستان سهرة ${cat.ar}` },
+      colors:  ['ivory', 'blush', 'gold', 'nude'],
+      sizes:   ['XS', 'S', 'M', 'L', 'XL'],
+      desc:    { en: cat.descEn, ar: cat.descAr },
+      details: { en: cat.detailsEn, ar: cat.detailsAr },
+      images:  [image, second],
+      collection: col,
     });
   }
 

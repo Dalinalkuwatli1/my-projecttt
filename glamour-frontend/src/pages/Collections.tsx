@@ -478,46 +478,45 @@ export default function Collections() {
           </div>
         ) : (
           <div>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
               {currentGowns.map((g, idx) => (
                 <motion.div
                   key={g.id}
-                  initial={{ opacity: 0, y: 32 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.8, delay: (idx % 3) * 0.12 }}
-                  className="group flex flex-col"
+                  transition={{ duration: 0.7, delay: (idx % 4) * 0.08 }}
+                  className="group flex flex-col bg-white/40 hover:bg-white border border-transparent hover:border-[#e8dbd1]/30 p-2.5 rounded-[24px] transition-all duration-500 hover:shadow-soft"
+                  onClick={() => openModal(g)}
                 >
                   {/* Luxury Image Card */}
-                  <div
-                    className="product-img-wrap mb-5 cursor-pointer relative overflow-hidden rounded-[20px] shadow-soft aspect-[4/5]"
-                    style={{ maxHeight: 600 }}
-                    onClick={() => openModal(g)}
-                  >
+                  <div className="relative overflow-hidden rounded-[18px] shadow-sm aspect-[2/3] bg-[#f7f4f1] mb-4">
                     <img
                       src={g.image}
                       alt={isRTL ? g.name.ar : g.name.en}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-106"
+                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
                     />
 
                     {/* Heart Button — refined size */}
                     <button
                       onClick={(e) => toggleFav(g.id, e)}
-                      className={`heart-btn w-8 h-8 rounded-full flex items-center justify-center absolute top-3 right-3 z-10 border shadow-sm transition-all ${favorites.has(g.id) ? 'bg-[#c49a78] border-[#c49a78]' : 'bg-white/80 border-white/50 hover:bg-white'
-                        }`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center absolute top-2.5 right-2.5 z-10 border shadow-sm transition-all ${
+                        favorites.has(g.id) 
+                          ? 'bg-[#c49a78] border-[#c49a78] text-white' 
+                          : 'bg-white/90 border-white/40 hover:bg-white text-[#2b1b12]'
+                      }`}
                     >
                       <Heart
-                        size={12}
-                        fill={favorites.has(g.id) ? 'white' : 'none'}
-                        strokeWidth={1.8}
-                        style={{ color: favorites.has(g.id) ? 'white' : 'var(--color-ink)' }}
+                        size={11}
+                        fill={favorites.has(g.id) ? 'currentColor' : 'none'}
+                        strokeWidth={2}
                       />
                     </button>
 
                     {/* Sliding Glassmorphic Quick View Button */}
                     <button
-                      className="quick-view-btn absolute inset-x-0 bottom-0 py-4 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white bg-[#2b1b12]/80 backdrop-blur-md hover:bg-[#c49a78]/90 transition-all border-t border-white/10 text-center"
+                      className="absolute inset-x-0 bottom-0 py-3 text-[0.58rem] font-bold uppercase tracking-[0.2em] text-white bg-[#1c120c]/90 backdrop-blur-sm hover:bg-[#c49a78] transition-all border-t border-white/10 text-center opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 duration-300 z-10"
                       onClick={(e) => { e.stopPropagation(); openModal(g); }}
                     >
                       {t('collections.quickView')}
@@ -525,18 +524,18 @@ export default function Collections() {
                   </div>
 
                   {/* Card Description — Couture-grade */}
-                  <div className="text-center space-y-1.5 px-1">
-                    <span className="block text-[0.52rem] font-bold uppercase tracking-[0.22em] text-[#C6A27A]">
+                  <div className="text-center space-y-1 px-1">
+                    <span className="block text-[0.5rem] font-bold uppercase tracking-[0.2em] text-[#C6A27A]">
                       {isRTL ? g.category.ar : g.category.en}
                     </span>
-                    <h3 className="font-sans text-base leading-snug text-[#2F1D16] font-bold">
+                    <h3 className="font-serif text-sm leading-snug text-[#2b1b12] font-semibold group-hover:text-[#C6A27A] transition-colors duration-300">
                       {isRTL ? g.name.ar : g.name.en}
                     </h3>
-                    <p className="text-[0.6rem] text-[#3B2A23]/60 leading-relaxed tracking-wide">
+                    <p className="text-[0.55rem] text-[#8a7b71] leading-relaxed">
                       {isRTL ? 'تفصيل يدوي · تطريز فرنسي · حسب المقاس' : 'Handcrafted · French Embroidery · Bespoke'}
                     </p>
-                    <p className="text-[#C6A27A] text-xs font-bold tracking-wider">
-                      {isRTL ? `ابتداءً من ${g.price.toLocaleString()}$` : `From $${g.price.toLocaleString()}`}
+                    <p className="text-[#C6A27A] text-xs font-bold tracking-widest mt-0.5">
+                      {isRTL ? `${g.price.toLocaleString()}$` : `$${g.price.toLocaleString()}`}
                     </p>
                   </div>
                 </motion.div>
