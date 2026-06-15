@@ -84,8 +84,8 @@ const AtelierExperience = () => {
       </motion.div>
 
       {/* Cinematic overlays */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.97) 0%, rgba(10,8,6,0.72) 55%, rgba(10,8,6,0.4) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,0.9) 0%, transparent 50%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.98) 0%, rgba(10,8,6,0.92) 55%, rgba(10,8,6,0.6) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,0.95) 0%, transparent 60%)' }} />
 
       <motion.div
         className="relative z-10 max-w-7xl mx-auto px-8 lg:px-24"
@@ -112,13 +112,13 @@ const AtelierExperience = () => {
               >
                 {isRTL ? (
                   <>
-                    ليست مجرد تجربة—<br />
-                    <em style={{ fontStyle: 'italic', color: 'var(--color-gold)' }}>إنها ذاكرة تُصنع</em>
+                    ليست مجرد تجربة<br />
+                    <span style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}>إنها ذاكرة تُصنع</span>
                   </>
                 ) : (
                   <>
-                    Not just a fitting—<br />
-                    <em style={{ fontStyle: 'italic', color: 'var(--color-gold)' }}>A memory crafted</em>
+                    Not just a fitting<br />
+                    <span style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}>A memory crafted</span>
                   </>
                 )}
               </h2>
@@ -127,7 +127,7 @@ const AtelierExperience = () => {
               <div style={{ width: 56, height: 1, background: 'var(--color-gold)', margin: '32px 0' }} />
             </Reveal>
             <Reveal delay={0.25}>
-              <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 2, fontSize: '0.95rem', fontFamily: 'Manrope, sans-serif', fontWeight: 300, maxWidth: 440 }}>
+              <p style={{ color: 'rgba(255,255,255,0.95)', lineHeight: 2, fontSize: '1.05rem', fontWeight: 600, maxWidth: 440, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
                 {isRTL
                   ? 'أتيليه جلامور ليس مجرد مكان — إنه مقدس للأنوثة والجمال. ادخلي إلى عالم من الهدوء، التفاصيل، والاهتمام الكامل بكِ وحدكِ.'
                   : 'The Glamour Atelier is not merely a place — it is a sanctuary of femininity and beauty. Step into a world of calm, detail, and absolute focus devoted entirely to you.'}
@@ -138,12 +138,11 @@ const AtelierExperience = () => {
                 to="/book-appointment"
                 className="inline-flex items-center gap-3 group mt-12"
                 style={{
-                  color: 'white',
-                  background: 'linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-deep) 100%)',
-                  fontFamily: 'Manrope, sans-serif',
-                  fontSize: '0.6rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.26em',
+                  color: '#100e0c',
+                  background: 'linear-gradient(135deg, var(--color-gold) 0%, #a37e58 100%)',
+                  fontSize: '0.8rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   padding: '17px 38px',
                   borderRadius: 999,

@@ -6,13 +6,15 @@ import { useState } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import StorytellingSection from '../components/home/StorytellingSection';
 import AtelierExperience from '../components/home/AtelierExperience';
+import AtelierFeatures from '../components/home/AtelierFeatures';
+import TestimonialsSlider from '../components/home/TestimonialsSlider';
 import { GOWNS_DATA } from '../data/gowns';
 
 const GOLD = '#C6A27A';
 
 import { useNavigate } from 'react-router-dom';
 
-function GownPreviewCard({ gown, isRTL }: { gown: typeof GOWNS_DATA[0]; isRTL: boolean }) {
+function GownPreviewCard({ gown, isRTL, aspectClass = "aspect-[3/4]" }: { gown: typeof GOWNS_DATA[0]; isRTL: boolean; aspectClass?: string }) {
   const [fav, setFav] = useState(false);
   const navigate = useNavigate();
 
@@ -21,40 +23,43 @@ function GownPreviewCard({ gown, isRTL }: { gown: typeof GOWNS_DATA[0]; isRTL: b
       whileHover={{ y: -6 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       onClick={() => navigate(`/collections?type=${gown.type}`)}
-      className="group relative rounded-[20px] overflow-hidden bg-[#F5F1EC] shadow-sm hover:shadow-xl transition-shadow duration-500 border border-[#e8dbd1]/70 cursor-pointer"
+      className="group relative rounded-[20px] overflow-hidden bg-[#F5F1EC] shadow-sm hover:shadow-2xl transition-all duration-500 border border-[#e8dbd1]/70 cursor-pointer h-full flex flex-col"
     >
       {/* Image */}
-      <div className="aspect-[3/4] overflow-hidden relative">
+      <div className={`${aspectClass} overflow-hidden relative flex-shrink-0`}>
         <img
           src={gown.image}
           alt={isRTL ? gown.name.ar : gown.name.en}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
         />
+        
+        {/* Hover image scaling is handled by group-hover:scale-110 on the img */}
+
         {/* Heart */}
         <button
           onClick={(e) => { e.stopPropagation(); setFav(!fav); }}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center border shadow-sm transition-all z-10 ${
-            fav ? 'bg-[#C6A27A] border-[#C6A27A]' : 'bg-white/85 border-white/60 hover:bg-white'
+          className={`absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center border shadow-sm transition-all z-30 ${
+            fav ? 'bg-[#C6A27A] border-[#C6A27A]' : 'bg-white/90 border-white/60 hover:bg-white'
           }`}
         >
-          <Heart size={12} fill={fav ? 'white' : 'none'} strokeWidth={1.8} style={{ color: fav ? 'white' : '#2b1b12' }} />
+          <Heart size={14} fill={fav ? 'white' : 'none'} strokeWidth={1.8} style={{ color: fav ? 'white' : '#2b1b12' }} />
         </button>
         {/* Category badge */}
-        <span className="absolute bottom-3 left-3 bg-black/50 text-white text-[0.58rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-sm z-10">
+        <span className="absolute bottom-4 left-4 bg-black/60 text-white text-[0.6rem] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full backdrop-blur-md z-30 border border-white/10">
           {isRTL ? gown.category.ar : gown.category.en}
         </span>
       </div>
       {/* Info */}
-      <div className="p-4 space-y-1">
-        <h3 className="text-sm font-bold text-[#2b1b12] leading-snug" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+      <div className="p-4 space-y-1 text-center">
+        <h3 className="text-sm font-bold text-[#2b1b12] leading-snug" style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : "'Cormorant Garamond', serif" }}>
           {isRTL ? gown.name.ar : gown.name.en}
         </h3>
         <p className="text-[0.62rem] text-[#8a7b71] leading-relaxed">
           {isRTL ? 'تفصيل يدوي · حسب المقاس' : 'Handcrafted · Bespoke'}
         </p>
-        <p className="text-[#C6A27A] text-xs font-bold tracking-wide">
-          {isRTL ? `ابتداءً من ${gown.price.toLocaleString()}$` : `From $${gown.price.toLocaleString()}`}
+        <p className="text-[0.6rem] text-[#C6A27A] font-bold tracking-[0.18em] uppercase pt-1">
+          {isRTL ? `ابتداءً من $${gown.price}` : `From $${gown.price}`}
         </p>
       </div>
     </motion.div>
@@ -99,10 +104,12 @@ function GownSection({
         </Link>
       </div>
 
-      {/* 4-column grid, 2 rows = 8 cards */}
+      {/* 4-column uniform grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {gowns.map((g) => (
-          <GownPreviewCard key={g.id} gown={g} isRTL={isRTL} />
+          <div key={g.id} className="h-full">
+            <GownPreviewCard gown={g} isRTL={isRTL} aspectClass="aspect-[3/4]" />
+          </div>
         ))}
       </div>
 
@@ -132,10 +139,19 @@ export default function Home() {
       {/* 1. Cinematic Hero */}
       <HeroSection />
 
-      {/* 2. Heritage Story */}
+      {/* 2. Atelier Features (Cards moved down from Hero) */}
+      <AtelierFeatures />
+
+      {/* 3. Heritage Story */}
       <StorytellingSection />
 
-      {/* 3. Wedding Gowns Preview — 2 rows × 4 columns */}
+      {/* 4. Atelier Experience (Pillars & trust building) */}
+      <AtelierExperience />
+
+      {/* 5. Brides Social Proof & Testimonials */}
+      <TestimonialsSlider />
+
+      {/* 6. Wedding Gowns Preview — 2 rows × 4 columns */}
       <GownSection type="wedding" isRTL={isRTL} />
 
       {/* Divider */}
@@ -143,11 +159,8 @@ export default function Home() {
         <div className="border-t border-[#e8dbd1]" />
       </div>
 
-      {/* 4. Evening Gowns Preview — 2 rows × 4 columns */}
+      {/* 7. Evening Gowns Preview — 2 rows × 4 columns */}
       <GownSection type="evening" isRTL={isRTL} />
-
-      {/* 5. Atelier Experience */}
-      <AtelierExperience />
     </>
   );
 }

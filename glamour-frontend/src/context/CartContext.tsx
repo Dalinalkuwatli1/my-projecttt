@@ -6,15 +6,15 @@ export interface CartItem {
   catKey: string;
   price: number;
   image: string;
-  color: 'white' | 'offWhite';
-  size: 'S' | 'M' | 'L';
+  color: string;
+  size: string;
   quantity: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (item: Omit<CartItem, 'quantity'>, quantity?: number) => void;
-  removeFromCart: (id: string, color: 'white' | 'offWhite', size: 'S' | 'M' | 'L') => void;
+  removeFromCart: (id: string, color: string, size: string) => void;
   clearCart: () => void;
   totalAmount: number;
   totalItems: number;
@@ -48,7 +48,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const removeFromCart = (id: string, color: 'white' | 'offWhite', size: 'S' | 'M' | 'L') => {
+  const removeFromCart = (id: string, color: string, size: string) => {
     setCartItems(prev => prev.filter(
       item => !(item.id === id && item.color === color && item.size === size)
     ));

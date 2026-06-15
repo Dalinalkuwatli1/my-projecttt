@@ -16,22 +16,23 @@ const HeroSection = () => {
   return (
     <section ref={ref} className="relative flex items-end overflow-hidden h-[90vh] min-h-[750px]">
 
-      {/* Parallax background image — luxury royal bridal gown */}
+      {/* Parallax background image — luxury couple */}
       <motion.div className="absolute inset-0" style={{ y: imgY, scale }}>
         <img
-          src="/dress4-imperial.png"
-          alt="Glamour Haute Couture — Istanbul Bridal Atelier"
-          className="w-full h-full object-cover object-top"
+          src="/images/2.jpg"
+          alt="Glamour Haute Couture — Bespoke Couple"
+          className="w-full h-full object-cover object-center"
         />
       </motion.div>
 
-      {/* Multi-layered cinematic overlays — no white fade */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806]/92 via-[#0a0806]/55 to-[#0a0806]/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/98 via-[#0a0806]/35 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/45 to-transparent" />
+      {/* Multi-layered cinematic overlays */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806]/95 via-[#0a0806]/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/98 via-[#0a0806]/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/60 to-transparent" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.55),transparent)]" />
 
       {/* Radial accent glow */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_15%_70%,rgba(212,176,138,0.14)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_15%_70%,rgba(212,176,138,0.18)_0%,transparent_65%)]" />
 
       {/* Main content */}
       <motion.div
@@ -39,17 +40,33 @@ const HeroSection = () => {
         style={{ opacity }}
       >
 
+        {/* Pre-title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 0.3 }}
+          className="mb-6 text-[#C6A27A] text-[0.65rem] md:text-[0.8rem] font-bold tracking-[0.3em] uppercase"
+        >
+          {isRTL ? 'GLAMOUR COUTURE ✦ قصة تُخاط بحب' : 'GLAMOUR COUTURE ✦ A STORY SEWN WITH LOVE'}
+        </motion.div>
+
         {/* Hero headline */}
         <motion.h1
           initial={{ opacity: 0, y: 80, filter: 'blur(18px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif text-[clamp(2.4rem,6.5vw,4.8rem)] font-light leading-[1.1] tracking-[0.04em] max-w-[820px] text-white"
-          style={{ textShadow: '0 0 40px rgba(198,162,122,0.35), 0 0 80px rgba(198,162,122,0.15)' }}
+          className="text-[clamp(3.2rem,8vw,5.5rem)] font-bold leading-[1.1] max-w-[900px] text-white"
+          style={{
+            textShadow: '0 0 40px rgba(198,162,122,0.35), 0 0 80px rgba(198,162,122,0.15)',
+            fontFamily: isRTL ? "'Cairo', 'Alexandria', 'Noto Naskh Arabic', serif" : "'Cormorant Garamond', serif",
+            letterSpacing: isRTL ? '0' : '0.02em',
+            fontFeatureSettings: '"liga" 1, "calt" 1',
+            WebkitFontSmoothing: 'antialiased',
+          }}
         >
           {isRTL ? (
-            <span className="shimmer-luxury-text">
-              حيث تتحوّل الأحلام إلى تحف فنية
+            <span className="shimmer-luxury-text" style={{ display: 'block', lineHeight: 1.35 }}>
+              حيث تتحوّل الأحلام إلى حقيقة
             </span>
           ) : (
             <span className="shimmer-luxury-text">
@@ -67,17 +84,28 @@ const HeroSection = () => {
         />
 
         {/* Subtitle */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 1.0 }}
-          className="text-white/65 text-[0.82rem] leading-[1.8] max-w-[480px] font-sans font-light mb-10 shadow-sm"
-          style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
+          className="mb-12 mt-6"
         >
-          {isRTL
-            ? 'نصمم فساتين زفاف استثنائية تُفصّل خصيصًا لكِ، وتمزج بين الحرفية الراقية والتفاصيل الخالدة لتصنع إطلالة لا تُنسى بتفاصيل صُنعت لتبقى وتخلد أجمل ذكرياتكِ إلى الأبد.'
-            : 'We design exceptional bespoke bridal gowns tailored specifically for you, blending exquisite craftsmanship and timeless details to create an unforgettable look.'}
-        </motion.p>
+          <p
+            className="text-white text-[1.1rem] font-medium leading-[1.9] max-w-2xl font-sans drop-shadow-2xl px-6 py-5 rounded-2xl"
+            style={{ 
+              background: 'linear-gradient(90deg, rgba(0,0,0,0.65), rgba(0,0,0,0.15), transparent)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              textShadow: '0 2px 16px rgba(0,0,0,0.9)',
+              borderLeft: isRTL ? 'none' : '3px solid #C6A27A',
+              borderRight: isRTL ? '3px solid #C6A27A' : 'none'
+            }}
+          >
+            {isRTL
+              ? 'نصمم فساتين زفاف استثنائية تُفصّل خصيصًا لكِ، وتمزج بين الحرفية الراقية والتفاصيل الخالدة لتصنع إطلالة لا تُنسى بتفاصيل صُنعت لتبقى وتخلد أجمل ذكرياتكِ إلى الأبد.'
+              : 'We design exceptional bespoke bridal gowns tailored specifically for you, blending exquisite craftsmanship and timeless details to create an unforgettable look.'}
+          </p>
+        </motion.div>
 
         {/* CTAs */}
         <motion.div
@@ -88,17 +116,36 @@ const HeroSection = () => {
         >
           <Link
             to="/collections"
-            className="group inline-flex items-center gap-3 bg-gradient-to-br from-[#C6A27A] to-[#a37e58] text-[#100e0c] font-sans text-[0.82rem] font-bold tracking-[0.18em] uppercase py-[18px] px-10 rounded-full shadow-[0_8px_30px_rgba(198,162,122,0.3),_0_0_15px_rgba(198,162,122,0.2)] transition-all duration-400 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(198,162,122,0.5),_0_0_20px_rgba(198,162,122,0.3)]"
+            className="group inline-flex items-center justify-center gap-3 bg-gradient-to-br from-[#C6A27A] to-[#a37e58] text-[#100e0c] font-sans text-[0.85rem] font-bold tracking-[0.18em] uppercase px-10 rounded-full transition-all duration-400"
+            style={{ height: '55px', boxShadow: '0 10px 30px rgba(198,162,122,0.25)' }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 15px 40px rgba(198,162,122,0.4)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 30px rgba(198,162,122,0.25)';
+            }}
           >
             {isRTL ? 'اكتشفي المجموعة' : 'Explore Collection'}
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+            <ArrowRight size={15} className="transition-transform group-hover:translate-x-1.5" />
           </Link>
-
           <Link
             to="/book-appointment"
-            className="group inline-flex items-center gap-2 text-white/85 border border-white/25 py-[15px] px-[34px] rounded-full font-sans text-[0.82rem] tracking-[0.18em] font-semibold uppercase backdrop-blur-[4px] transition-all duration-300 hover:text-[#C6A27A] hover:border-[#C6A27A] hover:bg-[#C6A27A]/5"
+            className="group inline-flex items-center justify-center gap-3 text-white font-sans text-[0.85rem] font-bold tracking-[0.18em] uppercase px-10 rounded-full transition-all duration-400"
+            style={{ height: '55px', border: '1px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.1)';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.5)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.background = 'transparent';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.3)';
+            }}
           >
-            {isRTL ? 'احجزي موعدكِ الخاص' : 'Book Private Fitting'}
+            {isRTL ? 'حجز موعد' : 'Book Fitting'}
           </Link>
         </motion.div>
       </motion.div>

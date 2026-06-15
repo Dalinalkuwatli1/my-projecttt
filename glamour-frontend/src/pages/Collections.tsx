@@ -1,11 +1,36 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, X, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight, Sparkles, ShieldCheck, ShoppingBag, Check } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import { GOWNS_DATA } from '../data/gowns';
 import type { Gown } from '../data/gowns';
+
+const colorLabels: Record<string, { en: string; ar: string }> = {
+  white: { en: 'Pure White', ar: 'أبيض ناصع' },
+  ivory: { en: 'Off-White', ar: 'أوف وايت' },
+  champagne: { en: 'Champagne', ar: 'شامبانيا' },
+  emerald: { en: 'Emerald Green', ar: 'أخضر زمردي' },
+  gold: { en: 'Luxury Gold', ar: 'ذهبي فاخر' },
+  ruby: { en: 'Ruby Red', ar: 'أحمر ياقوتي' },
+  black: { en: 'Noir Black', ar: 'أسود فاخر' },
+  blush: { en: 'Blush Pink', ar: 'وردي ناعم' },
+  nude: { en: 'Nude', ar: 'نيود' }
+};
+
+const colorHex: Record<string, string> = {
+  white: '#FFFFFF',
+  ivory: '#F5F0E6',
+  champagne: '#E8D5B0',
+  emerald: '#2D7A4F',
+  gold: '#C8A84B',
+  ruby: '#9B2335',
+  black: '#1A1A1A',
+  blush: '#F4C2C2',
+  nude: '#D4A898',
+};
+
 
 
 
@@ -93,7 +118,7 @@ export default function Collections() {
 
   const [modal, setModal] = useState<Gown | null>(null);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
-  const [color, setColor] = useState<'white' | 'offWhite'>('white');
+  const [color, setColor] = useState<string>('');
   const [size, setSize] = useState<'S' | 'M' | 'L'>('M');
   const [added, setAdded] = useState(false);
 
@@ -105,13 +130,16 @@ export default function Collections() {
   const [activeFilterTab, setActiveFilterTab] = useState<'category' | 'color' | 'size' | 'price' | null>(null);
   const [selectedCollection] = useState<'c1' | 'c2' | 'c3' | null>(null);
 
-  // TYPE FILTER (from URL query param or toggle)
+  // TYPE FILTER (from URL query param)
   const location = useLocation();
-  const urlType = new URLSearchParams(location.search).get('type') as 'wedding' | 'evening' | null;
-  const [selectedType] = useState<'wedding' | 'evening' | null>(urlType);
+  const selectedType = new URLSearchParams(location.search).get('type') as 'wedding' | 'evening' | null;
 
-  // PAGINATION STATES
+  // Reset page when URL type changes
   const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedType]);
+
   const itemsPerPage = 12;
 
   const { addToCart: addGlobalToCart } = useCart();
@@ -128,7 +156,7 @@ export default function Collections() {
 
   const openModal = (g: Gown) => {
     setModal(g);
-    setColor('white');
+    setColor(g.colors[0] || 'white');
     setSize('M');
     setAdded(false);
   };
@@ -243,32 +271,54 @@ export default function Collections() {
         style={{
           height: '90vh',
           minHeight: 750,
-          backgroundImage: 'url(/dress1-ballgown.png)',
+          backgroundImage: `url(${
+            selectedType === 'evening'
+              ? '/images/9.jpg'
+              : '/images/10.jpg'
+          })`,
           backgroundSize: 'cover',
           backgroundPosition: 'center 20%',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,8,6,0.4) 0%, rgba(10,8,6,0.7) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35))' }} />
+        
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 max-w-2xl mx-auto text-white space-y-5"
+          className="relative z-10 max-w-4xl mx-auto text-white space-y-8"
         >
-          <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.44em] text-[#C6A27A] block">
-            {isRTL ? '✦ التصميمات الحصرية ✦' : '✦ THE EXCLUSIVE DESIGNS ✦'}
-          </span>
-          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'normal', fontWeight: 700 }}
-            className="text-4xl md:text-6xl text-white leading-tight drop-shadow-lg">
-            {isRTL ? 'المجموعات الحصرية' : 'The Exclusive Collections'}
-          </h1>
-          <div className="w-12 h-[1px] bg-[#C6A27A] mx-auto" />
-          <p className="text-white/85 text-sm max-w-lg mx-auto leading-relaxed font-medium">
+          <h1
+            style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : "'Playfair Display', serif", fontSize: 'clamp(48px, 6vw, 90px)', fontWeight: 700, letterSpacing: isRTL ? '0px' : '-2px', textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
+            className="leading-[1.1] drop-shadow-lg"
+          >
             {isRTL
-              ? 'تصاميم صُنعت خصيصاً للعروس التي تبحث عن التفرد، حيث تلتقي الحرفية الراقية مع الأناقة الخالدة.'
+              ? (selectedType === 'evening' ? 'فساتين السهرة الملكية' : 'المجموعات الحصرية')
+              : (selectedType === 'evening' ? 'Royal Evening Gowns' : 'The Exclusive Collections')}
+          </h1>
+          <p
+            style={{ maxWidth: 650, margin: '0 auto', lineHeight: 1.9, opacity: 0.9, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+            className="text-base md:text-lg font-medium"
+          >
+            {isRTL
+              ? 'تصاميم صنعت خصيصاً للعروس التي تبحث عن التفرد. حيث تلتقي الحرفية الراقية مع الأناقة الخالدة.'
               : 'Designs crafted for the bride who seeks distinction, where refined artistry meets timeless elegance.'}
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
+            <button
+              onClick={() => { document.getElementById('gowns-gallery-section')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="px-10 py-4 bg-gradient-to-r from-[#8E6C4C] to-[#C8A97E] text-white rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(200,169,126,0.35)]"
+            >
+              {isRTL ? 'استكشف المجموعة' : 'Explore Collection'}
+            </button>
+            <Link
+              to="/book-appointment"
+              className="px-10 py-4 border border-white/40 text-white rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-400 hover:bg-white/10 hover:-translate-y-1 hover:border-white"
+            >
+              {isRTL ? 'احجز استشارتك' : 'Book Consultation'}
+            </Link>
+          </div>
         </motion.div>
       </section>
 
@@ -293,59 +343,67 @@ export default function Collections() {
         </div>
 
         {/* BESPOKE BOUTIQUE FILTER BAR */}
-        <div className="relative z-30 mb-12">
+        <div className="sticky top-[90px] z-[100] mb-16 mx-auto bg-white/70 backdrop-blur-[15px] border border-[#E6D5C3] p-4 rounded-full max-w-5xl shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+          <div className="flex flex-wrap items-center justify-between gap-4 px-4">
+            
+            {/* Filter icon label */}
+            <button
+              onClick={() => setActiveFilterTab(activeFilterTab ? null : 'category')}
+              className="flex items-center gap-2 text-sm font-bold text-[#2C1D15] hover:text-[#C8A97E] transition-colors bg-[#FAF7F3] px-6 py-3 rounded-full border border-[#E6D5C3]"
+            >
+              <SlidersHorizontal size={16} />
+              <span>{isRTL ? 'تصفية متقدمة' : 'Advanced Filters'}</span>
+            </button>
 
+            {/* Filter categories */}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Collection Filter (Price) */}
+              <button
+                onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'price' || priceRange ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+              >
+                <span>{priceRange ? (isRTL ? 'المجموعة: محددة' : 'Collection: Selected') : (isRTL ? 'المجموعة' : 'Collection')}</span>
+                <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
+              </button>
 
-          {/* Existing filter row */}
-          <div className="pb-6 border-b border-[#e8dbd1]">
-            <div className="flex flex-wrap items-center justify-between gap-6">
+              {/* Silhouette Filter (Size) */}
+              <button
+                onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'size' || selectedSize ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+              >
+                <span>{selectedSize ? (isRTL ? `القصّة: ${selectedSize}` : `Silhouette: ${selectedSize}`) : (isRTL ? 'القصة' : 'Silhouette')}</span>
+                <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
+              </button>
 
-              {/* Filter icon label */}
-              <div className="flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#8a7b71]">
-                <SlidersHorizontal size={14} className="text-[#c49a78]" />
-                <span>{isRTL ? 'تصفية بوتيك غلايمور الفاخرة' : 'Bespoke Boutique Filters'}</span>
-              </div>
+              {/* Tone Filter */}
+              <button
+                onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'color' || selectedColor ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+              >
+                <span>{selectedColor ? (isRTL ? `الدرجة: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
+                <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
+              </button>
 
-              {/* Filter categories */}
-              <div className="flex flex-wrap items-center gap-6 md:gap-8">
-                {/* Style Filter */}
-                <button
-                  onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
-                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedCategory ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-                >
-                  <span>{selectedCategory ? (isRTL ? `الأسلوب: ${selectedCategory}` : `Style: ${selectedCategory}`) : (isRTL ? 'الأسلوب' : 'Style')}</span>
-                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* Tone Filter */}
-                <button
-                  onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
-                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedColor ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-                >
-                  <span>{selectedColor ? (isRTL ? `الدرجة: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
-                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* Silhouette Filter (Size) */}
-                <button
-                  onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
-                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${selectedSize ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-                >
-                  <span>{selectedSize ? (isRTL ? `القصّة: ${selectedSize}` : `Silhouette: ${selectedSize}`) : (isRTL ? 'القصّة' : 'Silhouette')}</span>
-                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* Collection Filter (Price) */}
-                <button
-                  onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
-                  className={`flex items-center gap-1.5 hover:text-[#c49a78] transition-colors text-[0.68rem] font-bold uppercase tracking-[0.16em] ${priceRange ? 'text-[#c49a78]' : 'text-[#2b1b12]'}`}
-                >
-                  <span>{priceRange ? (isRTL ? 'المجموعة: محددة' : 'Collection: Selected') : (isRTL ? 'المجموعة' : 'Collection')}</span>
-                  <ChevronDown size={11} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
-                </button>
-              </div>
-
+              {/* Style Filter */}
+              <button
+                onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'category' || selectedCategory ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+              >
+                <span>{selectedCategory ? (isRTL ? `الأسلوب: ${selectedCategory}` : `Style: ${selectedCategory}`) : (isRTL ? 'الأسلوب' : 'Style')}</span>
+                <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
+              </button>
             </div>
+            
+            {/* Sort Dropdown Placeholder */}
+            <div className="flex items-center gap-2 text-sm font-bold text-[#2C1D15]">
+              <span>{isRTL ? 'ترتيب حسب' : 'Sort by'}</span>
+              <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#E6D5C3] bg-white hover:bg-[#FAF7F3] transition-colors">
+                <span>{isRTL ? 'الأحدث' : 'Newest'}</span>
+                <ChevronDown size={14} />
+              </button>
+            </div>
+
+          </div>
 
             {/* Filter Dropdowns Panels */}
             <AnimatePresence>
@@ -486,55 +544,57 @@ export default function Collections() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.7, delay: (idx % 4) * 0.08 }}
-                  className="group flex flex-col bg-white/40 hover:bg-white border border-transparent hover:border-[#e8dbd1]/30 p-2.5 rounded-[24px] transition-all duration-500 hover:shadow-soft"
+                  className="group flex flex-col bg-white rounded-[32px] overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] cursor-pointer border border-[#E8DED4]"
                   onClick={() => openModal(g)}
                 >
                   {/* Luxury Image Card */}
-                  <div className="relative overflow-hidden rounded-[18px] shadow-sm aspect-[2/3] bg-[#f7f4f1] mb-4">
+                  <div className="relative overflow-hidden aspect-[3/4] bg-[#f7f4f1]">
                     <img
                       src={g.image}
                       alt={isRTL ? g.name.ar : g.name.en}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
                     />
 
-                    {/* Heart Button — refined size */}
+                    {/* Gradient Overlay for bottom text clarity if needed, but keeping it minimal */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Heart Button */}
                     <button
                       onClick={(e) => toggleFav(g.id, e)}
-                      className={`w-7 h-7 rounded-full flex items-center justify-center absolute top-2.5 right-2.5 z-10 border shadow-sm transition-all ${
+                      className={`w-9 h-9 rounded-full flex items-center justify-center absolute top-4 right-4 z-20 border transition-all duration-300 ${
                         favorites.has(g.id) 
                           ? 'bg-[#c49a78] border-[#c49a78] text-white' 
-                          : 'bg-white/90 border-white/40 hover:bg-white text-[#2b1b12]'
+                          : 'bg-white/80 backdrop-blur-md border-white/40 hover:bg-white text-[#2b1b12]'
                       }`}
                     >
                       <Heart
-                        size={11}
+                        size={14}
                         fill={favorites.has(g.id) ? 'currentColor' : 'none'}
                         strokeWidth={2}
                       />
                     </button>
 
-                    {/* Sliding Glassmorphic Quick View Button */}
-                    <button
-                      className="absolute inset-x-0 bottom-0 py-3 text-[0.58rem] font-bold uppercase tracking-[0.2em] text-white bg-[#1c120c]/90 backdrop-blur-sm hover:bg-[#c49a78] transition-all border-t border-white/10 text-center opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 duration-300 z-10"
-                      onClick={(e) => { e.stopPropagation(); openModal(g); }}
-                    >
-                      {t('collections.quickView')}
-                    </button>
+                    {/* Quick Actions (Glassmorphism) */}
+                    <div className="absolute inset-x-0 bottom-4 flex justify-center gap-3 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                      <button
+                        className="flex-1 py-3 text-xs font-bold uppercase tracking-wider text-[#2C1D15] bg-white/70 backdrop-blur-[10px] rounded-full hover:bg-white hover:shadow-lg transition-all"
+                        onClick={(e) => { e.stopPropagation(); openModal(g); }}
+                      >
+                        {isRTL ? 'نظرة سريعة' : 'Quick View'}
+                      </button>
+                    </div>
                   </div>
 
                   {/* Card Description — Couture-grade */}
-                  <div className="text-center space-y-1 px-1">
-                    <span className="block text-[0.5rem] font-bold uppercase tracking-[0.2em] text-[#C6A27A]">
+                  <div className="text-center p-6 space-y-3 bg-white">
+                    <span className="block text-[12px] font-bold uppercase tracking-[2px] text-[#B08A62]">
                       {isRTL ? g.category.ar : g.category.en}
                     </span>
-                    <h3 className="font-serif text-sm leading-snug text-[#2b1b12] font-semibold group-hover:text-[#C6A27A] transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl font-bold leading-[1.5] text-[#2C1D15]" style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : "'Playfair Display', serif" }}>
                       {isRTL ? g.name.ar : g.name.en}
                     </h3>
-                    <p className="text-[0.55rem] text-[#8a7b71] leading-relaxed">
-                      {isRTL ? 'تفصيل يدوي · تطريز فرنسي · حسب المقاس' : 'Handcrafted · French Embroidery · Bespoke'}
-                    </p>
-                    <p className="text-[#C6A27A] text-xs font-bold tracking-widest mt-0.5">
+                    <p className="text-xl md:text-2xl font-semibold text-[#C8A97E] pt-1">
                       {isRTL ? `${g.price.toLocaleString()}$` : `$${g.price.toLocaleString()}`}
                     </p>
                   </div>
@@ -761,26 +821,34 @@ export default function Collections() {
                     <label className="block text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71] mb-3">
                       {copy.quickViewModal.chooseColor}
                     </label>
-                    <div className="flex gap-3">
-                      {[
-                        { id: 'white', label: copy.quickViewModal.colors.white },
-                        { id: 'offWhite', label: copy.quickViewModal.colors.offWhite },
-                      ].map((c) => {
-                        const isSelected = color === c.id;
+                    <div className="flex flex-wrap gap-3">
+                      {modal.colors.map((cId) => {
+                        const isSelected = color === cId;
+                        const label = isRTL
+                          ? (colorLabels[cId]?.ar || cId)
+                          : (colorLabels[cId]?.en || cId);
+                        const hex = colorHex[cId] || '#ccc';
+                        const isLight = ['white', 'ivory', 'champagne', 'nude'].includes(cId);
                         return (
                           <button
                             type="button"
-                            key={c.id}
-                            onClick={() => setColor(c.id as 'white' | 'offWhite')}
-                            className={`flex items-center gap-2 px-4 py-2 border rounded-full transition-all text-xs ${isSelected
-                              ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
-                              : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
-                              }`}
+                            key={cId}
+                            onClick={() => setColor(cId)}
+                            className={`flex items-center gap-2 px-3 py-2 border rounded-full transition-all text-xs ${
+                              isSelected
+                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
+                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
+                            }`}
                           >
-                            <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#c49a78]' : 'border-[#e8dbd1]'}`}>
-                              {isSelected && <span className="w-2 h-2 rounded-full bg-[#c49a78]" />}
-                            </span>
-                            <span>{c.label}</span>
+                            <span
+                              className="w-4 h-4 rounded-full flex-shrink-0 shadow-sm"
+                              style={{
+                                background: hex,
+                                border: isLight ? '1.5px solid #d0c4b4' : '1.5px solid transparent',
+                                boxShadow: isSelected ? '0 0 0 2px #c49a78' : undefined,
+                              }}
+                            />
+                            <span>{label}</span>
                           </button>
                         );
                       })}

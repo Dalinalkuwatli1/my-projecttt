@@ -62,17 +62,17 @@ const Navbar = () => {
   const iconColor  = isLightText ? 'rgba(255,255,255,0.85)' : 'var(--color-surface-900)';
 
   const scrolledStyle = scrolled ? {
-    background: 'rgba(245,241,236,0.82)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(198,162,122,0.18)',
+    background: 'rgba(255,255,255,0.95)',
+    backdropFilter: 'blur(15px)',
+    WebkitBackdropFilter: 'blur(15px)',
+    borderBottom: '1px solid rgba(194,157,102,0.25)',
     boxShadow: '0 4px 32px rgba(42,30,26,0.06)',
   } : {};
 
   return (
     <>
       <nav className={`fixed w-full z-50 transition-all duration-500 ${navBg} ${navBorder}`} style={scrolledStyle}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[72px] flex items-center justify-between relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[96px] flex items-center justify-between relative">
 
           {/* ── Left Column: nav links (desktop) ── */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8 w-[40%] justify-start relative">
@@ -158,7 +158,8 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Glamour Haute Couture" 
-              className="h-14 lg:h-18 xl:h-20 object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
+              className="object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
+              style={{ height: 'clamp(60px, 6vw, 90px)' }}
             />
           </Link>
 
@@ -221,23 +222,9 @@ const Navbar = () => {
 
             <Link
               to="/book-appointment"
-              className="nav-link text-[0.62rem] xl:text-[0.68rem] tracking-[0.22em] px-4 xl:px-5 py-2.5 rounded-full border transition-all"
-              style={{
-                border: isLightText ? '1.5px solid rgba(255,255,255,0.5)' : '1.5px solid var(--color-surface-900)',
-                color: isLightText ? 'white' : 'var(--color-surface-900)',
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = isLightText ? 'rgba(255,255,255,0.15)' : 'var(--color-surface-900)';
-                el.style.color = 'white';
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = 'transparent';
-                el.style.color = isLightText ? 'white' : 'var(--color-surface-900)';
-              }}
+              className="text-[0.68rem] font-bold uppercase tracking-[0.2em] px-6 py-3 rounded-full transition-all duration-300 bg-[#C6A27A] text-[#211712] hover:bg-[#e0cbb8] shadow-md hover:shadow-[#C6A27A]/20"
             >
-              {t('nav.bookAppointment')}
+              {isRTL ? 'احجزي استشارتكِ' : 'Book Consultation'}
             </Link>
           </div>
 
@@ -333,20 +320,6 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </nav>
-
-      {/* ── Features ribbon (home page only) ── */}
-      {isHome && (
-        <div className="fixed top-[72px] left-0 right-0 z-40 border-b" style={{ background: '#7a5c3e', borderColor: 'rgba(198,162,122,0.25)' }}>
-          <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-center gap-8 overflow-x-auto">
-            {(isRTL
-              ? ['✦ تصاميم حصرية', '✦ شحن دولي آمن', '✦ خامات فاخرة', '✦ تفصيل حسب الطلب']
-              : ['✦ Exclusive Designs', '✦ Worldwide Shipping', '✦ Luxury Fabrics', '✦ Bespoke Tailoring']
-            ).map((item, i) => (
-              <span key={i} className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#f5ead9] whitespace-nowrap">{item}</span>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ════════════════════════════════════
           CART DRAWER

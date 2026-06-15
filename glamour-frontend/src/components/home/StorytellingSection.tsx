@@ -82,6 +82,11 @@ const StorytellingSection = () => {
 
           {/* Left: text */}
           <div>
+            <Reveal delay={0.05}>
+              <div className="text-[#C6A27A] text-[0.7rem] font-bold tracking-[0.2em] uppercase mb-4" dir="ltr">
+                {isRTL ? '✦ منذ 2017' : '✦ EST. 2017'}
+              </div>
+            </Reveal>
             <Reveal delay={0.1}>
               <h2 
                 className="text-[#2b1b12] text-3xl md:text-5xl font-normal leading-[1.15]"
@@ -105,9 +110,6 @@ const StorytellingSection = () => {
               </h2>
             </Reveal>
 
-            <Reveal delay={0.2}>
-              <div style={{ width: 60, height: 1, background: '#C6A27A', margin: '24px 0' }} />
-            </Reveal>
 
             <Reveal delay={0.25}>
               <p className="text-[#8a7b71] leading-relaxed text-sm max-w-lg mb-6">
@@ -133,10 +135,10 @@ const StorytellingSection = () => {
                   { key: '∞', ar: 'قصة', en: 'STORIES' }
                 ]).map((stat) => (
                   <div key={stat.key} className="space-y-1">
-                    <div className="text-3xl md:text-4xl font-light text-[#2b1b12]">
+                    <div className="text-3xl md:text-4xl font-light text-[#2b1b12]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }} dir="ltr">
                       <AnimatedCounter value={stat.key} />
                     </div>
-                    <p className="text-[0.58rem] tracking-[0.2em] uppercase text-[#C6A27A] font-bold">
+                    <p className="text-[0.8rem] tracking-[0.2em] uppercase text-[#C6A27A] font-bold">
                       {isRTL ? stat.ar : stat.en}
                     </p>
                   </div>
@@ -147,10 +149,11 @@ const StorytellingSection = () => {
             <Reveal delay={0.48}>
               <Link 
                 to="/our-story" 
-                className="mt-10 inline-flex items-center gap-2 text-[0.7rem] font-black uppercase tracking-wider text-[#2b1b12] hover:text-[#C6A27A] transition-colors border-b-[2px] border-[#C6A27A] pb-1"
+                className="mt-10 inline-flex items-center gap-2 text-base md:text-lg font-black uppercase tracking-wider text-[#2b1b12] hover:text-[#C6A27A] transition-colors border-b-[2px] border-[#C6A27A] pb-1"
+                style={{ fontStyle: 'normal' }}
               >
                 {isRTL ? 'قصتنا الكاملة' : 'Our Full Story'}
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </Reveal>
           </div>
@@ -163,7 +166,7 @@ const StorytellingSection = () => {
 
             {/* Main large image */}
             <Reveal delay={0.1} className="absolute top-[5%] right-[5%] w-[68%] h-[75%] z-10">
-              <div className="w-full h-full overflow-hidden rounded-[20px] shadow-lg border border-[#e8dbd1]">
+              <div className="w-full h-full overflow-hidden rounded-[32px] shadow-[0_40px_70px_rgba(0,0,0,0.15)] border border-[#e8dbd1]">
                 <img
                   src="https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=900"
                   alt="Happy Couple Wedding"
@@ -184,15 +187,15 @@ const StorytellingSection = () => {
             </Reveal>
 
             {/* Floating quote card */}
-            <Reveal delay={0.55} className="absolute bottom-[20%] right-[-10px] z-30">
-              <div className="px-5 py-4 max-w-[190px] bg-white/90 backdrop-blur-md rounded-[16px] border border-[#C6A27A]/30 shadow-md">
+            <Reveal delay={0.55} className="absolute bottom-[10%] right-[-15px] z-30">
+              <div className="px-8 py-7 max-w-[260px] bg-white/95 backdrop-blur-xl rounded-[24px] border border-[#C6A27A]/30 shadow-[0_30px_60px_rgba(0,0,0,0.12)]">
                 <p 
-                  className="text-xs font-normal text-[#2b1b12] leading-relaxed" 
-                  style={{ fontFamily: 'Cormorant Garamond, serif' }}
+                  className="text-[1.1rem] font-bold text-[#2b1b12] leading-relaxed" 
+                  style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : 'Cormorant Garamond, serif' }}
                 >
                   {isRTL ? '« كل غرزة تحكي فصلاً من حلم زفاف خيالي فريد. »' : '“Every stitch narrates a chapter of a unique dream.”'}
                 </p>
-                <div className="h-[1px] bg-[#C6A27A] opacity-40 mt-3" />
+                <div className="h-[2px] w-12 bg-[#C6A27A] opacity-60 mt-4" />
               </div>
             </Reveal>
           </div>

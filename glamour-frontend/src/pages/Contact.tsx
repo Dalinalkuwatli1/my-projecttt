@@ -81,8 +81,8 @@ export default function Contact() {
       icon: Clock,
       labelAr: 'ساعات العمل',
       labelEn: 'Working Hours',
-      valueAr: 'الاثنين – السبت: 10ص – 7م\nالأحد: بموعد مسبق فقط',
-      valueEn: 'Mon – Sat: 10 AM – 7 PM\nSunday: By Appointment Only',
+      valueAr: 'الاثنين – السبت: 10ص – 7م',
+      valueEn: 'Mon – Sat: 10 AM – 7 PM',
     },
   ];
 
@@ -90,7 +90,7 @@ export default function Contact() {
     <div style={{ background: '#FEFCF9', minHeight: '100vh', fontFamily: 'Manrope, sans-serif' }}>
 
       {/* ━━ HERO SECTION ━━ */}
-      <section className="relative overflow-hidden flex items-center justify-center" style={{ minHeight: '55vh', paddingTop: 120, paddingBottom: 80 }}>
+      <section className="relative overflow-hidden flex items-end justify-center" style={{ height: '85vh', minHeight: '700px', paddingBottom: '120px' }}>
         {/* Background image */}
         <motion.div
           className="absolute inset-0"
@@ -99,11 +99,12 @@ export default function Contact() {
           transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <img
-            src="https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="/images/202.jpg"
             alt="Bridal Contact"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(43,27,18,0.72) 0%, rgba(43,27,18,0.82) 100%)' }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#211712]/98 via-[#211712]/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#211712]/60 via-transparent to-transparent" />
         </motion.div>
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
@@ -112,8 +113,8 @@ export default function Contact() {
           </motion.span>
           <motion.h1
             {...fadeUp(0.35)}
-            className="text-white mb-6"
-            style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.8rem, 7vw, 5.5rem)', fontWeight: 400, lineHeight: 1.1, letterSpacing: '0.02em' }}
+            className="text-white mb-6 font-bold"
+            style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : 'Cormorant Garamond, serif', fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.1, letterSpacing: '0.02em' }}
           >
             {isRTL ? 'للتواصل معنا' : 'Contact Us'}
           </motion.h1>

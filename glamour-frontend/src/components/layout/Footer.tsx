@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Landmark } from 'lucide-react';
 import logo from '../../assets/logo.png';
 
 /* ── Social Icons ── */
@@ -119,31 +120,31 @@ const Footer = () => {
       className="bg-gradient-to-b from-[#0a0a0a] to-[#060606] shadow-[inset_0_1px_rgba(201,169,110,0.12)] text-white border-t border-[#C6A27A]/12 overflow-hidden font-sans"
     >
       {/* ── Main Grid ── */}
-      <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 pt-14 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-10 lg:gap-14">
+      <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 pt-10 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-8 lg:gap-10">
         {/* Column 1: Brand */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <Link to="/" className="inline-block">
             <img
               src={logo}
               alt="Glamour Haute Couture"
-              className="w-[140px] object-contain rounded-sm mix-blend-screen"
+              className="w-[130px] object-contain rounded-sm mix-blend-screen"
             />
           </Link>
-          <p className="text-[0.79rem] leading-[1.9] text-white/55 max-w-[260px]">
+          <p className="text-[0.78rem] leading-[1.8] text-white/55 max-w-[260px]">
             {copy.col1.desc}
           </p>
         </div>
 
         {/* Column 2: Services */}
         <div className="flex flex-col">
-          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col2.title}</h4>
-          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
+          <h4 className="font-serif text-[0.85rem] font-bold tracking-[0.15em] uppercase text-[#C8A97E] mb-2">{copy.col2.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-2.5" />
           <ul>
             {copy.col2.links.map((link, idx) => (
               <li key={idx}>
                 <Link
                   to={link.to}
-                  className="font-sans text-[0.78rem] text-white/60 leading-[2.1] block transition-colors duration-250 hover:text-[#C8A97E] hover:translate-x-0.5 rtl:hover:-translate-x-0.5 transition-all"
+                  className="font-sans text-[0.78rem] text-white/60 leading-[1.8] block transition-colors duration-250 hover:text-[#C8A97E]"
                 >
                   {link.label}
                 </Link>
@@ -154,14 +155,14 @@ const Footer = () => {
 
         {/* Column 3: Quick Links */}
         <div className="flex flex-col">
-          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col3.title}</h4>
-          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
+          <h4 className="font-serif text-[0.85rem] font-bold tracking-[0.15em] uppercase text-[#C8A97E] mb-2">{copy.col3.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-2.5" />
           <ul>
             {copy.col3.links.map((link, idx) => (
               <li key={idx}>
                 <Link
                   to={link.to}
-                  className="font-sans text-[0.78rem] text-white/60 leading-[2.1] block transition-colors duration-250 hover:text-[#C8A97E]"
+                  className="font-sans text-[0.78rem] text-white/60 leading-[1.8] block transition-colors duration-250 hover:text-[#C8A97E]"
                 >
                   {link.label}
                 </Link>
@@ -171,26 +172,26 @@ const Footer = () => {
         </div>
 
         {/* Column 4: Contact */}
-        <div className="flex flex-col gap-3">
-          <h4 className="font-serif text-[0.8rem] font-bold tracking-[0.18em] uppercase text-[#C8A97E] mb-2.5">{copy.col4.title}</h4>
-          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-3.5" />
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <h4 className="font-serif text-[0.85rem] font-bold tracking-[0.15em] uppercase text-[#C8A97E] mb-2">{copy.col4.title}</h4>
+          <div className="w-7 h-[1px] bg-[#C8A97E]/50 mb-2.5" />
+          <div className="flex flex-col gap-1.5">
             <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
-              <span className="text-[#C8A97E] mt-0.5">📍</span>
+              <span className="text-[#C8A97E]">📍</span>
               <span>{copy.col4.address}</span>
             </p>
             <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
-              <span className="text-[#C8A97E] mt-0.5">📞</span>
+              <span className="text-[#C8A97E]">📞</span>
               <span dir="ltr">{copy.col4.phone}</span>
             </p>
             <p className="text-[0.78rem] text-white/55 flex items-start gap-2.5">
-              <span className="text-[#C8A97E] mt-0.5">✉</span>
+              <span className="text-[#C8A97E]">✉</span>
               <span>{copy.col4.email}</span>
             </p>
           </div>
 
           {/* Social Icons */}
-          <div className="flex gap-3 mt-3">
+          <div className="flex gap-2.5 mt-2">
             {[
               { icon: <InstagramIcon />, href: 'https://instagram.com/glamour_couture' },
               { icon: <FacebookIcon />, href: 'https://facebook.com/glamour_couture' },
@@ -202,7 +203,7 @@ const Footer = () => {
                 href={soc.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-[#C8A97E]/25 rounded-full transition-all duration-300 flex items-center justify-center text-white/50 hover:bg-[#C8A97E] hover:text-[#0F0D0B] hover:border-[#C8A97E] hover:-translate-y-[2px]"
+                className="w-7 h-7 border border-[#C8A97E]/20 rounded-full transition-all duration-300 flex items-center justify-center text-white/50 hover:bg-[#C8A97E] hover:text-[#0F0D0B] hover:border-[#C8A97E] hover:-translate-y-[2px]"
               >
                 {soc.icon}
               </a>
@@ -212,50 +213,47 @@ const Footer = () => {
       </div>
 
       {/* ── Trust Ribbon ── */}
-      <div className="w-full flex items-center justify-center px-4 py-3 border-t border-b border-[#C8A97E]/10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3 text-center">
-          <span className="text-[0.65rem] uppercase tracking-[0.22em] text-[#C8A97E] font-bold">
+      <div className="w-full flex items-center justify-center px-4 py-2 border-t border-b border-[#C8A97E]/10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-1.5 md:gap-2 text-center">
+          <span className="text-[0.62rem] uppercase tracking-[0.2em] text-[#C8A97E] font-bold">
             {copy.ribbon.pre}
           </span>
           <span className="hidden md:inline text-[#C8A97E]/30 text-xs">•</span>
-          <span className="text-[0.72rem] tracking-[0.07em] text-white/55 font-medium">
+          <span className="text-[0.68rem] tracking-[0.05em] text-white/55 font-medium">
             {copy.ribbon.cities}
           </span>
         </div>
       </div>
 
       {/* ── Payment Methods ── */}
-      <div className="flex justify-center gap-2.5 p-3 flex-wrap items-center">
-        {/* AMEX */}
-        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
-          <span className="text-[0.62rem] font-bold tracking-widest text-[#2089d4]">AMEX</span>
-        </div>
-        {/* BANK TRANSFER */}
-        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
-          <span className="text-[0.62rem] font-bold uppercase tracking-widest text-white/50">BANK TRANSFER</span>
-        </div>
-        {/* MasterCard */}
-        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center gap-1">
-          <div className="w-4 h-4 rounded-full bg-[#EB001B] opacity-90" />
-          <div className="w-4 h-4 rounded-full -ml-3 bg-[#F79E1B] opacity-90" />
-          <span className="text-[0.54rem] font-bold text-white/40 tracking-wider ml-1">MC</span>
-        </div>
+      <div className="flex justify-center gap-6 py-4 px-6 flex-wrap items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
         {/* Visa */}
-        <div className="h-9 px-4 rounded-lg bg-[#111] border border-white/10 flex items-center justify-center">
-          <svg width="36" height="12" viewBox="0 0 750 471" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M300 336L328 136H374L346 336H300Z" fill="#2089d4" />
-            <path d="M495 140c-17-7-44-14-78-14-86 0-147 44-148 107-1 46 43 72 76 88 34 16 45 26 45 41-1 22-27 32-52 32-35 0-54-5-83-18l-11-5-12 73c21 9 59 18 99 18 91 0 151-44 152-111 1-37-23-65-73-88-31-15-50-25-50-40 0-13 16-27 51-27 29-1 51 6 67 14l8 4 12-72z" fill="#2089d4" />
-            <path d="M594 136h-67c-21 0-37 6-46 27l-130 173h92s15-40 18-49h112c3 13 10 49 10 49h81L594 136zm-108 93c7-19 35-93 35-93s7-19 11-31l6 28s16 79 20 96h-72z" fill="#2089d4" />
-            <path d="M228 136l-85 136-9-47c-16-52-66-109-121-137l78 248h93l138-200h-94z" fill="#2089d4" />
-          </svg>
+        <svg viewBox="0 0 38 12" className="h-3" fill="currentColor" style={{ color: '#fff' }}>
+          <path d="M14.7 0L12 12H8.3L10.3 0H14.7ZM34.7 0L32.2 12H28.7L31.2 0H34.7ZM25.5 0C27.5 0 28.5 0.8 28.5 0.8L27.6 3.8C27.6 3.8 26.8 3.2 25.4 3.2C24 3.2 23 3.9 23 4.8C23 5.6 23.8 6 24.8 6.5C25.8 6.9 26 7.4 26 8.1C26 9.6 24.5 10.3 22.8 10.3C21.1 10.3 19.8 9.5 19.8 9.5L20.8 6.3C20.8 6.3 21.8 7.2 23.3 7.2C24.8 7.2 25.7 6.5 25.7 5.5C25.7 4.7 25.1 4.3 24 3.8C23 3.3 22.5 2.8 22.5 1.9C22.5 0.5 23.8 0 25.5 0ZM8.5 0L5.5 8.2L4.7 4C4.3 2 3.1 0.7 1 0H8.5ZM1.1 1.6C1.9 2 2.6 2.6 3 3.5L4.8 12H8.5L5.4 0H0C0.4 0.6 0.7 1.1 1.1 1.6Z" />
+        </svg>
+
+        {/* Mastercard */}
+        <svg viewBox="0 0 24 14" className="h-4" fill="currentColor" style={{ color: '#fff' }}>
+          <path d="M14.6 7C14.6 5.1 15.4 3.4 16.7 2.2C15.2 0.8 13.1 0 10.9 0C6.1 0 2.2 3.9 2.2 8.7C2.2 13.5 6.1 17.4 10.9 17.4C13.1 17.4 15.2 16.6 16.7 15.2C15.4 14 14.6 12.3 14.6 10.4V7ZM24 8.7C24 13.5 20.1 17.4 15.3 17.4C14.4 17.4 13.5 17.2 12.7 16.9C14.2 15.2 15.1 13 15.1 10.6V6.8C15.1 4.4 14.2 2.2 12.7 0.5C13.5 0.2 14.4 0 15.3 0C20.1 0 24 3.9 24 8.7Z" />
+        </svg>
+
+        {/* Amex */}
+        <div className="flex items-center justify-center border border-white/60 rounded px-1.5 py-0.5 text-[0.45rem] font-bold tracking-widest text-white mt-0.5">
+          AMEX
+        </div>
+
+        {/* Bank Transfer */}
+        <div className="flex items-center gap-1.5 text-[0.55rem] font-bold tracking-wider text-white">
+          <Landmark size={14} />
+          <span>BANK</span>
         </div>
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="w-full border-t border-white/5 py-3.5">
-        <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.72rem] text-white/35 font-medium">
+      <div className="w-full border-t border-white/5 py-2.5">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-2.5 text-[0.68rem] text-white/35 font-medium">
           <span>© 2026 Glamour Couture. {copy.bottom.rights} | صنع بواسطة dalin alkuwatli</span>
-          <div className="flex gap-5">
+          <div className="flex gap-4">
             <Link to="/faq" className="hover:text-white/70 transition-colors">{copy.bottom.policy}</Link>
             <span className="text-white/15">|</span>
             <Link to="/faq" className="hover:text-white/70 transition-colors">{copy.bottom.terms}</Link>
