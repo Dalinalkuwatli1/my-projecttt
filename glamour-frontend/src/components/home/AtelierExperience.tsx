@@ -33,29 +33,29 @@ const pillars = [
     icon: MapPin,
     titleEn: 'Istanbul Atelier',
     titleAr: 'أتيليه إسطنبول',
-    descEn: 'Nestled in the heart of Nişantaşı — the fashion capital of Turkey.',
-    descAr: 'في قلب نيشانتاشي — عاصمة الموضة في تركيا.',
+    descEn: 'In the heart of Nişantaşı — Turkey.',
+    descAr: 'في قلب نيشانتاشي — تركيا.',
   },
   {
     icon: Clock,
     titleEn: 'By Appointment Only',
     titleAr: 'بموعد حصري فقط',
-    descEn: 'Private, unhurried sessions. Every bride receives our complete devotion.',
-    descAr: 'جلسات خاصة بلا عجلة. كل عروس تحظى بعنايتنا الكاملة.',
+    descEn: 'Private sessions. Complete devotion.',
+    descAr: 'جلسات خاصة بلا عجلة. عنايتنا الكاملة.',
   },
   {
     icon: Users,
     titleEn: 'Personal Design Team',
     titleAr: 'فريق تصميم شخصي',
-    descEn: 'A dedicated designer and seamstress assigned to you from day one.',
-    descAr: 'مصممة وخياطة مخصصتان لكِ من اليوم الأول.',
+    descEn: 'Seamstress assigned from day one.',
+    descAr: 'مصممة مخصصة لكِ منذ اليوم الأول.',
   },
   {
     icon: Award,
     titleEn: '14 Years of Excellence',
     titleAr: '14 عاماً من التميز',
-    descEn: 'A legacy of over 1,500 brides who trusted us with their most precious day.',
-    descAr: 'إرث من أكثر من 1500 عروس أسندن إلينا أثمن يوم في حياتهن.',
+    descEn: 'Over 1,500 brides trusted us.',
+    descAr: 'أكثر من 1500 عروس أسندن إلينا ثقتهن.',
   },
 ];
 
@@ -65,153 +65,173 @@ const AtelierExperience = () => {
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%']);
+  const imgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
   return (
-    <section ref={ref} style={{ background: '#100e0c', overflow: 'hidden', position: 'relative' }}>
-      {/* Full-bleed parallax image */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ y: imgY }}
-      >
+    <section
+      ref={ref}
+      style={{ overflow: 'hidden', position: 'relative' }}
+      className="py-20 lg:py-32 flex items-center min-h-[720px]"
+    >
+      {/* Full-bleed background image - beautiful wedding gown */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: imgY, scale: 1.1 }}>
         <img
-          src="https://images.pexels.com/photos/2959192/pexels-photo-2959192.jpeg?auto=compress&cs=tinysrgb&w=1920"
-          alt="Glamour Bridal Atelier"
+          src="https://images.pexels.com/photos/1755428/pexels-photo-1755428.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt="Bespoke Wedding Gown Atelier"
           className="w-full h-full object-cover"
-          style={{ transform: 'scale(1.15)', transformOrigin: 'center' }}
         />
       </motion.div>
 
-      {/* Cinematic overlays */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,8,6,0.98) 0%, rgba(10,8,6,0.92) 55%, rgba(10,8,6,0.6) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,8,6,0.95) 0%, transparent 60%)' }} />
+      {/* Cinematic dark & warm overlays */}
+      <div className="absolute inset-0 bg-[#100e0c]/40 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#100e0c]/90 via-[#100e0c]/40 to-transparent z-0" />
 
-      <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-8 lg:px-24"
-        style={{ paddingBlock: 'clamp(120px,14vw,200px)', y: textY }}
-      >
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-16 flex justify-start">
+        {/* Glassmorphic Consultation Card — Positioned on the left side with blur ("تغبيش") */}
+        <div 
+          className="w-full max-w-2xl p-8 lg:p-12 backdrop-blur-[24px] rounded-[32px] border border-white/20 shadow-2xl"
+          style={{ 
+            background: 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.15)'
+          }}
+        >
+          <Reveal>
+            <span
+              style={{
+                fontSize: '0.55rem',
+                letterSpacing: '0.38em',
+                textTransform: 'uppercase',
+                color: 'var(--color-gold)',
+                fontFamily: 'Manrope, sans-serif',
+                fontWeight: 700,
+                display: 'block',
+                marginBottom: 10,
+              }}
+            >
+              {isRTL ? '✦ تجربة الأتيليه الحصرية' : '✦ The Atelier Experience'}
+            </span>
+            <h2
+              style={{
+                fontFamily: isRTL ? "'Reem Kufi', 'Cairo', sans-serif" : 'Cormorant Garamond, serif',
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+                fontWeight: isRTL ? 600 : 300,
+                lineHeight: 1.2,
+                color: 'white',
+                marginBottom: 12,
+              }}
+            >
+              {isRTL ? (
+                <>
+                  ليست مجرد تجربة زفاف<br />
+                  <span style={{ color: 'var(--color-gold)' }}>إنها ذاكرة تُصنع</span>
+                </>
+              ) : (
+                <>
+                  Not just a fitting —<br />
+                  <span style={{ color: 'var(--color-gold)' }}>A memory crafted</span>
+                </>
+              )}
+            </h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', lineHeight: 1.8, fontFamily: "'Cairo', 'Tajawal', sans-serif", marginBottom: 20 }}>
+              {isRTL
+                ? 'تصاميم صُنعت خصيصًا للعروس التي تبحث عن التفرد. حيث تلتقي الحرفية الراقية مع الأناقة الخالدة لتصنع إطلالة استثنائية.'
+                : 'Designs crafted exclusively for the bride seeking distinction, where refined artistry meets timeless elegance.'}
+            </p>
+          </Reveal>
 
-          {/* Left: Text */}
-          <div>
-            <Reveal>
-              <span className="section-label">{isRTL ? 'تجربة الأتيليه' : 'The Atelier Experience'}</span>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2
-                style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(2.6rem, 5.5vw, 4.8rem)',
-                  fontWeight: 300,
-                  lineHeight: 1.05,
-                  color: 'white',
-                  letterSpacing: '0.02em',
-                  marginTop: 20,
-                }}
-              >
-                {isRTL ? (
-                  <>
-                    ليست مجرد تجربة<br />
-                    <span style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}>إنها ذاكرة تُصنع</span>
-                  </>
-                ) : (
-                  <>
-                    Not just a fitting<br />
-                    <span style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}>A memory crafted</span>
-                  </>
-                )}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <div style={{ width: 56, height: 1, background: 'var(--color-gold)', margin: '32px 0' }} />
-            </Reveal>
-            <Reveal delay={0.25}>
-              <p style={{ color: 'rgba(255,255,255,0.95)', lineHeight: 2, fontSize: '1.05rem', fontWeight: 600, maxWidth: 440, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-                {isRTL
-                  ? 'أتيليه جلامور ليس مجرد مكان — إنه مقدس للأنوثة والجمال. ادخلي إلى عالم من الهدوء، التفاصيل، والاهتمام الكامل بكِ وحدكِ.'
-                  : 'The Glamour Atelier is not merely a place — it is a sanctuary of femininity and beauty. Step into a world of calm, detail, and absolute focus devoted entirely to you.'}
-              </p>
-            </Reveal>
-            <Reveal delay={0.35}>
+          {/* Gold separator */}
+          <div style={{ height: 1, background: 'linear-gradient(to right, #C6A27A, transparent)', marginBlock: '8px 24px', width: '50%' }} />
+
+          {/* Pillars Grid (20% smaller layout) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {pillars.map((pillar, i) => {
+              const Icon = pillar.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
+                  className="p-5 rounded-[20px] transition-all duration-400"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(255, 255, 255, 0.12)';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(198, 162, 122, 0.45)';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(255, 255, 255, 0.05)';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  }}
+                >
+                  <div
+                    className="w-8 h-8 flex items-center justify-center mb-3 rounded-full"
+                    style={{ background: 'rgba(198, 162, 122, 0.2)', border: '1px solid rgba(198, 162, 122, 0.3)' }}
+                  >
+                    <Icon size={14} style={{ color: 'var(--color-gold)' }} />
+                  </div>
+                  <h4
+                    style={{
+                      fontFamily: isRTL ? "'Reem Kufi', 'Cairo', sans-serif" : 'Cormorant Garamond, serif',
+                      fontSize: '0.9rem',
+                      fontWeight: 600,
+                      color: 'white',
+                      marginBottom: 4,
+                    }}
+                  >
+                    {isRTL ? pillar.titleAr : pillar.titleEn}
+                  </h4>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.7rem', lineHeight: 1.6, fontFamily: "'Cairo', 'Tajawal', sans-serif" }}>
+                    {isRTL ? pillar.descAr : pillar.descEn}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* CTA Buttons */}
+          <Reveal delay={0.45}>
+            <div className="flex flex-wrap items-center gap-4">
               <Link
                 to="/book-appointment"
-                className="inline-flex items-center gap-3 group mt-12"
+                className="inline-flex items-center gap-2 group"
                 style={{
                   color: '#100e0c',
                   background: 'linear-gradient(135deg, var(--color-gold) 0%, #a37e58 100%)',
-                  fontSize: '0.8rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.15em',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.2em',
                   textTransform: 'uppercase',
-                  padding: '17px 38px',
+                  padding: '14px 32px',
                   borderRadius: 999,
-                  boxShadow: '0 10px 40px rgba(212,176,138,0.35)',
-                  transition: 'all 0.45s cubic-bezier(0.22, 1, 0.36, 1)',
+                  boxShadow: '0 8px 24px rgba(212,176,138,0.35)',
+                  transition: 'all 0.4s ease',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 52px rgba(212,176,138,0.5)';
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 36px rgba(212,176,138,0.5)';
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 40px rgba(212,176,138,0.35)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(212,176,138,0.35)';
                 }}
               >
-                {isRTL ? 'احجزي زيارتك للأتيليه' : 'Schedule Your Atelier Visit'}
-                <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+                {isRTL ? 'احجزي استشارتكِ' : 'Book Consultation'}
+                <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
               </Link>
-            </Reveal>
-          </div>
-
-          {/* Right: Glassmorphic pillars */}
-          <Reveal delay={0.15}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {pillars.map((pillar, i) => {
-                const Icon = pillar.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className="group p-7 cursor-default transition-all duration-500"
-                    style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      border: '1px solid rgba(212,176,138,0.15)',
-                      backdropFilter: 'blur(20px)',
-                      WebkitBackdropFilter: 'blur(20px)',
-                      borderRadius: 4,
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(212,176,138,0.07)';
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,176,138,0.35)';
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)';
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,176,138,0.15)';
-                    }}
-                  >
-                    <div
-                      className="w-10 h-10 flex items-center justify-center mb-5 rounded-full"
-                      style={{ background: 'rgba(212,176,138,0.1)', border: '1px solid rgba(212,176,138,0.25)' }}
-                    >
-                      <Icon size={16} style={{ color: 'var(--color-gold)' }} />
-                    </div>
-                    <h4 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.2rem', fontWeight: 500, color: 'white', marginBottom: 8 }}>
-                      {isRTL ? pillar.titleAr : pillar.titleEn}
-                    </h4>
-                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', lineHeight: 1.8, fontFamily: 'Manrope, sans-serif', fontWeight: 300 }}>
-                      {isRTL ? pillar.descAr : pillar.descEn}
-                    </p>
-                  </motion.div>
-                );
-              })}
+              <Link
+                to="/our-story"
+                className="text-[0.65rem] font-bold uppercase tracking-wider text-white/80 hover:text-white border-b border-white/20 hover:border-var(--color-gold) pb-1 transition-all duration-300"
+              >
+                {isRTL ? 'من نحن' : 'About Us'}
+              </Link>
             </div>
           </Reveal>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

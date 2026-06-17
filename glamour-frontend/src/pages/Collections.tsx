@@ -111,7 +111,7 @@ const textReveal = {
 
 
 export default function Collections() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const currentLang = i18n.language === 'ar' ? 'ar' : 'en';
   const copy = localCopy[currentLang];
   const isRTL = currentLang === 'ar';
@@ -121,6 +121,13 @@ export default function Collections() {
   const [color, setColor] = useState<string>('');
   const [size, setSize] = useState<'S' | 'M' | 'L'>('M');
   const [added, setAdded] = useState(false);
+  const [activeImage, setActiveImage] = useState<string>('');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const triggerToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
 
   // FILTER STATES
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -159,6 +166,7 @@ export default function Collections() {
     setColor(g.colors[0] || 'white');
     setSize('M');
     setAdded(false);
+    setActiveImage(g.images[0] || g.image);
   };
 
   const handleAddToCartSubmit = (e: React.FormEvent) => {
@@ -267,7 +275,7 @@ export default function Collections() {
          1. CINEMATIC FULL-WIDTH BACKGROUND HERO
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section
-        className="relative w-full flex items-center justify-center text-center px-6 overflow-hidden"
+        className="relative w-full flex items-center justify-start text-start px-6 lg:px-24 overflow-hidden"
         style={{
           height: '90vh',
           minHeight: 750,
@@ -281,40 +289,55 @@ export default function Collections() {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35))' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%)' }} />
         
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 max-w-4xl mx-auto text-white space-y-8"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 max-w-xl text-white space-y-6 p-8 lg:p-12 backdrop-blur-[24px] rounded-[32px] border border-white/10 shadow-2xl ml-0"
+          style={{
+            background: 'rgba(0, 0, 0, 0.35)',
+          }}
         >
           <h1
-            style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : "'Playfair Display', serif", fontSize: 'clamp(48px, 6vw, 90px)', fontWeight: 700, letterSpacing: isRTL ? '0px' : '-2px', textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
-            className="leading-[1.1] drop-shadow-lg"
+            style={{ 
+              fontFamily: isRTL ? "'Noto Naskh Arabic', 'Cairo', serif" : "'Playfair Display', serif", 
+              fontSize: 'clamp(32px, 4.5vw, 60px)', 
+              fontWeight: 700, 
+              letterSpacing: isRTL ? '0px' : '-1px', 
+              textShadow: '0 2px 12px rgba(0,0,0,0.4)',
+              lineHeight: '1.2'
+            }}
+            className="drop-shadow-lg"
           >
             {isRTL
               ? (selectedType === 'evening' ? 'فساتين السهرة الملكية' : 'المجموعات الحصرية')
               : (selectedType === 'evening' ? 'Royal Evening Gowns' : 'The Exclusive Collections')}
           </h1>
           <p
-            style={{ maxWidth: 650, margin: '0 auto', lineHeight: 1.9, opacity: 0.9, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
-            className="text-base md:text-lg font-medium"
+            style={{ 
+              lineHeight: '1.8', 
+              opacity: 0.9, 
+              textShadow: '0 2px 8px rgba(0,0,0,0.4)',
+              fontFamily: isRTL ? "'Cairo', 'Tajawal', sans-serif" : 'inherit'
+            }}
+            className="text-sm md:text-base font-light"
           >
             {isRTL
               ? 'تصاميم صنعت خصيصاً للعروس التي تبحث عن التفرد. حيث تلتقي الحرفية الراقية مع الأناقة الخالدة.'
               : 'Designs crafted for the bride who seeks distinction, where refined artistry meets timeless elegance.'}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
+          <div className="flex flex-wrap items-center gap-4 pt-4">
             <button
               onClick={() => { document.getElementById('gowns-gallery-section')?.scrollIntoView({ behavior: 'smooth' }); }}
-              className="px-10 py-4 bg-gradient-to-r from-[#8E6C4C] to-[#C8A97E] text-white rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(200,169,126,0.35)]"
+              className="px-8 py-3.5 bg-gradient-to-r from-[#8E6C4C] to-[#C8A97E] text-white rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(200,169,126,0.35)]"
             >
               {isRTL ? 'استكشف المجموعة' : 'Explore Collection'}
             </button>
             <Link
               to="/book-appointment"
-              className="px-10 py-4 border border-white/40 text-white rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-400 hover:bg-white/10 hover:-translate-y-1 hover:border-white"
+              className="px-8 py-3.5 border border-white/40 text-white rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white hover:text-[#2c1d15] hover:-translate-y-1 hover:border-white hover:shadow-[0_20px_40px_rgba(255,255,255,0.15)]"
             >
               {isRTL ? 'احجز استشارتك' : 'Book Consultation'}
             </Link>
@@ -343,13 +366,13 @@ export default function Collections() {
         </div>
 
         {/* BESPOKE BOUTIQUE FILTER BAR */}
-        <div className="sticky top-[90px] z-[100] mb-16 mx-auto bg-white/70 backdrop-blur-[15px] border border-[#E6D5C3] p-4 rounded-full max-w-5xl shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-          <div className="flex flex-wrap items-center justify-between gap-4 px-4">
+        <div className="sticky top-[90px] z-[100] mb-16 mx-auto bg-white/70 backdrop-blur-[15px] border border-[#E6D5C3] p-3.5 rounded-full max-w-5xl shadow-[0_15px_40px_rgba(44,29,21,0.05)]">
+          <div className="flex flex-wrap items-center justify-between gap-4 px-2">
             
             {/* Filter icon label */}
             <button
               onClick={() => setActiveFilterTab(activeFilterTab ? null : 'category')}
-              className="flex items-center gap-2 text-sm font-bold text-[#2C1D15] hover:text-[#C8A97E] transition-colors bg-[#FAF7F3] px-6 py-3 rounded-full border border-[#E6D5C3]"
+              className="flex items-center gap-2 text-sm font-bold text-[#2C1D15] hover:text-[#C8A97E] transition-all duration-300 bg-[#FAF7F3] px-6 py-3 rounded-full border border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
             >
               <SlidersHorizontal size={16} />
               <span>{isRTL ? 'تصفية متقدمة' : 'Advanced Filters'}</span>
@@ -360,7 +383,11 @@ export default function Collections() {
               {/* Collection Filter (Price) */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'price' ? null : 'price')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'price' || priceRange ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
+                  activeFilterTab === 'price' || priceRange 
+                    ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(200,169,126,0.3)] -translate-y-[2px]' 
+                    : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#C8A97E]'
+                }`}
               >
                 <span>{priceRange ? (isRTL ? 'المجموعة: محددة' : 'Collection: Selected') : (isRTL ? 'المجموعة' : 'Collection')}</span>
                 <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'price' ? 'rotate-180' : ''}`} />
@@ -369,7 +396,11 @@ export default function Collections() {
               {/* Silhouette Filter (Size) */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'size' ? null : 'size')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'size' || selectedSize ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
+                  activeFilterTab === 'size' || selectedSize 
+                    ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(200,169,126,0.3)] -translate-y-[2px]' 
+                    : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#C8A97E]'
+                }`}
               >
                 <span>{selectedSize ? (isRTL ? `القصّة: ${selectedSize}` : `Silhouette: ${selectedSize}`) : (isRTL ? 'القصة' : 'Silhouette')}</span>
                 <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'size' ? 'rotate-180' : ''}`} />
@@ -378,7 +409,11 @@ export default function Collections() {
               {/* Tone Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'color' ? null : 'color')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'color' || selectedColor ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
+                  activeFilterTab === 'color' || selectedColor 
+                    ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(200,169,126,0.3)] -translate-y-[2px]' 
+                    : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#C8A97E]'
+                }`}
               >
                 <span>{selectedColor ? (isRTL ? `الدرجة: ${selectedColor === 'white' ? 'أبيض' : 'أوف وايت'}` : `Tone: ${selectedColor === 'white' ? 'White' : 'Off-White'}`) : (isRTL ? 'الدرجة' : 'Tone')}</span>
                 <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'color' ? 'rotate-180' : ''}`} />
@@ -387,7 +422,11 @@ export default function Collections() {
               {/* Style Filter */}
               <button
                 onClick={() => setActiveFilterTab(activeFilterTab === 'category' ? null : 'category')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeFilterTab === 'category' || selectedCategory ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(0,0,0,0.08)] -translate-y-[2px]' : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]'}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
+                  activeFilterTab === 'category' || selectedCategory 
+                    ? 'bg-[#C8A97E] text-white border-[#C8A97E] shadow-[0_10px_30px_rgba(200,169,126,0.3)] -translate-y-[2px]' 
+                    : 'bg-white text-[#2C1D15] border-[#E6D5C3] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#C8A97E]'
+                }`}
               >
                 <span>{selectedCategory ? (isRTL ? `الأسلوب: ${selectedCategory}` : `Style: ${selectedCategory}`) : (isRTL ? 'الأسلوب' : 'Style')}</span>
                 <ChevronDown size={14} className={`transition-transform duration-300 ${activeFilterTab === 'category' ? 'rotate-180' : ''}`} />
@@ -397,7 +436,7 @@ export default function Collections() {
             {/* Sort Dropdown Placeholder */}
             <div className="flex items-center gap-2 text-sm font-bold text-[#2C1D15]">
               <span>{isRTL ? 'ترتيب حسب' : 'Sort by'}</span>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#E6D5C3] bg-white hover:bg-[#FAF7F3] transition-colors">
+              <button className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#E6D5C3] bg-white hover:bg-[#FAF7F3] hover:border-[#C8A97E] transition-all duration-300 hover:-translate-y-[1px]">
                 <span>{isRTL ? 'الأحدث' : 'Newest'}</span>
                 <ChevronDown size={14} />
               </button>
@@ -514,7 +553,6 @@ export default function Collections() {
               )}
             </AnimatePresence>
           </div>
-        </div>
 
         {/* GALLERY ITEMS GRID */}
         {currentGowns.length === 0 ? (
@@ -536,15 +574,15 @@ export default function Collections() {
           </div>
         ) : (
           <div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-10">
               {currentGowns.map((g, idx) => (
                 <motion.div
                   key={g.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.7, delay: (idx % 4) * 0.08 }}
-                  className="group flex flex-col bg-white rounded-[32px] overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] cursor-pointer border border-[#E8DED4]"
+                  transition={{ duration: 0.7, delay: (idx % 5) * 0.08 }}
+                  className="group flex flex-col bg-white rounded-[32px] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[10px] hover:shadow-[0_30px_60px_rgba(44,29,21,0.12)] cursor-pointer border border-[#E8DED4]"
                   onClick={() => openModal(g)}
                 >
                   {/* Luxury Image Card */}
@@ -553,48 +591,83 @@ export default function Collections() {
                       src={g.image}
                       alt={isRTL ? g.name.ar : g.name.en}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                     />
 
-                    {/* Gradient Overlay for bottom text clarity if needed, but keeping it minimal */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2c1d15]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    {/* Heart Button */}
-                    <button
-                      onClick={(e) => toggleFav(g.id, e)}
-                      className={`w-9 h-9 rounded-full flex items-center justify-center absolute top-4 right-4 z-20 border transition-all duration-300 ${
-                        favorites.has(g.id) 
-                          ? 'bg-[#c49a78] border-[#c49a78] text-white' 
-                          : 'bg-white/80 backdrop-blur-md border-white/40 hover:bg-white text-[#2b1b12]'
-                      }`}
-                    >
-                      <Heart
-                        size={14}
-                        fill={favorites.has(g.id) ? 'currentColor' : 'none'}
-                        strokeWidth={2}
-                      />
-                    </button>
-
-                    {/* Quick Actions (Glassmorphism) */}
-                    <div className="absolute inset-x-0 bottom-4 flex justify-center gap-3 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                    {/* Quick Actions (Glassmorphic Bar) */}
+                    <div className="absolute inset-x-3 bottom-3 flex justify-between items-center gap-2 p-1 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-20 backdrop-blur-[10px] bg-white/75 rounded-full border border-white/40 shadow-lg">
+                      {/* Wishlist */}
                       <button
-                        className="flex-1 py-3 text-xs font-bold uppercase tracking-wider text-[#2C1D15] bg-white/70 backdrop-blur-[10px] rounded-full hover:bg-white hover:shadow-lg transition-all"
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); toggleFav(g.id); }}
+                        className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
+                          favorites.has(g.id) 
+                            ? 'bg-[#C8A97E] text-white shadow-[0_4px_12px_rgba(200,169,126,0.3)]' 
+                            : 'hover:bg-white text-[#2C1D15]'
+                        }`}
+                      >
+                        <Heart
+                          size={14}
+                          fill={favorites.has(g.id) ? 'currentColor' : 'none'}
+                          strokeWidth={2}
+                        />
+                      </button>
+
+                      {/* Quick View */}
+                      <button
+                        type="button"
+                        className="flex-1 py-2 text-[10px] md:text-[11px] font-extrabold uppercase tracking-wider text-[#2C1D15] hover:bg-white rounded-full transition-all text-center"
                         onClick={(e) => { e.stopPropagation(); openModal(g); }}
                       >
                         {isRTL ? 'نظرة سريعة' : 'Quick View'}
+                      </button>
+
+                      {/* Add to Cart */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addGlobalToCart({
+                            id: g.id,
+                            nameKey: g.nameKey,
+                            catKey: g.catKey,
+                            price: g.price,
+                            image: g.image,
+                            color: g.colors[0] || 'white',
+                            size: 'M'
+                          });
+                          triggerToast(isRTL ? 'تمت إضافة الفستان إلى الحقيبة الفاخرة' : 'Added gown to luxury bag');
+                        }}
+                        className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white text-[#2C1D15] transition-all"
+                      >
+                        <ShoppingBag size={14} />
                       </button>
                     </div>
                   </div>
 
                   {/* Card Description — Couture-grade */}
-                  <div className="text-center p-6 space-y-3 bg-white">
-                    <span className="block text-[12px] font-bold uppercase tracking-[2px] text-[#B08A62]">
-                      {isRTL ? g.category.ar : g.category.en}
-                    </span>
-                    <h3 className="text-lg md:text-xl font-bold leading-[1.5] text-[#2C1D15]" style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : "'Playfair Display', serif" }}>
-                      {isRTL ? g.name.ar : g.name.en}
-                    </h3>
-                    <p className="text-xl md:text-2xl font-semibold text-[#C8A97E] pt-1">
+                  <div className="text-center p-6 space-y-2.5 bg-white flex-1 flex flex-col justify-between">
+                    <div>
+                      <span className="block text-[12px] font-bold uppercase tracking-[2.5px] text-[#B08A62] mb-1">
+                        {isRTL ? g.category.ar : g.category.en}
+                      </span>
+                      <h3 
+                        className="font-bold leading-[1.4] text-[#2C1D15]" 
+                        style={{ 
+                          fontSize: 'clamp(18px, 2.2vw, 24px)',
+                          fontFamily: isRTL ? 'Cairo, system-ui, -apple-system, sans-serif' : "'Playfair Display', serif" 
+                        }}
+                      >
+                        {isRTL ? g.name.ar : g.name.en}
+                      </h3>
+                    </div>
+                    <p 
+                      className="font-semibold text-[#C8A97E] pt-1"
+                      style={{ fontSize: 'clamp(20px, 2.5vw, 28px)' }}
+                    >
                       {isRTL ? `${g.price.toLocaleString()}$` : `$${g.price.toLocaleString()}`}
                     </p>
                   </div>
@@ -770,7 +843,7 @@ export default function Collections() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setModal(null)}
-              className="absolute inset-0 bg-[#211712]/70 backdrop-blur-md"
+              className="absolute inset-0 bg-[#211712]/75 backdrop-blur-md"
             />
 
             <motion.div
@@ -778,146 +851,241 @@ export default function Collections() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-4xl bg-[#F7F4EF] rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-2xl z-10 border border-[#e8dbd1]"
-              style={{ maxHeight: '90vh' }}
+              className="relative w-full max-w-6xl bg-white rounded-[32px] overflow-hidden shadow-2xl z-10 border border-[#E8DED4] flex flex-col"
+              style={{ height: '90vh', maxHeight: '90vh' }}
             >
+              {/* Close Button */}
               <button
                 onClick={() => setModal(null)}
-                className="absolute top-5 right-5 z-20 w-9 h-9 flex items-center justify-center rounded-full glass border border-white/50 hover:bg-white transition-all shadow-md text-[#2b1b12]"
+                className="absolute top-5 right-5 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-md border border-[#E8DED4] hover:bg-[#FAF7F3] hover:text-[#C8A97E] transition-all shadow-md text-[#2C1D15]"
               >
-                <X size={15} />
+                <X size={16} />
               </button>
 
-              <div className="w-full md:w-1/2 h-[320px] md:h-auto relative overflow-hidden group bg-white">
-                <img
-                  src={modal.image}
-                  alt={isRTL ? modal.name.ar : modal.name.en}
-                  className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-              </div>
+              {/* Main Body */}
+              <div className="flex flex-col md:flex-row w-full flex-1 overflow-y-auto md:overflow-hidden">
+                {/* Left Column: Cinematic Image */}
+                <div className="w-full md:w-[60%] h-[400px] md:h-full relative bg-[#FAF7F3] overflow-hidden shrink-0 flex items-center justify-center">
+                  <img
+                    src={activeImage}
+                    alt={isRTL ? modal.name.ar : modal.name.en}
+                    className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
 
-              <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-white">
-
-                <span className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[#c49a78] mb-3">
-                  {isRTL ? modal.category.ar : modal.category.en}
-                </span>
-
-                <h2 className="font-sans text-3xl md:text-4xl mb-4 text-[#2b1b12] font-extrabold leading-snug">
-                  {isRTL ? modal.name.ar : modal.name.en}
-                </h2>
-
-                <p className="price-gold text-2xl mb-6 font-extrabold">
-                  {isRTL ? `${modal.price.toLocaleString()}$` : `$${modal.price.toLocaleString()}`}
-                </p>
-
-                <p className="text-sm text-[#8a7b71] font-sans font-semibold leading-relaxed mb-8">
-                  {isRTL ? modal.desc.ar : modal.desc.en}
-                </p>
-
-                <form onSubmit={handleAddToCartSubmit} className="space-y-6">
-                  {/* Select Color */}
-                  <div>
-                    <label className="block text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71] mb-3">
-                      {copy.quickViewModal.chooseColor}
-                    </label>
-                    <div className="flex flex-wrap gap-3">
-                      {modal.colors.map((cId) => {
-                        const isSelected = color === cId;
-                        const label = isRTL
-                          ? (colorLabels[cId]?.ar || cId)
-                          : (colorLabels[cId]?.en || cId);
-                        const hex = colorHex[cId] || '#ccc';
-                        const isLight = ['white', 'ivory', 'champagne', 'nude'].includes(cId);
-                        return (
-                          <button
-                            type="button"
-                            key={cId}
-                            onClick={() => setColor(cId)}
-                            className={`flex items-center gap-2 px-3 py-2 border rounded-full transition-all text-xs ${
-                              isSelected
-                                ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
-                                : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
-                            }`}
-                          >
-                            <span
-                              className="w-4 h-4 rounded-full flex-shrink-0 shadow-sm"
-                              style={{
-                                background: hex,
-                                border: isLight ? '1.5px solid #d0c4b4' : '1.5px solid transparent',
-                                boxShadow: isSelected ? '0 0 0 2px #c49a78' : undefined,
-                              }}
-                            />
-                            <span>{label}</span>
-                          </button>
-                        );
-                      })}
+                  {/* Thumbnail Gallery Floating Slider */}
+                  {modal.images && modal.images.length > 0 && (
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/70 backdrop-blur-md p-2 rounded-2xl border border-white/40 shadow-lg z-20">
+                      {modal.images.map((imgSrc, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setActiveImage(imgSrc)}
+                          className={`w-14 h-18 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                            activeImage === imgSrc ? 'border-[#C8A97E] scale-105 shadow-sm' : 'border-transparent opacity-85 hover:opacity-100'
+                          }`}
+                        >
+                          <img src={imgSrc} alt="" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
                     </div>
-                  </div>
-
-                  {/* Select Size */}
-                  <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <label className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8a7b71]">
-                        {copy.quickViewModal.chooseSize}
-                      </label>
-                      <Link
-                        to="/size-guide"
-                        onClick={() => setModal(null)}
-                        className="text-[0.6rem] uppercase tracking-wider text-[#c49a78] hover:text-[#a37351] transition-colors border-b border-[#c49a78]/20 pb-0.5"
-                      >
-                        {isRTL ? 'دليل القياسات الفني' : 'Size Guide'}
-                      </Link>
-                    </div>
-
-                    <div className="flex gap-3">
-                      {(['S', 'M', 'L'] as const).map((s) => {
-                        const isSelected = size === s;
-                        return (
-                          <button
-                            type="button"
-                            key={s}
-                            onClick={() => setSize(s)}
-                            className={`flex-1 py-3 text-center border text-xs tracking-wider transition-all rounded-lg ${isSelected
-                              ? 'border-[#c49a78] bg-[#c49a78]/10 text-[#2b1b12] font-semibold'
-                              : 'border-[#e8dbd1] text-[#8a7b71] hover:border-[#2b1b12]'
-                              }`}
-                          >
-                            {s}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Checkout Button */}
-                  <button
-                    type="submit"
-                    className="btn-primary w-full py-4.5 text-[0.68rem] tracking-[0.24em] font-semibold rounded-full bg-[#2b1b12] text-white hover:bg-[#c49a78] hover:shadow-gold transition-all duration-300 flex items-center justify-center gap-3"
-                    disabled={added}
-                  >
-                    <ShoppingBag size={14} />
-                    <span>
-                      {added ? copy.quickViewModal.added : copy.quickViewModal.add}
-                    </span>
-                  </button>
-                </form>
-
-                {/* High-end Security Details Badges */}
-                <div className="mt-8 pt-6 border-t border-[#e8dbd1] space-y-2.5 text-[0.78rem] text-[#8a7b71] font-sans font-bold">
-                  <p className="flex items-center gap-2">
-                    <Sparkles size={12} className="text-[#c49a78]" />
-                    <span>{copy.quickViewModal.shipping}</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <ShieldCheck size={12} className="text-[#c49a78]" />
-                    <span>{copy.quickViewModal.fitting}</span>
-                  </p>
+                  )}
                 </div>
 
+                {/* Right Column: Product Content */}
+                <div className="w-full md:w-[40%] p-8 md:p-10 overflow-y-auto bg-white flex flex-col justify-between h-full border-s border-[#E8DED4]">
+                  <div className="space-y-6">
+                    {/* Category & Name */}
+                    <div>
+                      <span className="block text-xs font-bold uppercase tracking-[2.5px] text-[#B08A62] mb-1.5">
+                        {isRTL ? modal.category.ar : modal.category.en}
+                      </span>
+                      <h2 
+                        className="text-2xl md:text-3xl font-bold text-[#2C1D15] leading-snug"
+                        style={{ fontFamily: isRTL ? 'Cairo, system-ui, -apple-system, sans-serif' : "'Playfair Display', serif" }}
+                      >
+                        {isRTL ? modal.name.ar : modal.name.en}
+                      </h2>
+                      <p 
+                        className="text-2xl md:text-3xl font-semibold text-[#C8A97E] mt-2"
+                      >
+                        {isRTL ? `${modal.price.toLocaleString()}$` : `$${modal.price.toLocaleString()}`}
+                      </p>
+                    </div>
+
+                    <p className="text-sm text-[#8E7A6D] leading-relaxed font-sans font-medium">
+                      {isRTL ? modal.desc.ar : modal.desc.en}
+                    </p>
+
+                    <form onSubmit={handleAddToCartSubmit} className="space-y-6">
+                      {/* Select Color Swatches */}
+                      <div>
+                        <div className="flex justify-between items-center mb-3">
+                          <label className="text-[11px] font-bold uppercase tracking-[2px] text-[#8E7A6D]">
+                            {copy.quickViewModal.chooseColor}
+                          </label>
+                          <span className="text-xs font-semibold text-[#2C1D15]">
+                            {isRTL ? colorLabels[color]?.ar : colorLabels[color]?.en}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-3.5">
+                          {modal.colors.map((cId) => {
+                            const isSelected = color === cId;
+                            const hex = colorHex[cId] || '#ccc';
+                            const isLight = ['white', 'ivory', 'champagne', 'nude'].includes(cId);
+                            const colorName = isRTL ? colorLabels[cId]?.ar : colorLabels[cId]?.en;
+                            return (
+                              <button
+                                type="button"
+                                key={cId}
+                                onClick={() => setColor(cId)}
+                                className="relative group/swatch focus:outline-none"
+                                title={colorName}
+                              >
+                                <div
+                                  className={`w-[44px] h-[44px] rounded-full flex items-center justify-center transition-all duration-300 ${
+                                    isSelected 
+                                      ? 'scale-110 shadow-md border-2 border-[#C8A97E]' 
+                                      : 'border border-[#E8DED4] hover:scale-105 hover:border-[#8E7A6D]'
+                                  }`}
+                                  style={{ padding: '3px' }}
+                                >
+                                  <span
+                                    className="w-full h-full rounded-full block shadow-inner"
+                                    style={{
+                                      background: hex,
+                                      border: isLight ? '1px solid rgba(0,0,0,0.06)' : 'none'
+                                    }}
+                                  />
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Segmented Size Buttons */}
+                      <div>
+                        <div className="flex justify-between items-center mb-3">
+                          <label className="text-[11px] font-bold uppercase tracking-[2px] text-[#8E7A6D]">
+                            {copy.quickViewModal.chooseSize}
+                          </label>
+                          <Link
+                            to="/size-guide"
+                            onClick={() => setModal(null)}
+                            className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#C8A97E] hover:text-[#B08A62] transition-colors border-b border-[#C8A97E]/30 pb-0.5"
+                          >
+                            {isRTL ? 'دليل المقاسات' : 'Size Guide'}
+                          </Link>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-3">
+                          {(['S', 'M', 'L'] as const).map((s) => {
+                            const isSelected = size === s;
+                            return (
+                              <button
+                                type="button"
+                                key={s}
+                                onClick={() => setSize(s)}
+                                className={`h-[60px] text-center text-xs font-bold tracking-wider transition-all duration-300 rounded-[16px] border ${
+                                  isSelected
+                                    ? 'border-[#2C1D15] bg-[#2C1D15] text-white shadow-md'
+                                    : 'border-[#E8DED4] bg-transparent text-[#2C1D15] hover:border-[#2C1D15]'
+                                }`}
+                              >
+                                {s}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Luxury Info Blocks */}
+                      <div className="grid grid-cols-2 gap-3 pt-2">
+                        <div className="p-3.5 bg-[#FAF7F3] rounded-[16px] border border-[#E8DED4]/50 flex flex-col justify-between">
+                          <Sparkles size={16} className="text-[#C8A97E] mb-2" />
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#2C1D15] block">
+                              {isRTL ? 'تفصيل مخصص' : 'Custom Tailoring'}
+                            </span>
+                            <span className="text-[9px] text-[#8E7A6D] mt-0.5 block">
+                              {isRTL ? 'جلسات قياس متفردة' : 'Bespoke measurements'}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="p-3.5 bg-[#FAF7F3] rounded-[16px] border border-[#E8DED4]/50 flex flex-col justify-between">
+                          <ShieldCheck size={16} className="text-[#C8A97E] mb-2" />
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#2C1D15] block">
+                              {isRTL ? 'تطريز يدوياً' : 'Handmade Details'}
+                            </span>
+                            <span className="text-[9px] text-[#8E7A6D] mt-0.5 block">
+                              {isRTL ? 'حرفية كوتور فائقة' : 'Premium couture work'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Add to bag button */}
+                      <button
+                        type="submit"
+                        className="w-full h-[60px] text-xs uppercase tracking-[2.5px] font-extrabold rounded-full bg-gradient-to-r from-[#8E6C4C] to-[#C8A97E] text-white hover:shadow-[0_15px_30px_rgba(200,169,126,0.35)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3"
+                        disabled={added}
+                      >
+                        <ShoppingBag size={15} />
+                        <span>
+                          {added ? copy.quickViewModal.added : copy.quickViewModal.add}
+                        </span>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom full-width trust guarantee indicators bar */}
+              <div className="w-full bg-[#FAF7F3] border-t border-[#E8DED4] py-3.5 px-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center shrink-0">
+                <div className="flex items-center justify-center gap-2.5">
+                  <Sparkles size={14} className="text-[#C8A97E]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-[#2C1D15]">
+                    {isRTL ? 'حرفية يدوية كوتور' : 'COUTURE CRAFTSMANSHIP'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2.5">
+                  <ShieldCheck size={14} className="text-[#C8A97E]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-[#2C1D15]">
+                    {isRTL ? 'شحن عالمي مؤمن' : 'INSURED GLOBAL SHIPPING'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2.5">
+                  <ShoppingBag size={14} className="text-[#C8A97E]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-[#2C1D15]">
+                    {isRTL ? 'أقمشة كوتور فاخرة' : 'PREMIUM FABRICS'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2.5">
+                  <Sparkles size={14} className="text-[#C8A97E]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-[#2C1D15]">
+                    {isRTL ? 'قياس ملكي مخصص' : 'ROYAL BESPOKE FITTING'}
+                  </span>
+                </div>
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] px-6 py-3 bg-[#2C1D15] text-[#FAF7F3] rounded-full text-xs font-bold tracking-wider shadow-xl border border-[#C8A97E]/30 flex items-center gap-2.5 backdrop-blur-md"
+          >
+            <Check size={14} className="text-[#C8A97E]" />
+            <span>{toastMessage}</span>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

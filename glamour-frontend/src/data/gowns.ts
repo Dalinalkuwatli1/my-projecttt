@@ -184,7 +184,10 @@ const generateGowns = (): Gown[] => {
       image,
       type: 'wedding',
       category: { en: cat.en, ar: cat.ar },
-      name: { en: `${cat.en} Bridal Gown`, ar: `فستان زفاف ${cat.ar}` },
+      name: { 
+        en: `${cat.en} Bridal Gown`, 
+        ar: cat.ar.startsWith('فستان') ? cat.ar.replace('فستان', 'فستان زفاف') : `فستان زفاف ${cat.ar}` 
+      },
       colors: ['white', 'ivory', 'champagne'],
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       desc: { en: cat.descEn, ar: cat.descAr },
@@ -210,7 +213,10 @@ const generateGowns = (): Gown[] => {
       image,
       type: 'evening',
       category: { en: cat.en, ar: cat.ar },
-      name: { en: `${cat.en} Evening Gown`, ar: `فستان سهرة ${cat.ar}` },
+      name: { 
+        en: `${cat.en} Evening Gown`, 
+        ar: cat.ar.startsWith('فستان سهرة') ? cat.ar : (cat.ar.startsWith('فستان') ? cat.ar.replace('فستان', 'فستان سهرة') : `فستان سهرة ${cat.ar}`) 
+      },
       colors: ['emerald', 'gold', 'ruby', 'black'],
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       desc: { en: cat.descEn, ar: cat.descAr },

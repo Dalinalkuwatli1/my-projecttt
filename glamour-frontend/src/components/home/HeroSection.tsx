@@ -40,25 +40,15 @@ const HeroSection = () => {
         style={{ opacity }}
       >
 
-        {/* Pre-title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.3 }}
-          className="mb-6 text-[#C6A27A] text-[0.65rem] md:text-[0.8rem] font-bold tracking-[0.3em] uppercase"
-        >
-          {isRTL ? 'GLAMOUR COUTURE ✦ قصة تُخاط بحب' : 'GLAMOUR COUTURE ✦ A STORY SEWN WITH LOVE'}
-        </motion.div>
-
         {/* Hero headline */}
         <motion.h1
           initial={{ opacity: 0, y: 80, filter: 'blur(18px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[clamp(3.2rem,8vw,5.5rem)] font-bold leading-[1.1] max-w-[900px] text-white"
+          className="text-[clamp(2.4rem,6vw,4.12rem)] font-bold leading-[1.1] max-w-[900px] text-white"
           style={{
             textShadow: '0 0 40px rgba(198,162,122,0.35), 0 0 80px rgba(198,162,122,0.15)',
-            fontFamily: isRTL ? "'Cairo', 'Alexandria', 'Noto Naskh Arabic', serif" : "'Cormorant Garamond', serif",
+            fontFamily: isRTL ? "'Noto Naskh Arabic', 'Cairo', serif" : "'Cormorant Garamond', serif",
             letterSpacing: isRTL ? '0' : '0.02em',
             fontFeatureSettings: '"liga" 1, "calt" 1',
             WebkitFontSmoothing: 'antialiased',
@@ -91,8 +81,9 @@ const HeroSection = () => {
           className="mb-12 mt-6"
         >
           <p
-            className="text-white text-[1.1rem] font-medium leading-[1.9] max-w-2xl font-sans drop-shadow-2xl px-6 py-5 rounded-2xl"
+            className="text-white font-medium leading-[1.9] max-w-xl font-sans drop-shadow-2xl px-5 py-4 rounded-2xl"
             style={{ 
+              fontSize: 'clamp(0.75rem, 1.5vw, 0.88rem)',
               background: 'linear-gradient(90deg, rgba(0,0,0,0.65), rgba(0,0,0,0.15), transparent)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
@@ -102,8 +93,8 @@ const HeroSection = () => {
             }}
           >
             {isRTL
-              ? 'نصمم فساتين زفاف استثنائية تُفصّل خصيصًا لكِ، وتمزج بين الحرفية الراقية والتفاصيل الخالدة لتصنع إطلالة لا تُنسى بتفاصيل صُنعت لتبقى وتخلد أجمل ذكرياتكِ إلى الأبد.'
-              : 'We design exceptional bespoke bridal gowns tailored specifically for you, blending exquisite craftsmanship and timeless details to create an unforgettable look.'}
+              ? 'نصمم فساتين زفاف استثنائية تُفصّل خصيصًا لكِ، تمزج بين الحرفية الراقية والتفاصيل الخالدة لتصنع إطلالة لا تُنسى.'
+              : 'We design exceptional bespoke bridal gowns tailored specifically for you, blending exquisite craftsmanship and timeless details.'}
           </p>
         </motion.div>
 
@@ -116,8 +107,8 @@ const HeroSection = () => {
         >
           <Link
             to="/collections"
-            className="group inline-flex items-center justify-center gap-3 bg-gradient-to-br from-[#C6A27A] to-[#a37e58] text-[#100e0c] font-sans text-[0.85rem] font-bold tracking-[0.18em] uppercase px-10 rounded-full transition-all duration-400"
-            style={{ height: '55px', boxShadow: '0 10px 30px rgba(198,162,122,0.25)' }}
+            className="group inline-flex items-center justify-center gap-3 bg-gradient-to-br from-[#C6A27A] to-[#a37e58] text-[#100e0c] font-sans font-bold tracking-[0.18em] uppercase px-8 rounded-full transition-all duration-400"
+            style={{ height: '45px', fontSize: '0.68rem', boxShadow: '0 10px 30px rgba(198,162,122,0.25)' }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
               (e.currentTarget as HTMLElement).style.boxShadow = '0 15px 40px rgba(198,162,122,0.4)';
@@ -128,12 +119,12 @@ const HeroSection = () => {
             }}
           >
             {isRTL ? 'اكتشفي المجموعة' : 'Explore Collection'}
-            <ArrowRight size={15} className="transition-transform group-hover:translate-x-1.5" />
+            <ArrowRight size={13} className="transition-transform group-hover:translate-x-1.5" />
           </Link>
           <Link
             to="/book-appointment"
-            className="group inline-flex items-center justify-center gap-3 text-white font-sans text-[0.85rem] font-bold tracking-[0.18em] uppercase px-10 rounded-full transition-all duration-400"
-            style={{ height: '55px', border: '1px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+            className="group inline-flex items-center justify-center gap-3 text-white font-sans font-bold tracking-[0.18em] uppercase px-7 rounded-full transition-all duration-400"
+            style={{ height: '45px', fontSize: '0.68rem', border: '1px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.1)';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
