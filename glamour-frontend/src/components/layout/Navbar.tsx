@@ -46,7 +46,7 @@ const Navbar = () => {
   const navItems = [
     { label: isRTL ? 'الرئيسية' : 'Home', to: '/' },
     { label: isRTL ? 'التصميم' : 'Collections', to: '/collections' },
-    { label: isRTL ? 'من نحن' : 'About Us',  to: '/our-story'   },
+    { label: isRTL ? 'من نحن' : 'Our Story', to: '/our-story' },
     { label: isRTL ? 'تواصلي معنا' : 'Contact Us', to: '/contact'     },
   ];
 
@@ -72,7 +72,7 @@ const Navbar = () => {
   return (
     <>
       <nav className={`fixed w-full z-50 transition-all duration-500 ${navBg} ${navBorder}`} style={scrolledStyle}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[96px] flex items-center justify-between relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[82px] flex items-center justify-between relative">
 
           {/* ── Left Column: nav links (desktop) ── */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8 w-[40%] justify-start relative">
@@ -88,7 +88,7 @@ const Navbar = () => {
                   >
                     <button
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className={`nav-link ${textColor} text-[0.68rem] xl:text-[0.72rem] tracking-[0.18em] uppercase font-medium flex items-center gap-1.5`}
+                      className={`nav-link ${textColor} text-[0.74rem] xl:text-[0.80rem] tracking-[0.18em] uppercase font-medium flex items-center gap-1.5`}
                       style={{ color: isLightText ? 'rgba(255,255,255,0.88)' : 'var(--color-surface-900)' }}
                     >
                       {label}
@@ -138,7 +138,7 @@ const Navbar = () => {
                 <Link
                   key={to}
                   to={to}
-                  className={`nav-link ${textColor} text-[0.68rem] xl:text-[0.72rem] tracking-[0.18em] uppercase font-medium`}
+                  className={`nav-link ${textColor} text-[0.74rem] xl:text-[0.80rem] tracking-[0.18em] uppercase font-medium`}
                   style={{ color: isLightText ? 'rgba(255,255,255,0.88)' : 'var(--color-surface-900)' }}
                 >
                   {label}
@@ -159,7 +159,7 @@ const Navbar = () => {
               src={logo} 
               alt="Glamour Haute Couture" 
               className="object-contain transition-opacity duration-300 hover:opacity-80 rounded-sm"
-              style={{ height: 'clamp(60px, 6vw, 90px)' }}
+              style={{ height: 'clamp(50px, 5vw, 76px)' }}
             />
           </Link>
 
@@ -221,7 +221,7 @@ const Navbar = () => {
             </button>
 
             <Link
-              to="/book-appointment"
+              to="/contact"
               className="text-[0.68rem] font-bold uppercase tracking-[0.2em] px-6 py-3 rounded-full transition-all duration-300 bg-[#C6A27A] text-[#211712] hover:bg-[#e0cbb8] shadow-md hover:shadow-[#C6A27A]/20"
             >
               {isRTL ? 'احجزي استشارتكِ' : 'Book Consultation'}
@@ -312,8 +312,8 @@ const Navbar = () => {
                     </Link>
                   );
                 })}
-                <Link to="/book-appointment" className="btn-primary text-center mt-2" onClick={() => setIsOpen(false)}>
-                  {t('nav.bookAppointment')}
+                <Link to="/contact" className="btn-primary text-center mt-2" onClick={() => setIsOpen(false)}>
+                  {isRTL ? 'احجزي استشارتكِ' : 'Book Consultation'}
                 </Link>
               </div>
             </motion.div>

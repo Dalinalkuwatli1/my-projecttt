@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const reviews = [
   {
@@ -46,12 +47,6 @@ const reviews = [
   },
 ];
 
-const stats = [
-  { numEn: '+1500', numAr: '+١٥٠٠', labelEn: 'Happy Brides', labelAr: 'عروس سعيدة' },
-  { numEn: '14',    numAr: '١٤',    labelEn: 'Years Experience', labelAr: 'سنة خبرة' },
-  { numEn: '4.9/5', numAr: '٤.٩/٥', labelEn: 'Client Rating', labelAr: 'تقييم العملاء' },
-  { numEn: '100%',  numAr: '١٠٠٪',  labelEn: 'Bespoke Design', labelAr: 'تصميم مخصص' },
-];
 
 function AnimatedStat({ text }: { text: string }) {
   const [display, setDisplay] = useState("0");
@@ -283,25 +278,49 @@ const TestimonialsSlider = () => {
             <div style={{ width: 48, height: 1, background: 'linear-gradient(90deg, #C6A27A, transparent)' }} />
 
             {/* Stats grid — integrated directly below quote */}
-            <div className="grid grid-cols-4 gap-3">
-              {stats.map((s) => (
-                <div key={s.labelEn} className="text-center">
-                  <div
-                    style={{
-                      fontFamily: 'system-ui, -apple-system, sans-serif',
-                      fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)',
-                      fontWeight: 300,
-                      color: '#2b1b12',
-                      lineHeight: 1,
-                    }}
-                  >
-                    <AnimatedStat text={s.numEn} />
-                  </div>
-                  <p style={{ fontSize: '0.55rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C6A27A', fontFamily: 'Manrope, sans-serif', fontWeight: 700, marginTop: 5 }}>
-                    {isRTL ? s.labelAr : s.labelEn}
-                  </p>
+            <div className="grid grid-cols-4 gap-3 items-center">
+              {/* Stat 1: Brides */}
+              <div className="text-center">
+                <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#2b1b12', lineHeight: 1 }}>
+                  <AnimatedStat text="+1500" />
                 </div>
-              ))}
+                <p style={{ fontSize: '0.55rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C6A27A', fontFamily: 'Manrope, sans-serif', fontWeight: 700, marginTop: 5 }}>
+                  {isRTL ? 'عروس' : 'Brides'}
+                </p>
+              </div>
+
+              {/* Stat 2: Years */}
+              <div className="text-center">
+                <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#2b1b12', lineHeight: 1 }}>
+                  <AnimatedStat text="14" />
+                </div>
+                <p style={{ fontSize: '0.55rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C6A27A', fontFamily: 'Manrope, sans-serif', fontWeight: 700, marginTop: 5 }}>
+                  {isRTL ? 'عاماً' : 'Years'}
+                </p>
+              </div>
+
+              {/* Stat 3: Stories */}
+              <div className="text-center">
+                <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#2b1b12', lineHeight: 1 }}>
+                  <span>∞</span>
+                </div>
+                <p style={{ fontSize: '0.55rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C6A27A', fontFamily: 'Manrope, sans-serif', fontWeight: 700, marginTop: 5 }}>
+                  {isRTL ? 'قصة' : 'Stories'}
+                </p>
+              </div>
+
+              {/* Link 4: Our Full Story */}
+              <Link
+                to="/our-story"
+                className="text-center group block hover:-translate-y-0.5 transition-transform duration-300"
+              >
+                <div style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)', color: '#C6A27A', lineHeight: 1 }} className="group-hover:text-[#2b1b12] transition-colors">
+                  ✦
+                </div>
+                <p className="border-b border-[#C6A27A]/30 pb-0.5 hover:border-[#2b1b12] inline-block" style={{ fontSize: '0.55rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#2b1b12', fontFamily: 'Manrope, sans-serif', fontWeight: 700, marginTop: 5 }}>
+                  {isRTL ? 'قصتنا الكاملة' : 'Full Story'}
+                </p>
+              </Link>
             </div>
           </div>
         </motion.div>

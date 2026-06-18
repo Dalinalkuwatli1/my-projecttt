@@ -275,7 +275,7 @@ export default function Collections() {
          1. CINEMATIC FULL-WIDTH BACKGROUND HERO
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section
-        className="relative w-full flex items-center justify-start text-start px-6 lg:px-24 overflow-hidden"
+        className={`relative w-full flex items-center ${isRTL ? 'justify-end' : 'justify-start'} text-start px-6 lg:px-24 overflow-hidden`}
         style={{
           height: '90vh',
           minHeight: 750,
@@ -292,10 +292,10 @@ export default function Collections() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%)' }} />
         
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: isRTL ? 40 : -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 max-w-xl text-white space-y-6 p-8 lg:p-12 backdrop-blur-[24px] rounded-[32px] border border-white/10 shadow-2xl ml-0"
+          className="relative z-10 max-w-xl text-white space-y-6 p-8 lg:p-12 backdrop-blur-[24px] rounded-[32px] border border-white/10 shadow-2xl"
           style={{
             background: 'rgba(0, 0, 0, 0.35)',
           }}
@@ -574,14 +574,14 @@ export default function Collections() {
           </div>
         ) : (
           <div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-x-6 gap-y-12">
               {currentGowns.map((g, idx) => (
                 <motion.div
                   key={g.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.7, delay: (idx % 5) * 0.08 }}
+                  transition={{ duration: 0.7, delay: (idx % 4) * 0.08 }}
                   className="group flex flex-col bg-white rounded-[32px] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[10px] hover:shadow-[0_30px_60px_rgba(44,29,21,0.12)] cursor-pointer border border-[#E8DED4]"
                   onClick={() => openModal(g)}
                 >
@@ -758,13 +758,13 @@ export default function Collections() {
               </h3>
               <p className="text-white/65 text-xs leading-relaxed">
                 {isRTL
-                  ? 'استشارة مجانية مدتها 45 دقيقة مع مصمم متخصص لفهم رؤيتكِ واختيار الأقمشة والقصات المناسبة.'
-                  : 'A complimentary 45-minute session with a dedicated designer to understand your vision and select the right fabrics and silhouettes.'}
+                  ? 'استشارة مجانية مع مصمم متخصص لفهم رؤيتكِ واختيار الأقمشة والقصات المناسبة.'
+                  : 'A complimentary session with a dedicated designer to understand your vision and select the right fabrics and silhouettes.'}
               </p>
               <ul className="space-y-2.5">
                 {(isRTL
-                  ? ['استشارة فردية لمدة 45 دقيقة', 'مراجعة الأقمشة والقصات', 'تخصيص التفاصيل والتطريز']
-                  : ['45-minute private 1-on-1', 'Fabric & silhouette review', 'Custom detail & embroidery options']
+                  ? ['جلسة استشارية خاصة فردية', 'مراجعة الأقمشة والقصات', 'تخصيص التفاصيل والتطريز']
+                  : ['Private 1-on-1 consultation', 'Fabric & silhouette review', 'Custom detail & embroidery options']
                 ).map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
                     <Check size={12} className="text-[#C6A27A] mt-0.5 shrink-0" />

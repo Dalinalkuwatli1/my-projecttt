@@ -65,25 +65,27 @@ export default function OurStory() {
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
          1. HERO SECTION (Wider & Stronger)
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="relative h-[85vh] min-h-[700px] flex items-end overflow-hidden">
+      <section className="relative h-[90vh] min-h-[750px] flex items-end overflow-hidden">
         <img
           src="/images/25.jpg"
           alt="Glamour Atelier Story"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        {/* Luxury gradient overlays for title legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#211712]/98 via-[#211712]/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#211712]/80 via-transparent to-transparent" />
+        {/* Multi-layered cinematic overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806]/95 via-[#0a0806]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/98 via-[#0a0806]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/60 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.55),transparent)]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 pb-24 w-full">
           <motion.div {...fadeUp(0.15)} className="space-y-4">
             <span className="inline-block text-[0.68rem] font-extrabold tracking-[0.35em] uppercase text-[#C6A27A]">
               {isRTL ? 'منذ ٢٠١٨' : 'SINCE 2018'}
             </span>
-            <h1 className="text-5xl md:text-7xl text-white leading-tight font-bold" style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : 'Cormorant Garamond, serif' }}>
+            <h1 className="text-5xl md:text-7xl text-white leading-tight font-bold" style={{ fontFamily: isRTL ? "'Noto Naskh Arabic', 'Cairo', serif" : "'Cormorant Garamond', serif" }}>
               {isRTL ? 'قصتنا' : 'Our Story'}
             </h1>
-            <p className="text-white/95 text-lg md:text-xl max-w-2xl leading-relaxed font-bold">
+            <p className="text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed font-bold">
               {isRTL
                 ? 'بدأت رحلتنا بشغفٍ لصناعة فساتين تحمل قصة كل عروس، واليوم نفخر بخدمة عميلاتنا داخل المملكة وحول العالم.'
                 : 'Our journey began with a passion for crafting gowns that carry the unique story of every bride, and today we proudly serve our clients across the Kingdom and around the globe.'}
@@ -216,8 +218,8 @@ export default function OurStory() {
               </h3>
               <p className="text-[#8a7b71] text-sm leading-relaxed max-w-xl">
                 {isRTL
-                  ? 'جلسة استشارية خاصة مدتها 45 دقيقة لمناقشة رؤيتكِ، واستعراض الخامات الفاخرة، ورسم الخطوط العريضة للتصميم.'
-                  : 'A 45-minute private session to discuss your wedding theme, look through luxury fabric swatches, and begin sketching.'}
+                  ? 'جلسة استشارية خاصة لمناقشة رؤيتكِ، واستعراض الخامات الفاخرة، ورسم الخطوط العريضة للتصميم.'
+                  : 'A private session to discuss your wedding theme, look through luxury fabric swatches, and begin sketching.'}
               </p>
             </motion.div>
 

@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Clock, Users, Award } from 'lucide-react';
+import { MapPin, Clock, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Reveal = ({
@@ -49,13 +48,6 @@ const pillars = [
     titleAr: 'فريق تصميم شخصي',
     descEn: 'Seamstress assigned from day one.',
     descAr: 'مصممة مخصصة لكِ منذ اليوم الأول.',
-  },
-  {
-    icon: Award,
-    titleEn: '14 Years of Excellence',
-    titleAr: '14 عاماً من التميز',
-    descEn: 'Over 1,500 brides trusted us.',
-    descAr: 'أكثر من 1500 عروس أسندن إلينا ثقتهن.',
   },
 ];
 
@@ -191,45 +183,6 @@ const AtelierExperience = () => {
               );
             })}
           </div>
-
-          {/* CTA Buttons */}
-          <Reveal delay={0.45}>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                to="/book-appointment"
-                className="inline-flex items-center gap-2 group"
-                style={{
-                  color: '#100e0c',
-                  background: 'linear-gradient(135deg, var(--color-gold) 0%, #a37e58 100%)',
-                  fontSize: '0.65rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  padding: '14px 32px',
-                  borderRadius: 999,
-                  boxShadow: '0 8px 24px rgba(212,176,138,0.35)',
-                  transition: 'all 0.4s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 36px rgba(212,176,138,0.5)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(212,176,138,0.35)';
-                }}
-              >
-                {isRTL ? 'احجزي استشارتكِ' : 'Book Consultation'}
-                <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/our-story"
-                className="text-[0.65rem] font-bold uppercase tracking-wider text-white/80 hover:text-white border-b border-white/20 hover:border-var(--color-gold) pb-1 transition-all duration-300"
-              >
-                {isRTL ? 'من نحن' : 'About Us'}
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </div>
     </section>

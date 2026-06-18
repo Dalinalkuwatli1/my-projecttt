@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Check, MessageCircle, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const GOLD = '#C6A27A';
@@ -53,8 +52,8 @@ export default function Contact() {
       icon: MapPin,
       labelAr: 'عنوان الأتيليه',
       labelEn: 'Atelier Address',
-      valueAr: 'حي البازار الكبير، بيوغلو\nإسطنبول، تركيا 34420',
-      valueEn: 'Grand Bazaar District, Beyoglu\nIstanbul, Turkey 34420',
+      valueAr: 'عثمان بيه، تشويقية، شيشلي\nإسطنبول، تركيا',
+      valueEn: 'Osmanbe, Teşvikiye, Şişli\nIstanbul, Turkey',
     },
     {
       icon: Phone,
@@ -89,47 +88,69 @@ export default function Contact() {
   return (
     <div style={{ background: '#FEFCF9', minHeight: '100vh', fontFamily: 'Manrope, sans-serif' }}>
 
-      {/* ━━ HERO SECTION ━━ */}
-      <section className="relative overflow-hidden flex items-end justify-center" style={{ height: '85vh', minHeight: '700px', paddingBottom: '120px' }}>
-        {/* Background image */}
+      {/* ━━ HERO — Full-bleed editorial image ━━ */}
+      <section className="relative w-full overflow-hidden" style={{ height: '90vh', minHeight: '750px' }}>
+
+        {/* Full-bleed background image — the star of the show */}
         <motion.div
-          className="absolute inset-0"
-          initial={{ scale: 1.08, opacity: 0 }}
+          className="absolute inset-0 z-0"
+          initial={{ scale: 1.06, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <img
-            src="/images/202.jpg"
-            alt="Bridal Contact"
-            className="w-full h-full object-cover object-top"
+            src="https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            alt="Glamour Couture Atelier Couple"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#211712]/98 via-[#211712]/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#211712]/60 via-transparent to-transparent" />
         </motion.div>
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <motion.span {...fadeUp(0.2)} className="block text-[0.68rem] font-bold uppercase tracking-[0.4em] mb-6" style={{ color: GOLD }}>
+        {/* Thin gradient only at bottom for text legibility — image stays mostly clear */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a0806]/80 via-[#0a0806]/20 to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0a0806]/50 via-transparent to-transparent" />
+
+        {/* Text content — bottom-left, editorial style */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-24 px-8 md:px-20 lg:px-28">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="block text-[0.65rem] font-bold uppercase tracking-[0.45em] mb-4"
+            style={{ color: GOLD }}
+          >
             {isRTL ? '✦ نحن هنا من أجلكِ ✦' : '✦ We Are Here For You ✦'}
           </motion.span>
+
           <motion.h1
-            {...fadeUp(0.35)}
-            className="text-white mb-6 font-bold"
-            style={{ fontFamily: isRTL ? 'system-ui, -apple-system, sans-serif' : 'Cormorant Garamond, serif', fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.1, letterSpacing: '0.02em' }}
+            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="text-white font-bold mb-4"
+            style={{
+              fontFamily: isRTL ? "'Noto Naskh Arabic', 'Cairo', serif" : "'Cormorant Garamond', serif",
+              fontSize: 'clamp(3.2rem, 7vw, 6.5rem)',
+              lineHeight: 1.05,
+              letterSpacing: '0.02em',
+              maxWidth: '700px',
+            }}
           >
             {isRTL ? 'للتواصل معنا' : 'Contact Us'}
           </motion.h1>
+
+          {/* Gold rule */}
           <motion.div
-            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.5 }}
-            style={{ width: 80, height: 1, background: GOLD, margin: '0 auto 28px', transformOrigin: 'center' }}
+            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+            transition={{ duration: 1.2, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 72, height: 1, background: GOLD, transformOrigin: isRTL ? 'right' : 'left', marginBottom: 20 }}
           />
+
           <motion.p
-            {...fadeUp(0.55)}
-            className="text-white/70 leading-relaxed max-w-xl mx-auto"
-            style={{ fontSize: '1.05rem', fontWeight: 300 }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="text-white/75 leading-relaxed"
+            style={{ fontSize: '1rem', fontWeight: 300, maxWidth: '500px' }}
           >
             {isRTL
-              ? 'يسعدنا مساعدتكِ في إيجاد فستان أحلامكِ. احجزي استشارة خاصة أو أرسلي استفسارك وسيتواصل معكِ فريقنا خلال 24 ساعة.'
-              : 'We would be delighted to help you find the perfect dress. Book a private consultation or send us your inquiry and our team will respond within 24 hours.'}
+              ? 'يسعدنا مساعدتكِ في إيجاد فستان أحلامكِ. أرسلي استفسارك وسيتواصل معكِ فريقنا خلال 24 ساعة.'
+              : 'We would be delighted to help you find the perfect dress. Our team will respond within 24 hours.'}
           </motion.p>
         </div>
       </section>
@@ -386,74 +407,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ━━ MAP SECTION ━━ */}
-      <section style={{ padding: '0 0 100px' }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-16">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            style={{ borderRadius: 30, overflow: 'hidden', height: 450, boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}
-          >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.4!2d28.9688!3d41.0082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab9bd0!2sNisantasi!5e0!3m2!1sen!2str!4v1"
-              width="100%" height="100%"
-              style={{ border: 0 }}
-              allowFullScreen loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Glamour Couture Atelier Location"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ━━ PRIVATE CONSULTATION CTA ━━ */}
-      <section style={{ padding: '80px 0 120px', background: '#F7F3EE' }}>
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-          >
-            <span className="block text-[0.65rem] font-bold uppercase tracking-[0.36em] mb-5" style={{ color: GOLD }}>
-              {isRTL ? '✦ استشارة خاصة ✦' : '✦ Private Consultation ✦'}
-            </span>
-            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: DARK, fontWeight: 400, lineHeight: 1.2, marginBottom: 20 }}>
-              {isRTL ? 'استشارة عرائس خاصة' : 'Private Bridal Consultation'}
-            </h2>
-            <div style={{ width: 60, height: 1, background: GOLD, margin: '0 auto 24px' }} />
-            <p style={{ color: '#8a7b71', fontSize: '1.05rem', lineHeight: 1.85, maxWidth: 540, margin: '0 auto 48px', fontWeight: 300 }}>
-              {isRTL
-                ? 'استمتعي بجلسة تجربة مخصصة مع أفضل مصممات الدار. نساعدكِ في اختيار التصميم والأقمشة المناسبة لجسدكِ وشخصيتكِ.'
-                : 'Experience a personalized fitting session with our expert bridal stylists. We guide you through design, fabrics, and silhouettes tailored to your unique beauty.'}
-            </p>
-            <Link
-              to="/book-appointment"
-              className="inline-flex items-center gap-3"
-              style={{
-                background: `linear-gradient(135deg, ${DARK}, #8F6A42)`,
-                color: 'white',
-                padding: '18px 48px',
-                borderRadius: 999,
-                fontSize: '0.78rem',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                boxShadow: '0 10px 32px rgba(43,27,18,0.2)',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ''; }}
-            >
-              {isRTL ? 'احجزي استشارتكِ الآن ✦' : 'Book Consultation ✦'}
-              <ChevronRight size={16} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }

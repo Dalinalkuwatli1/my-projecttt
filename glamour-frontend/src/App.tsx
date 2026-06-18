@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/layout/Layout';
 import PageWrapper from './components/layout/PageWrapper';
@@ -10,7 +10,6 @@ import Collections from './pages/Collections';
 import DressDetails from './pages/DressDetails';
 import Atelier from './pages/Atelier';
 import Journal from './pages/Journal';
-import BookAppointment from './pages/BookAppointment';
 import TrunkShows from './pages/TrunkShows';
 import RealBrides from './pages/RealBrides';
 import OurStory from './pages/OurStory';
@@ -30,7 +29,7 @@ const AnimatedRoutes = () => {
           <Route path="collections/:id" element={<PageWrapper><DressDetails /></PageWrapper>} />
           <Route path="atelier" element={<PageWrapper><Atelier /></PageWrapper>} />
           <Route path="journal" element={<PageWrapper><Journal /></PageWrapper>} />
-          <Route path="book-appointment" element={<PageWrapper><BookAppointment /></PageWrapper>} />
+          <Route path="book-appointment" element={<Navigate to="/contact" replace />} />
           <Route path="trunk-shows" element={<PageWrapper><TrunkShows /></PageWrapper>} />
           <Route path="real-brides" element={<PageWrapper><RealBrides /></PageWrapper>} />
           <Route path="our-story" element={<PageWrapper><OurStory /></PageWrapper>} />

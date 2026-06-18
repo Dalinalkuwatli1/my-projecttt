@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Check, Calendar, Sparkles, Phone } from 'lucide-react';
+import { Check, Calendar, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function BookAppointment() {
   const { i18n } = useTranslation();
@@ -510,25 +511,13 @@ export default function BookAppointment() {
               : 'Our design house will accompany you every single step of the way, from blueprint drafting to package delivery, worldwide. Begin your bridal journey today.'}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <button
-              onClick={() => {
-                const el = document.getElementById('fullName');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
+          <div className="flex justify-center items-center pt-4">
+            <Link
+              to="/contact"
               className="btn-brand px-10 py-4.5 rounded-full text-[0.7rem] uppercase tracking-wider font-bold shadow-lg"
             >
               {isRTL ? 'احجزي موعدكِ الآن' : 'Book Your Session Now'}
-            </button>
-            <a
-              href="https://wa.me/905510069156"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-10 py-4.5 rounded-full border border-white/20 hover:border-white/40 hover:bg-white/5 text-[0.7rem] uppercase tracking-wider font-bold transition-all text-white"
-            >
-              <Phone size={12} />
-              <span>{isRTL ? 'تواصل عبر واتساب' : 'WhatsApp Consultation'}</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
